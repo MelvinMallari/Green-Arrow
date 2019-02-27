@@ -26,3 +26,9 @@ module.exports = {
     extensions: [".js", ".jsx", "*"]
   }
 };
+
+$.ajax({
+  type: "POST",
+  url: '/api/user',
+  data: {username: "m1", password:"password"}
+});
