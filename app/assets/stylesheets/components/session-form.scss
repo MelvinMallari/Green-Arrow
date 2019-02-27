@@ -1,0 +1,98 @@
+
+.session-form {
+  display: flex;
+  height: 100%;
+  width: 100%;
+}
+
+.session-form-img {
+  width: 50%;
+  background-size: cover;
+  background-position: center;
+  background-image: url(https://d2ue93q3u507c2.cloudfront.net/assets/generated_assets/94977d34f99015525dcd0fc9987fcbe6.png);
+  align-items: center;
+}
+
+
+.session-form-display {
+  display: flex;
+  height: auto;
+  width: 50%;
+  align-items: center;
+}
+
+.session-form-submit {
+  margin-left: 52px;
+  font-family: $ropa-sans;
+}
+
+.session-form-submit > h1 {
+  font-weight: 500;
+  font-size: 26px;
+  letter-spacing: -0.14px;
+  line-height: 30px;
+  margin: 0 0 16px;
+}
+
+.session-form-submit label input {
+  display: block;
+}
+
+.session-label {
+  padding: 9px 0;
+  font-size: 13px;
+  font-weight: 300;
+  letter-spacing: 0.25px;
+  line-height: 19px;
+}
+
+.input-container {
+  width: 410px;
+  height: 48px;
+}
+
+.session-input {
+  border-radius: 4px;
+  border: 1px solid rgb(250, 250, 250);
+  height: 16px;
+  width: 370px;
+  line-height: 1.5em;
+  padding: 15px 20px;
+  background: #fafafa;
+  font-size: 100%;
+}
+
+.session-input:hover {
+  border-color: $light-grey;
+  background-color: #fff;
+}
+
+.session-input:focus {
+  border-color: $r-green;
+  background-color: #fff;
+}
+
+.submit-btn {
+  background: $r-green;
+  border-color: $r-green;
+  border-radius: 4px;
+  color: #fff;
+  height: 48px;
+  padding: 0 48px;
+}
+
+.submit-btn:hover {
+  background: $light-r-green;
+}
+
+.session-form-vertical {
+  margin-bottom: 60px;
+}
+
+input.session-input {
+  font-weight: 100;
+  font-size: 15px;
+  letter-spacing: .05em;
+}
+
+

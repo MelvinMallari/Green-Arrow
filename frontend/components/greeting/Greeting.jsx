@@ -5,7 +5,6 @@ const Greeting = ({ currentUser, logout }) => {
   const GreetingLoggedIn = () => {
     return (
       <div>
-        <h2>Welcome to Green Arrow! {currentUser.username}</h2>
         <button onClick={logout}>Logout</button>        
       </div>
     );
@@ -13,10 +12,11 @@ const Greeting = ({ currentUser, logout }) => {
 
   const GreetingLoggedOut = () => {
     return (
-      <div>
+      <nav className="nav-bar">
         <Link to="/signup">Sign Up</Link>
         <Link to="/login">Login</Link>
-      </div>
+        <Link to="/demo">Demo Login</Link>
+      </nav>
     )
   }
 

@@ -35,3 +35,4 @@ export const signup = user => dispatch => (
     .then(user => dispatch(receiveUser(user)),
     errors => dispatch(receiveErrors(errors.responseJSON)))
 );
+
