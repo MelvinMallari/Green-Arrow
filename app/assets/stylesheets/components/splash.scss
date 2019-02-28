@@ -3,6 +3,11 @@ nav.nav-bar {
   top: 0;
 }
 
+.front-splash-container {
+  width: 100%;
+  display: flex;
+}
+
 .splash-container {
   display: flex;
 }
@@ -10,9 +15,28 @@ nav.nav-bar {
 .splash-section-container {
   margin-top: 72px;
   justify-content: center;
+  width: 100%;
 }
 
 .splash-text {
   width: 310px;
   padding-top: 230px;
+}
+
+.front-splash {
+  display: flex;
+  margin: 0 auto;
+}
+
+.splash-text-header-container {
+  margin-bottom: 36px;
+}
+
+.splash-text-header-container > h1 {
+  font-size: 46px;
+  font-weight: 500;
+}
+
+.splash-text-phrase-container > span {
+  font-size: 16px;
 }

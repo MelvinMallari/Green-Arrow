@@ -13,19 +13,23 @@ class Splash extends React.Component {
         <div className="splash-container">
           <div className="splash-section-container">
             <section className="first-section">
-              <div className="front-splash">
-                <div className="splash-text">
-                  <div>
-                    <h1>Invest for Free</h1>
+              <div className="front-splash-container">
+                <div className="front-splash">
+                  <div className="splash-text">
+                    <div className="splash-text-header-container">
+                      <h1>Invest for Free</h1>
+                    </div>
+                    <div class="splash-text-phrase-container">
+                      <span>Invest in stocks, ETFs, options, and cryptocurrencies, all commission-free, right from your phone or desktop.</span>
+                    </div>
+                    <div>
+                      <a>Demo Login</a>
+                    </div>
                   </div>
-                  <div>
-                    <span>Invest in stocks, ETFs, options, and cryptocurrencies, all commission-free, right from your phone or desktop.</span>
-                  </div>
-                  <div>
-                    <a>Demo Login</a>
+                  <div className="splash-image">
+                    <img src="https://d2ue93q3u507c2.cloudfront.net/assets-about/a4a80e964c803ddb7a9fc7459e0eac01.png" alt=""/>
                   </div>
                 </div>
-                <div className="splash-image"></div>
               </div>
             </section>
           </div>
