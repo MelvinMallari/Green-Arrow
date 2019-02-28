@@ -25,9 +25,13 @@ class Splash extends React.Component {
                     </div>
                     <Link to="/demo"> <span className="r-button"> Demo Login </span> </Link>
                   </div>
-                  <div className="splash-image">
-                    <img src="https://d2ue93q3u507c2.cloudfront.net/assets-about/a4a80e964c803ddb7a9fc7459e0eac01.png" alt=""/>
+                  
+                  <div className="splash-image-bg">
+                    <div className="splash-image">
+                      <img src="https://d2ue93q3u507c2.cloudfront.net/assets-about/a4a80e964c803ddb7a9fc7459e0eac01.png" alt=""/>
+                    </div>
                   </div>
+
                 </div>
               </div>
             </section>

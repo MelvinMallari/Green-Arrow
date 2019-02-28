@@ -105,18 +105,33 @@ span.black-button {
   display: inline-block;
 }
 
+.img-background {
+  width: 100%;
+  z-index: 0;
+}
+
 div.splash-image {
   -webkit-animation-name: splash;
   -webkit-animation-duration: 2s;
   animation-name: splash;
   animation-duration: 1.5s;
+  // height: 740px;
+  // width: 922px;
+}
+
+.splash-image-bg {
+  height: 740px;
+  width: 922px;
+  // margin-right: -130px;
+  // display: block;
+  // background-color: powderblue;
 }
 
 @keyframes splash {
-  5%, 20% {
+  0%, 20% {
     filter: blur(40px);
     opacity: 0;
-    transform: translate(0px, 70px);
+    transform: translate(0px, 60px);
   }
   50% {
     opacity: 0;
