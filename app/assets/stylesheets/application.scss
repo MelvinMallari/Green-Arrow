@@ -8,7 +8,10 @@
 
 // URL
 @import url('https://fonts.googleapis.com/css?family=Ropa+Sans');
+@import url('https://fonts.googleapis.com/css?family=Barlow');
+@import url('https://fonts.googleapis.com/css?family=Roboto');
 
 // Components
-@import "components/session-form.scss";
-@import "components/splash.scss";
+
+@import "static_pages.scss";
+@import "components/*";

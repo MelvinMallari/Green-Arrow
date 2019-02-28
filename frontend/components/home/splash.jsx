@@ -1,5 +1,6 @@
 import React from 'react';
 import GreetingContainer from "../greeting/GreetingContainer";
+import { Link } from 'react-router-dom';
 
 class Splash extends React.Component {
   constructor(props) {
@@ -19,12 +20,10 @@ class Splash extends React.Component {
                     <div className="splash-text-header-container">
                       <h1>Invest for Free</h1>
                     </div>
-                    <div class="splash-text-phrase-container">
+                    <div className="splash-text-phrase-container">
                       <span>Invest in stocks, ETFs, options, and cryptocurrencies, all commission-free, right from your phone or desktop.</span>
                     </div>
-                    <div>
-                      <a>Demo Login</a>
-                    </div>
+                    <Link to="/demo"> <span className="r-button"> Demo Login </span> </Link>
                   </div>
                   <div className="splash-image">
                     <img src="https://d2ue93q3u507c2.cloudfront.net/assets-about/a4a80e964c803ddb7a9fc7459e0eac01.png" alt=""/>
