@@ -23,7 +23,7 @@ class SessionForm extends React.Component {
     const { username, password } = user;
     const demoUsernameTime = username.length*intervalSpeed;
     const demoPasswordTime = password.length*intervalSpeed;
-    const buffer = intervalSpeed * 2;
+    const buffer = intervalSpeed * 3;
     const totalDemoTime = demoUsernameTime + demoPasswordTime + buffer;
 
     this.demoUsername(username, intervalSpeed);
