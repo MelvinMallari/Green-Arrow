@@ -5,3 +5,15 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+ActiveRecord::Base.transaction do 
+  User.destroy_all
+  Stock.destroy_all
+
+  demo_account = User.create({username: "dannyYAMMENonThem", password:"password"})
+
+  # Demo Stock
+  Stock.create(ticker_symbol: 'AAPL', company_name: 'Apple Inc.');
+  Stock.create(ticker_symbol: 'GOOGL', company_name: 'Alphabet Inc.');
+
+end

@@ -20,11 +20,11 @@ class SessionForm extends React.Component {
   }
 
   demo(user) {
-    const intervalSpeed = 80;
+    const intervalSpeed = 50;
     const { username, password } = user;
     const demoUsernameTime = username.length*intervalSpeed;
     const demoPasswordTime = password.length*intervalSpeed;
-    const buffer = intervalSpeed * 3;
+    const buffer = intervalSpeed * 2;
     const totalDemoTime = demoUsernameTime + demoPasswordTime + buffer;
 
     this.demoUsername(username, intervalSpeed);
@@ -38,9 +38,9 @@ class SessionForm extends React.Component {
     setInterval(() => {
       if (i <= username.length ) {
         this.setState({username: username.slice(0,i)})
-        i++
+        i++;
       } else {
-        clearInterval()
+        clearInterval();
       }
     }, intervalSpeed);
       
@@ -54,7 +54,7 @@ class SessionForm extends React.Component {
         this.setState({password: password.slice(0, j)})
         j++;
       } else {
-        clearInterval()
+        clearInterval();
       }
     }, intervalSpeed);
 

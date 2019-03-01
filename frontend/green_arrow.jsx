@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom';
 import { signup, login, logout } from './actions/session_actions';
 import configureStore from './store/store';
 import Root from './components/root';
+import { fetchStockData, fetchStockNews } from "./util/stock_api_util";
+import { fetchStock, fetchStockInfo } from '../frontend/actions/stock_actions';
 
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -26,6 +28,17 @@ document.addEventListener('DOMContentLoaded', () => {
   window.login = login;
   window.logout = logout;
   // session_API testing
+
+
+  // Stock API testing
+  window.fetchStockData = fetchStockData;
+  window.fetchStockNews = fetchStockNews;
+  window.fetchStock = fetchStock;
+  // Stock API testing
+
+  // Stock Action Testing
+  window.fetchStockInfo = fetchStockInfo;
+  // Stock Action Testing
 
   // store testing
   window.getState = store.getState;

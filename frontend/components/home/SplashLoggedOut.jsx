@@ -2,11 +2,7 @@ import React from 'react';
 import GreetingContainer from "../greeting/GreetingContainer";
 import { Link } from 'react-router-dom';
 
-class Splash extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
+class SplashLoggedOut extends React.Component {
   render() {
     return(
       <div>
@@ -21,9 +17,11 @@ class Splash extends React.Component {
                       <h1>Invest for Free</h1>
                     </div>
                     <div className="splash-text-phrase-container">
-                      <span>Invest in stocks, ETFs, options, and cryptocurrencies, all commission-free, right from your phone or desktop.</span>
+                      <span>
+                        
+                        Invest in stocks, ETFs, options, and cryptocurrencies, all commission-free, right from your phone or desktop.</span>
                     </div>
-                    <Link to="/demo"> <span className="r-button"> Demo Login </span> </Link>
+                    <Link to="/demo"> <span className="r-button">Demo</span> </Link>
                   </div>
                   
                   <div className="splash-image-bg">
@@ -42,4 +40,4 @@ class Splash extends React.Component {
   }
 }
 
-export default Splash;
+export default SplashLoggedOut;

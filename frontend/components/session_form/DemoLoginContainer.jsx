@@ -4,7 +4,7 @@ import { login } from '../../actions/session_actions';
 
 const mapStateToProps = ({ errors }) => {
   return ({
-    demoUser: {username: "dannyYAMS", password:"password"},
+    demoUser: {username: "dannyYAMMENonThem", password:"password"},
     errors: errors.session,
     formType: 'Demo Login',
   });
