@@ -21,7 +21,6 @@ class StockChart extends React.Component {
   }
 
   parseData() {
-    // returns 
     const { interval } = this.props;
     const renderMap = {
       '5Y': 1258,
@@ -45,11 +44,11 @@ class StockChart extends React.Component {
     return(
       <div>
         <LineChart
-         width={722}
-         height={315}
+         width={676}
+         height={196}
          data={data}
          margin={{
-           top: 5, right: 30, left: 20, bottom: 5,
+           top: 0, right: 0, left: 0, bottom: 0,
          }} >
           <CartesianGrid strokeDasharray="3 3" horizontal={false} vertical={false} />
           <XAxis dataKey="date" hide={true} />
@@ -64,29 +63,3 @@ class StockChart extends React.Component {
 
 
 export default StockChart;
-
-
-  // renderFiveYear() {
-  //   const fiveYearRange = 1258;
-  //   this.determineRender(fiveYearRange);
-  // }
-
-  // renderOneYear() {
-  //   const oneYearRange = 254;
-  //   this.determineRender(oneYearRange);
-  // }
-
-  // renderThreeMonths() {
-  //   const threeMonthRange = 64;
-  //   this.determineRender(threeMonthRange);
-  // }
-
-  // renderOneMonth() {
-  //   const oneMonthRange = 24;
-  //   this.determineRender(oneMonthRange);
-  // }
-
-  // renderOneWeek() {
-  //   const oneWeekRange = 5;
-  //   this.determineRender(oneWeekRange);
-  // }

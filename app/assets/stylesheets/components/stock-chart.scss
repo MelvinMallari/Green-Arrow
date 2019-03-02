@@ -1,0 +1,17 @@
+.interval-nav {
+  margin-top: 24px;
+  margin-bottom: 16px;
+}
+
+.interval-btn {
+  font-size: 13px;
+  font-weight: 700;
+  margin-left: 12px;
+  margin-right: 12px;
+  margin-bottom: 12px;
+}
+
+.interval-btn:active {
+  color: $r-green;
+  border-bottom: 2px solid $r-green;
+}
