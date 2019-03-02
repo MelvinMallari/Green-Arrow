@@ -7,66 +7,32 @@ import {
 class StockChart extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      data: this.props.stock.stockData,
-      interval: this.props.interval,
-    }
-    this.renderFiveYear = this.renderFiveYear.bind(this);
-    this.renderOneYear = this.renderOneYear.bind(this);
-    this.renderThreeMonths = this.renderThreeMonths.bind(this);
-    this.renderOneMonth = this.renderOneMonth.bind(this);
-    this.renderOneWeek = this.renderOneWeek.bind(this);
   }
 
   calcEndIndex(data, end) {
     return data.length < end ? data.length : end;
   }
 
-  componentDidMount() {
-    const { interval } = this.state;
+  filterData(dayRange) {
+    // returns relevant section of data given amount of data points
+    let data = this.props.stock.stockData.slice(0);
+    let end = this.calcEndIndex(data, dayRange);
+    return data.reverse().slice(0, end).reverse();
+  }
+
+  parseData() {
+    // returns 
+    const { interval } = this.props;
     const renderMap = {
-      '5Y': this.renderFiveYear,
-      '1Y': this.renderOneYear,
-      '3M': this.renderThreeMonths,
-      '1M': this.renderOneMonth,
-      '1W': this.renderOneWeek
+      '5Y': 1258,
+      '1Y': 254,
+      '3M': 64,
+      '1M': 24,
+      '1W': 5
     };
 
-    // invoke function based on passed in interval
-    renderMap[interval]();
-    
-  }
-
-  determineRender(dayRange) {
-    let data = this.state.data.slice(0);
-    let end = this.calcEndIndex(data, dayRange);
-    data = data.reverse().slice(0, end).reverse();
-    this.setState({data: data});
-  }
-
-  renderFiveYear() {
-    const fiveYearRange = 1258;
-    this.determineRender(fiveYearRange);
-  }
-
-  renderOneYear() {
-    const oneYearRange = 254;
-    this.determineRender(oneYearRange);
-  }
-
-  renderThreeMonths() {
-    const threeMonthRange = 64;
-    this.determineRender(threeMonthRange);
-  }
-
-  renderOneMonth() {
-    const oneMonthRange = 24;
-    this.determineRender(oneMonthRange);
-  }
-
-  renderOneWeek() {
-    const oneWeekRange = 5;
-    this.determineRender(oneWeekRange);
+    let range = renderMap[interval];
+    return this.filterData(range);
   }
 
   renderOneDay() {
@@ -74,7 +40,8 @@ class StockChart extends React.Component {
   }
 
   render() {
-    const { data } = this.state;
+    let data = this.parseData();
+
     return(
       <div>
         <LineChart
@@ -97,3 +64,29 @@ class StockChart extends React.Component {
 
 
 export default StockChart;
+
+
+  // renderFiveYear() {
+  //   const fiveYearRange = 1258;
+  //   this.determineRender(fiveYearRange);
+  // }
+
+  // renderOneYear() {
+  //   const oneYearRange = 254;
+  //   this.determineRender(oneYearRange);
+  // }
+
+  // renderThreeMonths() {
+  //   const threeMonthRange = 64;
+  //   this.determineRender(threeMonthRange);
+  // }
+
+  // renderOneMonth() {
+  //   const oneMonthRange = 24;
+  //   this.determineRender(oneMonthRange);
+  // }
+
+  // renderOneWeek() {
+  //   const oneWeekRange = 5;
+  //   this.determineRender(oneWeekRange);
+  // }
