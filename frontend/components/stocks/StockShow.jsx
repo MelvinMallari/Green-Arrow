@@ -12,16 +12,24 @@ class StockShow extends React.Component {
       stocks: this.props.stocks,
       interval: '5Y'
     }
-    this.renderInterval = this.renderInterval.bind(this);
   }
 
-  renderInterval(range) {
-    this.setState({interval: range});
-  }
 
   componentDidMount() {
     const { symbol, fetchStock } = this.props;
     fetchStock(symbol);
+  }
+
+  setInterval(range) {
+    this.setState({interval: range});
+  }
+
+  setClassName(tab) {
+    if (this.state.interval === tab) {
+      return "interval-btn active";
+    } else {
+      return "interval-btn";
+    }
   }
 
   render() {
@@ -38,11 +46,11 @@ class StockShow extends React.Component {
         <button onClick={logout}>Logout</button>        
         <StockChart stock={stock} interval={interval} />
         <nav className="interval-nav">
-          <button onClick={() => this.renderInterval('5Y')} className="interval-btn">5Y</button>
-          <button onClick={() => this.renderInterval('1Y')} className="interval-btn">1Y</button>
-          <button onClick={() => this.renderInterval('3M')} className="interval-btn">3M</button>
-          <button onClick={() => this.renderInterval('1M')} className="interval-btn">1M</button>
-          <button onClick={() => this.renderInterval('1W')} className="interval-btn">1W</button>
+          <button onClick={() => this.setInterval('1W')} className={this.setClassName('1W')}>1W</button>
+          <button onClick={() => this.setInterval('1M')} className={this.setClassName('1M')}>1M</button>
+          <button onClick={() => this.setInterval('3M')} className={this.setClassName('3M')}>3M</button>
+          <button onClick={() => this.setInterval('1Y')} className={this.setClassName('1Y')}>1Y</button>
+          <button onClick={() => this.setInterval('5Y')} className={this.setClassName('5Y')}>5Y</button>
         </nav>
       </div>
     );
