@@ -3,7 +3,7 @@ import {
   LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend,
 } from 'recharts';
 import { debug } from 'util';
-import StockChart from '../chart/stock_chart';
+import StockChart from '../chart/StockChart';
 
 class StockShow extends React.Component {
   constructor(props) {
@@ -14,7 +14,6 @@ class StockShow extends React.Component {
     }
   }
 
-
   componentDidMount() {
     const { symbol, fetchStock } = this.props;
     fetchStock(symbol);
@@ -24,8 +23,8 @@ class StockShow extends React.Component {
     this.setState({interval: range});
   }
 
-  setClassName(tab) {
-    if (this.state.interval === tab) {
+  setClassName(current) {
+    if (this.state.interval === current) {
       return "interval-btn active";
     } else {
       return "interval-btn";
@@ -44,14 +43,19 @@ class StockShow extends React.Component {
       <div>
         <h1>Welcome to {symbol} show page.</h1>
         <button onClick={logout}>Logout</button>        
-        <StockChart stock={stock} interval={interval} />
-        <nav className="interval-nav">
-          <button onClick={() => this.setInterval('1W')} className={this.setClassName('1W')}>1W</button>
-          <button onClick={() => this.setInterval('1M')} className={this.setClassName('1M')}>1M</button>
-          <button onClick={() => this.setInterval('3M')} className={this.setClassName('3M')}>3M</button>
-          <button onClick={() => this.setInterval('1Y')} className={this.setClassName('1Y')}>1Y</button>
-          <button onClick={() => this.setInterval('5Y')} className={this.setClassName('5Y')}>5Y</button>
-        </nav>
+        <div>
+            <StockChart stock={stock} interval={interval} />
+            <nav className="interval-nav">
+              <div className="chart-buttons-container">
+                <button onClick={() => this.setInterval('1D')} className={this.setClassName('1D')}>1D</button>
+                <button onClick={() => this.setInterval('1W')} className={this.setClassName('1W')}>1W</button>
+                <button onClick={() => this.setInterval('1M')} className={this.setClassName('1M')}>1M</button>
+                <button onClick={() => this.setInterval('3M')} className={this.setClassName('3M')}>3M</button>
+                <button onClick={() => this.setInterval('1Y')} className={this.setClassName('1Y')}>1Y</button>
+                <button onClick={() => this.setInterval('5Y')} className={this.setClassName('5Y')}>5Y</button>
+              </div>
+            </nav>
+        </div>
       </div>
     );
   }

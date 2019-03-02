@@ -8,14 +8,17 @@
   font-weight: 700;
   margin-left: 12px;
   margin-right: 12px;
-  padding-bottom: 12px;
+  padding-bottom: 13px;
 }
 
 .active {
   color: $r-green;
-  border-bottom: 2px solid $r-green;
+  border-bottom: 3px solid #21ce99;
+  z-index: 1000;
 }
 
-// .interval-btn:active {
-//   color: $r-green;
-// }
+.interval-nav {
+  width: 676px;
+  border-bottom: 1px solid #ddd;
+  position: relative;
+}

@@ -18,8 +18,8 @@ class SplashLoggedOut extends React.Component {
                     </div>
                     <div className="splash-text-phrase-container">
                       <span>
-                        
-                        Invest in stocks, ETFs, options, and cryptocurrencies, all commission-free, right from your phone or desktop.</span>
+                        Green Arrow allows you to make money moves, for free. 
+                        </span>
                     </div>
                     <Link to="/demo"> <span className="r-button">Demo</span> </Link>
                   </div>
