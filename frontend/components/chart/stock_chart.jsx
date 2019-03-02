@@ -9,7 +9,13 @@ class StockChart extends React.Component {
     super(props);
     this.state = {
       data: this.props.stock.stockData,
+      interval: this.props.interval,
     }
+    this.renderFiveYear = this.renderFiveYear.bind(this);
+    this.renderOneYear = this.renderOneYear.bind(this);
+    this.renderThreeMonths = this.renderThreeMonths.bind(this);
+    this.renderOneMonth = this.renderOneMonth.bind(this);
+    this.renderOneWeek = this.renderOneWeek.bind(this);
   }
 
   calcEndIndex(data, end) {
@@ -17,7 +23,18 @@ class StockChart extends React.Component {
   }
 
   componentDidMount() {
-    this.renderOneYear();
+    const { interval } = this.state;
+    const renderMap = {
+      '5Y': this.renderFiveYear,
+      '1Y': this.renderOneYear,
+      '3M': this.renderThreeMonths,
+      '1M': this.renderOneMonth,
+      '1W': this.renderOneWeek
+    };
+
+    // invoke function based on passed in interval
+    renderMap[interval]();
+    
   }
 
   determineRender(dayRange) {

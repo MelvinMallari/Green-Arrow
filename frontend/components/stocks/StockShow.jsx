@@ -28,7 +28,7 @@ class StockShow extends React.Component {
       <div>
         <h1>Welcome to {symbol} show page.</h1>
         <button onClick={logout}>Logout</button>        
-        <StockChart stock={stock} />
+        <StockChart stock={stock} interval='1M' />
       </div>
     );
   }
