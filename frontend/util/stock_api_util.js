@@ -15,14 +15,16 @@ export const fetchStocks = () => (
 export const fetchStockData = symbol => (
   $.ajax({
     method: "GET",
-    url: `https://api.iextrading.com/1.0/stock/${symbol}/chart/5Y/?filter=close,date`
+    // url: `https://api.iextrading.com/1.0/stock/${symbol}/chart/5Y/?filter=close,date`
+    url: `https://api.iextrading.com/1.0/stock/${symbol}/chart/5Y`
   })
 );
 
 export const fetchStockIntradayData = symbol => (
   $.ajax({
     method: "GET",
-    url: `https://api.iextrading.com/1.0/stock/${symbol}/chart/1D?filter=close,date`
+    // url: `https://api.iextrading.com/1.0/stock/${symbol}/chart/1D?filter=close,date`
+    url: `https://api.iextrading.com/1.0/stock/${symbol}/chart/1D`
   })
 );
 

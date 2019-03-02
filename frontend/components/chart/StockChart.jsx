@@ -3,20 +3,30 @@ import React from 'react'
 import {
   LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend,
 } from 'recharts';
+import { debug } from 'util';
 
 class StockChart extends React.Component {
   constructor(props) {
     super(props);
+    this.ownToolTip = this.ownToolTip.bind(this);
   }
 
   calcEndIndex(data, end) {
     return data.length < end ? data.length : end;
   }
 
+  calcDomain(data) {
+    const min = Math.min(...data);
+    const max = Math.max(...data);
+    return [min, max];
+  }
+
   filterData(dayRange) {
     // returns relevant section of data given amount of data points
-    const { stock  } = this.props
-    let data = (dayRange === '1D' ? stock.stockIntradayData : stock.stockData).slice(0);
+    const { stock, interval  } = this.props
+
+    // diff data set for intraday data
+    let data = ( interval === '1D' ? stock.stockIntradayData : stock.stockData).slice(0);
     let end = this.calcEndIndex(data, dayRange);
     return data.reverse().slice(0, end).reverse();
   }
@@ -36,9 +46,19 @@ class StockChart extends React.Component {
     return this.filterData(range);
   }
 
-  renderOneDay() {
+  ownToolTip(toolTipData) {
+    if (!toolTipData.payload.length) return;
+    let { interval } = this.props;
 
+    let { payload } = toolTipData.payload[0];
+    return (
+      <div> 
+        <span> {interval === '1D' ? payload.minute : payload.label} </span>
+      </div>
+    );
   }
+
+
 
   render() {
     let data = this.parseData();
@@ -59,8 +79,14 @@ class StockChart extends React.Component {
           <XAxis 
             dataKey="date" 
             hide={true} />
-          <YAxis hide={true} />
-          <Tooltip  isAnimationActive={false} />
+          <YAxis 
+           hide={true}
+           domain={this.calcDomain(data)} />
+          <Tooltip  
+            content={this.ownToolTip}
+            isAnimationActive={false}
+            offset={-35}
+            position={{y: -20}} />
           <Line 
             animationDuration={850} 
             dataKey="close" 

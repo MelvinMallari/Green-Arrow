@@ -19,13 +19,26 @@ class StockShow extends React.Component {
     fetchStock(symbol);
   }
 
+  computeVolWeightedAvg(sampleData) {
+    let sumVolPrice, sumVol, volWeightedAvg;
+    sumVolPrice = sumVol = volWeightedAvg = 0;
+
+    for (let i = 0; i < sampleData.length; i++) {
+      sumVolPrice += sampleData[i].close * sampleData[i].volume;
+      sumVol += sampleData[i].volume;
+    }
+
+    volWeightedAvg = (sumVolPrice / sumVol).toFixed(2);
+    return volWeightedAvg;
+  }
+
   setInterval(range) {
     this.setState({interval: range});
   }
 
   setClassName(current) {
     if (this.state.interval === current) {
-      return "interval-btn active";
+      return "interval-btn active-interval";
     } else {
       return "interval-btn";
     }
@@ -39,10 +52,14 @@ class StockShow extends React.Component {
     if (!stocks[symbol] || !stocks[symbol].stockNews) return false;
     const stock = stocks[symbol];
 
+    // testing
+    const sampleData = stock.stockData.slice(0, 6);
+    console.log(this.computeVolWeightedAvg(sampleData));
+
     return(
       <div>
-        <h1>Welcome to {symbol} show page.</h1>
         <button onClick={logout}>Logout</button>        
+        <h1>{stock.companyName}</h1>
         <div>
             <StockChart stock={stock} interval={interval} />
             <nav className="interval-nav">
