@@ -29,7 +29,7 @@ class StockChart extends React.Component {
     if (interval === '1D') {
       data = stock.stockIntradayData;
       // Handle intraday data in 5 minute increments
-      return data.filter((_, i) => { if (i === 0 || i % 5 === 0) return true; });
+      return data.filter((time, i) => { if (i === 0 || i % 5 === 0 || i === 389) return true; });
     } else {
       data = stock.stockData.slice(0);
       let end = this.calcEndIndex(data, dayRange);
@@ -72,8 +72,8 @@ class StockChart extends React.Component {
             dataKey="date" 
             hide={true} />
           <YAxis 
-           hide={true}
-           domain={this.calcDomain(data)} />
+            hide={true}
+            domain={this.calcDomain(data)} />
           <Tooltip  
             content={<ToolTip interval={this.props.interval} />}
             isAnimationActive={false}
