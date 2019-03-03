@@ -78,7 +78,7 @@ class StockChart extends React.Component {
     if (interval === '1D') {
       data = stock.stockIntradayData;
       // Handle intraday data in 5 minute increments
-      return data.filter((time, i) => { if (i === 0 || i % 5 === 0 || i === 390) return true; });
+      return data.filter((_, i) => { if (i === 0 || i % 5 === 0 || i === 390) return true; });
     } else {
       data = stock.stockData.slice(0);
       let end = this.calcEndIndex(data, range);
@@ -103,7 +103,7 @@ class StockChart extends React.Component {
         <header>
           <h1>{companyName}</h1>
           <div><span id="price">{initPrice}</span></div>
-          <div><span id="price-differential">{initPriceDiff} ({initPctDiff})%</span></div>
+          <div><span id="price-diff">{initPriceDiff} ({initPctDiff})%</span></div>
         </header>
         <LineChart
          width={676}

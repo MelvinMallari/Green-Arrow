@@ -21,14 +21,22 @@ class ToolTip extends React.Component {
     return `${MONTHS[month]} ${day}, ${year}`
   }
 
+  formatMoney(number) {
+    // credits: https://stackoverflow.com/questions/40426965/javascript-function-to-format-as-money
+    return number.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+  }
 
   updateDisplay(payload) {
     const { diffReference } = this.props;
-    const price = document.getElementById('price');
-    const priceDifferential = document.getElementById('price-differential');
+    const priceElement = document.getElementById('price');
+    const priceDiffElement = document.getElementById('price-diff');
 
-    price.innerHTML = payload.close.toFixed(2).toString();
-    priceDifferential.innerHTML =  (payload.close - diffReference).toFixed(2).toString();
+    const price = parseFloat(payload.close);
+    const priceDiff = parseFloat((price - diffReference));
+    const pctDiff = ((priceDiff) / diffReference * 100).toFixed(2);
+
+    priceElement.innerHTML = `${this.formatMoney(price)}`;
+    priceDiffElement.innerHTML = `${this.formatMoney(priceDiff)} (${pctDiff}%)`;
 
   }
 
