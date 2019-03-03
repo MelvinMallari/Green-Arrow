@@ -15,5 +15,6 @@ ActiveRecord::Base.transaction do
   # Demo Stock
   Stock.create(ticker_symbol: 'AAPL', company_name: 'Apple Inc.');
   Stock.create(ticker_symbol: 'GOOGL', company_name: 'Alphabet Inc.');
+  Stock.create(ticker_symbol: 'DIS', company_name: 'The Walt Disney Company');
 
 end

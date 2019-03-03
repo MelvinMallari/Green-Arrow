@@ -29,7 +29,7 @@ class StockChart extends React.Component {
 
     let data = stock.stockData.slice(0);
     if (interval === '1D') {
-      return 0;
+      return stock.stockIntradayData[0].close;
     } else if (interval === '5Y') {
       return data[0].close;
     } else {
@@ -100,8 +100,8 @@ class StockChart extends React.Component {
 
     return(
       <div>
-        <header>
-          <h1>{companyName}</h1>
+        <header className="stock-info">
+          <h1 className="company-name">{companyName}</h1>
           <div><span id="price">{initPrice}</span></div>
           <div><span id="price-diff">{initPriceDiff} ({initPctDiff})%</span></div>
         </header>

@@ -1,0 +1,66 @@
+.active-interval {
+  color: $r-green;
+  border-bottom: 3px solid #21ce99;
+  z-index: 1000;
+}
+
+.interval-nav {
+  margin-top: 24px;
+  margin-bottom: 16px;
+}
+
+.interval-btn {
+  font-size: 13px;
+  font-weight: 700;
+  margin-left: 12px;
+  margin-right: 12px;
+  padding-bottom: 13px;
+}
+
+.interval-nav {
+  width: 676px;
+  border-bottom: 1px solid #ddd;
+  position: relative;
+}
+
+.loader-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.tooltip {
+  color: #bbb;
+  display: flex;
+  justify-content: center;
+  font-size: 13px;
+}
+
+.stock-info {
+  margin-bottom: 25px;
+}
+
+.company-name {
+  font-weight: bolder;
+  font-size: 36px;
+  font-weight: 400;
+  letter-spacing: -0.7px;
+  line-height: 42px;
+  display: inline-block;
+}
+
+#price {
+  // font-weight: 900;
+  font-size: 36px;
+  letter-spacing: -0.7px;
+  line-height: 42px;
+
+}
+
+#price-diff {
+  font-weight: bolder;
+  font-size: 15px;
+  line-height: 19px;
+  letter-spacing: 0.25px;
+}
