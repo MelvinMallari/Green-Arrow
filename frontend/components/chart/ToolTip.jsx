@@ -16,18 +16,30 @@ const MONTHS = {
 }
 
 class ToolTip extends React.Component {
-
   formatDate(date) {
     const [year, month, day] = date.split("-");
     return `${MONTHS[month]} ${day}, ${year}`
- }
+  }
+
+  updateDisplay(payload) {
+    const { diffReference } = this.props;
+    const price = document.getElementById('price');
+    const priceDifferential = document.getElementById('price-differential');
+
+    price.innerHTML = payload.close.toFixed(2).toString();
+    priceDifferential.innerHTML =  (payload.close - diffReference).toFixed(2);
+
+  }
 
   render() {
     let { interval } = this.props;
     if (!this.props.payload.length) return null;
-  
+    
     // grab the relevant information from the payload Tooltip passes in
     const payload =  this.props.payload[0].payload;
+  
+    this.updateDisplay(payload);
+
     return(
       <div>
         <span className="tooltip"> 

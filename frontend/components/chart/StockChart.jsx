@@ -5,55 +5,78 @@ import {
 } from 'recharts';
 import ToolTip from '../chart/ToolTip';
 
+const INTERVAL_TO_AMOUNT_DATAPOINTS = {
+  '5Y': 1258,
+  '1Y': 254,
+  '3M': 64,
+  '1M': 24,
+  '1W': 5,
+  '1D': 390
+};
+
 class StockChart extends React.Component {
-  constructor(props) {
-    super(props);
+
+  calcDomain(data) {
+    return [Math.min(...data), Math.max(...data)];
   }
 
   calcEndIndex(data, end) {
     return data.length < end ? data.length : end;
   }
 
-  calcDomain(data) {
-    const min = Math.min(...data);
-    const max = Math.max(...data);
-    return [min, max];
+  calcDiffReference() {
+    const { interval, stock } = this.props;
+
+    let data = stock.stockData.slice(0);
+    if (interval === '1D') {
+      return 0;
+    } else if (interval === '5Y') {
+      return data[0].close;
+    } else {
+      data = stock.stockData.slice(0);
+      const start = INTERVAL_TO_AMOUNT_DATAPOINTS[interval] + 1;
+      const end = 2*INTERVAL_TO_AMOUNT_DATAPOINTS[interval] + 1;
+
+      const prevData = data.reverse().slice(start, end).reverse();
+      return this.calcVolWeightedAvg(prevData); 
+    }
   }
 
-  filterData(dayRange) {
+  calcVolWeightedAvg(sampleData) {
+    let sumVolPrice, sumVol, volWeightedAvg;
+    sumVolPrice = sumVol = volWeightedAvg = 0;
+
+    for (let i = 0; i < sampleData.length; i++) {
+      sumVolPrice += sampleData[i].close * sampleData[i].volume;
+      sumVol += sampleData[i].volume;
+    }
+
+    volWeightedAvg = (sumVolPrice / sumVol).toFixed(2);
+    return volWeightedAvg;
+  }
+
+  filterData() {
+    const { interval, stock  } = this.props;
+
     // returns relevant section of data given amount of data points
-    const { stock, interval  } = this.props
+    let range = INTERVAL_TO_AMOUNT_DATAPOINTS[interval];
 
     let data;
     // handle dataSet differently for intraday data
     if (interval === '1D') {
       data = stock.stockIntradayData;
       // Handle intraday data in 5 minute increments
-      return data.filter((time, i) => { if (i === 0 || i % 5 === 0 || i === 389) return true; });
+      return data.filter((time, i) => { if (i === 0 || i % 5 === 0 || i === 390) return true; });
     } else {
       data = stock.stockData.slice(0);
-      let end = this.calcEndIndex(data, dayRange);
+      let end = this.calcEndIndex(data, range);
       return data.reverse().slice(0, end).reverse();
     }
   }
 
-  parseData() {
-    const { interval } = this.props;
-    const intervalToDataPointsMap = {
-      '5Y': 1258,
-      '1Y': 254,
-      '3M': 64,
-      '1M': 24,
-      '1W': 5,
-      '1D': 390
-    };
-
-    let range = intervalToDataPointsMap[interval];
-    return this.filterData(range);
-  }
-
   render() {
-    let data = this.parseData();
+    const data = this.filterData();
+    const diffReference = this.calcDiffReference();
 
     return(
       <div>
@@ -62,7 +85,7 @@ class StockChart extends React.Component {
          height={196}
          data={data}
          margin={{
-           top: 0, right: 0, left: 0, bottom: 0,
+            top: 0, right: 0, left: 0, bottom: 0,
          }} >
           <CartesianGrid 
             strokeDasharray="3 3" 
@@ -75,7 +98,9 @@ class StockChart extends React.Component {
             hide={true}
             domain={this.calcDomain(data)} />
           <Tooltip  
-            content={<ToolTip interval={this.props.interval} />}
+            content={<ToolTip 
+                      interval={this.props.interval} 
+                      diffReference={diffReference} />}
             isAnimationActive={false}
             offset={-35}
             position={{y: -20}} />
@@ -90,6 +115,5 @@ class StockChart extends React.Component {
     );
   }
 }
-
 
 export default StockChart;

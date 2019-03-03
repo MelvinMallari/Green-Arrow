@@ -9,27 +9,13 @@ class StockShow extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      stocks: this.props.stocks,
-      interval: '5Y'
+      interval: '5Y',
     }
   }
 
   componentDidMount() {
     const { symbol, fetchStock } = this.props;
     fetchStock(symbol);
-  }
-
-  computeVolWeightedAvg(sampleData) {
-    let sumVolPrice, sumVol, volWeightedAvg;
-    sumVolPrice = sumVol = volWeightedAvg = 0;
-
-    for (let i = 0; i < sampleData.length; i++) {
-      sumVolPrice += sampleData[i].close * sampleData[i].volume;
-      sumVol += sampleData[i].volume;
-    }
-
-    volWeightedAvg = (sumVolPrice / sumVol).toFixed(2);
-    return volWeightedAvg;
   }
 
   setInterval(range) {
@@ -51,15 +37,14 @@ class StockShow extends React.Component {
     // Check if nested fetch has terminated before rendering
     if (!stocks[symbol] || !stocks[symbol].stockNews) return false;
     const stock = stocks[symbol];
-
-    // testing
-    const sampleData = stock.stockData.slice(0, 6);
-    console.log(this.computeVolWeightedAvg(sampleData));
-
     return(
       <div>
         <button onClick={logout}>Logout</button>        
-        <h1>{stock.companyName}</h1>
+        <header>
+          <h1>{stock.companyName}</h1>
+          <div><span id="price"></span></div>
+          <div><span id="price-differential"></span></div>
+        </header>
         <div>
             <StockChart stock={stock} interval={interval} />
             <nav className="interval-nav">
