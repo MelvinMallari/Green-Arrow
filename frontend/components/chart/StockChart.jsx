@@ -103,7 +103,10 @@ class StockChart extends React.Component {
         <header className="stock-info">
           <h1 className="company-name">{companyName}</h1>
           <div><span id="price">{initPrice}</span></div>
-          <div><span id="price-diff">{initPriceDiff} ({initPctDiff})%</span></div>
+          <div className="price-diff">
+            <span id="price-diff" className="diff"> {initPriceDiff}</span>
+            <span id="pct-diff" className="diff pct-diff">({initPctDiff})%</span>
+          </div>
         </header>
         <LineChart
          width={676}

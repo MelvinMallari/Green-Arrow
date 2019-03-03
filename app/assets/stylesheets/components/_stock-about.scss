@@ -7,10 +7,14 @@
   letter-spacing: -0.14px;
 }
 
-.about-description {
-  font-size: 13px;
+.about-description-container {
   line-height: 22px;
   max-width: 570px;
+}
+
+.about-description-header {
+  font-size: 13px;
+  font-weight: 900;
 }
 
 .about-info {
@@ -26,4 +30,18 @@
 
 .about-info > *:nth-child(4n + 1) {
   margin-left: 0;
+}
+
+.about-info > * {
+  font-size: 13px;
+  font-weight: 400;
+}
+
+.website-link {
+  color: $r-green;
+}
+
+.about-info-label {
+  padding-bottom: 4px;
+  font-weight: 600;
 }

@@ -30,13 +30,15 @@ class ToolTip extends React.Component {
     const { diffReference } = this.props;
     const priceElement = document.getElementById('price');
     const priceDiffElement = document.getElementById('price-diff');
+    const pctDiffElement = document.getElementById('pct-diff');
 
     const price = parseFloat(payload.close);
     const priceDiff = parseFloat((price - diffReference));
     const pctDiff = ((priceDiff) / diffReference * 100).toFixed(2);
 
     priceElement.innerHTML = `${this.formatMoney(price)}`;
-    priceDiffElement.innerHTML = `${this.formatMoney(priceDiff)} (${pctDiff}%)`;
+    priceDiffElement.innerHTML = `${this.formatMoney(priceDiff)}`;
+    pctDiffElement.innerHTML = `(${pctDiff}%)`;
 
   }
 
