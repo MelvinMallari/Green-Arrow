@@ -52,9 +52,9 @@ class StockShow extends React.Component {
       )
     } else {
       return(
-        <div>
+        <div className="stock-show-display">
           <button onClick={logout}>Logout</button>        
-          <div>
+          <section className="chart-container">
               <StockChart stock={stock} interval={interval} />
               <nav className="interval-nav">
                 <div className="chart-buttons-container">
@@ -66,8 +66,8 @@ class StockShow extends React.Component {
                   <button onClick={() => this.setInterval('5Y')} className={this.setClassName('5Y')}>5Y</button>
                 </div>
               </nav>
-              <StockAbout stock={stock}/>
-          </div>
+          </section>
+          <StockAbout stock={stock}/>
         </div>
       );
     }

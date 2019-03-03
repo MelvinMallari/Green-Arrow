@@ -1,0 +1,29 @@
+.stock-about-container header {
+  padding-bottom: 16px;
+  border-bottom: 1px solid #ddd;
+  font-size: 26px;
+  font-weight: 500;
+  line-height: 30px;
+  letter-spacing: -0.14px;
+}
+
+.about-description {
+  font-size: 13px;
+  line-height: 22px;
+  max-width: 570px;
+}
+
+.about-info {
+  padding-top: 18px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.about-info > * {
+  flex-basis: calc(25% - 12px);
+  margin: 0 6px 12px;
+}
+
+.about-info > *:nth-child(4n + 1) {
+  margin-left: 0;
+}
