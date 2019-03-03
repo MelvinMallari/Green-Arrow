@@ -21,13 +21,14 @@ class ToolTip extends React.Component {
     return `${MONTHS[month]} ${day}, ${year}`
   }
 
+
   updateDisplay(payload) {
     const { diffReference } = this.props;
     const price = document.getElementById('price');
     const priceDifferential = document.getElementById('price-differential');
 
     price.innerHTML = payload.close.toFixed(2).toString();
-    priceDifferential.innerHTML =  (payload.close - diffReference).toFixed(2);
+    priceDifferential.innerHTML =  (payload.close - diffReference).toFixed(2).toString();
 
   }
 

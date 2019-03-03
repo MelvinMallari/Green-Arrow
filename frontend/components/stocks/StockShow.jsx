@@ -40,11 +40,6 @@ class StockShow extends React.Component {
     return(
       <div>
         <button onClick={logout}>Logout</button>        
-        <header>
-          <h1>{stock.companyName}</h1>
-          <div><span id="price"></span></div>
-          <div><span id="price-differential"></span></div>
-        </header>
         <div>
             <StockChart stock={stock} interval={interval} />
             <nav className="interval-nav">

@@ -55,6 +55,18 @@ class StockChart extends React.Component {
     return volWeightedAvg;
   }
 
+  initialStockData(stock, reference) {
+    const companyName = stock.companyName;
+    const stockData = stock.stockData;
+    const currentPrice = stockData[stockData.length - 1].close.toFixed(2);
+    const initPrice = parseFloat(currentPrice);
+    const priceDifferential = parseFloat((initPrice - reference).toFixed(2));
+    const pctDifferential = ((initPrice - reference) / reference).toFixed(2);
+
+
+    return [companyName, this.formatMoney(initPrice), this.formatMoney(priceDifferential), pctDifferential]
+  }
+
   filterData() {
     const { interval, stock  } = this.props;
 
@@ -74,12 +86,25 @@ class StockChart extends React.Component {
     }
   }
 
+  formatMoney(number) {
+    // credits: https://stackoverflow.com/questions/40426965/javascript-function-to-format-as-money
+    return number.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+  }
+
   render() {
     const data = this.filterData();
     const diffReference = this.calcDiffReference();
+    const { stock } = this.props;
+
+    const [companyName, initPrice, initPriceDiff, initPctDiff] = this.initialStockData(stock, diffReference);
 
     return(
       <div>
+        <header>
+          <h1>{companyName}</h1>
+          <div><span id="price">{initPrice}</span></div>
+          <div><span id="price-differential">{initPriceDiff} ({initPctDiff})%</span></div>
+        </header>
         <LineChart
          width={676}
          height={196}
@@ -102,7 +127,7 @@ class StockChart extends React.Component {
                       interval={this.props.interval} 
                       diffReference={diffReference} />}
             isAnimationActive={false}
-            offset={-35}
+            offset={-37}
             position={{y: -20}} />
           <Line 
             animationDuration={850} 
