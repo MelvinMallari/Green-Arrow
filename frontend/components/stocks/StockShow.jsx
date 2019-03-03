@@ -5,6 +5,7 @@ import {
 import { debug } from 'util';
 import StockChart from '../chart/StockChart';
 import ReactLoading from 'react-loading';
+import StockAbout from './StockAbout';
 
 class StockShow extends React.Component {
   constructor(props) {
@@ -65,6 +66,7 @@ class StockShow extends React.Component {
                   <button onClick={() => this.setInterval('5Y')} className={this.setClassName('5Y')}>5Y</button>
                 </div>
               </nav>
+              <StockAbout stock={stock}/>
           </div>
         </div>
       );

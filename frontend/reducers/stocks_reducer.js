@@ -25,10 +25,16 @@ const stocksReducer = (state = {}, action) => {
       newState[action.symbol].stockIntradayData = action.stockIntradayData;
       return newState;
     case RECEIVE_STOCK_INFO:
-      newState[action.symbol].ceo = action.stockInfo.CEO;
-      newState[action.symbol].companyName = action.stockInfo.companyName;
-      newState[action.symbol].description = action.stockInfo.description;
-      newState[action.symbol].exchange = action.stockInfo.exchange;
+      newState[action.symbol].ceo = action.stockInfo.company.CEO;
+      newState[action.symbol].industry = action.stockInfo.company.industry;
+      newState[action.symbol].exchange = action.stockInfo.company.exchange;
+      newState[action.symbol].website = action.stockInfo.company.website;
+      newState[action.symbol].companyName = action.stockInfo.company.companyName;
+      newState[action.symbol].description = action.stockInfo.company.description;
+      newState[action.symbol].marketcap = action.stockInfo.stats.marketcap;
+      newState[action.symbol].peRatio = action.stockInfo.stats.peRatioLow;
+      newState[action.symbol].dividendYield = action.stockInfo.stats.dividendYield;
+      newState[action.symbol].shortRatio = action.stockInfo.stats.shortRatio;
       return newState;
     case RECEIVE_STOCK_NEWS:
       newState[action.symbol].stockNews = action.stockNews;

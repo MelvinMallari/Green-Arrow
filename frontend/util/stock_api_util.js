@@ -31,13 +31,14 @@ export const fetchStockIntradayData = symbol => (
 export const fetchStockInfo = symbol => (
   $.ajax({
     method: "GET",
-    url: `https://api.iextrading.com/1.0/stock/${symbol}/company?filter=CEO,companyName,description,exchange,symbol,website`
+    // url: `https://api.iextrading.com/1.0/stock/${symbol}/company?filter=CEO,companyName,description,exchange,symbol,website`
+    url: `https://api.iextrading.com/1.0/stock/${symbol}/batch?types=stats,company`
   })
 );
 
 export const fetchStockNews = symbol => (
   $.ajax({
     method: "GET",
-    url: `https://api.iextrading.com/1.0/stock/${symbol}/news`
+    url: `https://newsapi.org/v2/everything?q=${symbol}&sortBy=relevancy&pageSize=3&language=en&domains=yahoo.com,fool.com,forbes.com&apiKey=b20ba9a311bf4fa6b83c4f00e739bb02`,
   })
 );
