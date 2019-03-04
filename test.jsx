@@ -19,7 +19,7 @@ class StockShow extends React.Component {
 
   componentDidMount() {
     const { symbol, fetchStock } = this.props;
-    fetchStock(symbol);
+    // fetchStock(symbol);
   }
 
   setInterval(range) {
@@ -40,19 +40,19 @@ class StockShow extends React.Component {
     const stock = stocks[symbol];
 
     // Check if nested fetch has terminated before rendering
-    if (!stocks[symbol] || !stocks[symbol].stockNews) {
-      return (
-        <div className='loader-container'>
-          <div className='loader'>
-            <ReactLoading 
-              type={"spinningBubbles"} 
-              color={"#21ce99"} 
-              height={125} 
-              width={125} />
-          </div>
-        </div>
-      )
-    } else {
+    // if (!stocks[symbol] || !stocks[symbol].stockNews) {
+    //   return (
+    //     <div className='loader-container'>
+    //       <div className='loader'>
+    //         <ReactLoading 
+    //           type={"spinningBubbles"} 
+    //           color={"#21ce99"} 
+    //           height={125} 
+    //           width={125} />
+    //       </div>
+    //     </div>
+    //   )
+    // } else {
       return(
         <div className="stock-show-container">
           <nav className="nav-logged-in">
@@ -63,7 +63,7 @@ class StockShow extends React.Component {
           <main className="main-container">
             <div className="stock-info-container">
               <section className="chart-container">
-                  <StockChart stock={stock} interval={interval} />
+                  {/* <StockChart stock={stock} interval={interval} /> */}
                   <nav className="interval-nav">
                     <div className="chart-buttons-container">
                       <button onClick={() => this.setInterval('1D')} className={this.setClassName('1D')}>1D</button>
@@ -75,14 +75,14 @@ class StockShow extends React.Component {
                     </div>
                   </nav>
               </section>
-              <section> <StockAbout stock={stock}/> </section>
-              <section> <NewsIndex stock={stock} /> </section>
+              {/* <section> <StockAbout stock={stock}/> </section>
+              <section> <NewsIndex stock={stock} /> </section> */}
             </div>
             <StockSideBar />
           </main>
         </div>
       );
-    }
+    // }
   }
 }
 

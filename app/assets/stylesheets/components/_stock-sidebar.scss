@@ -4,6 +4,10 @@ input[type=number]::-webkit-outer-spin-button {
   margin: 0; 
 }
 
+.stock-sidebar-container {
+  margin-top: 36px;
+}
+
 .stock-sidebar {
   position: fixed;
   width: 276px;
@@ -33,6 +37,11 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 .sidebar-output {
+  padding-top: 16px;
+  padding-bottom: 24px;
+}
+
+.sidebar-output-label {
   padding-right: 14px;
 }
 
@@ -56,6 +65,16 @@ input[type=number]::-webkit-outer-spin-button {
 
 .submit-order-btn:hover {
   background: $light-r-green;
+}
+
+.stock-sidebar > header {
+  margin: 0 24px;
+  border-bottom: 1px solid #eee;
+  padding-top: 22px;
+}
+
+.sidebar-output-container {
+  padding: 12px 0;
 }
 
 #share-input {
