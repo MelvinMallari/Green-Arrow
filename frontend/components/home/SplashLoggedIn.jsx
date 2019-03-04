@@ -8,6 +8,7 @@ import ReactLoading from 'react-loading';
 import StockChart from '../chart/StockChart';
 import NewsIndex from '../news/NewsIndex';
 import SplashSideBarIndexItemContainer from '../sidebar/SplashSideBarIndexItemContainer';
+import SplashSideBarIndexContainer from '../sidebar/SplashSideBarIndexContainer';
 
 class SplashLoggedIn extends React.Component {
   constructor(props) {
@@ -75,7 +76,8 @@ class SplashLoggedIn extends React.Component {
                   <section> <NewsIndex articles={articles} /> </section>
                 </section>
               </div>
-              <SplashSideBarIndexItemContainer symbol="GOOGL" />
+              {/* <SplashSideBarIndexItemContainer symbol="GOOGL" /> */}
+              <SplashSideBarIndexContainer />
           </main>
         </div>
       );
