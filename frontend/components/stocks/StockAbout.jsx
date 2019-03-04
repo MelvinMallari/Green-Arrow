@@ -22,7 +22,7 @@ class StockAbout extends React.Component {
         <div className="about-info">
           <div>
             <div className="about-info-label">CEO</div>
-            <div>{stock.ceo}</div>
+            <div><a href={`https://en.wikipedia.org/wiki/${stock.ceo}`} className='website-link'>{stock.ceo}</a></div>
           </div>
           <div>
             <div className="about-info-label">Industry</div>

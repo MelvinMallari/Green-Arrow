@@ -6,7 +6,7 @@ import { debug } from 'util';
 import StockChart from '../chart/StockChart';
 import ReactLoading from 'react-loading';
 import StockAbout from './StockAbout';
-import NewsIndexItem from '../news/NewsIndexItem';
+import NewsIndex from '../news/NewsIndex';
 
 class StockShow extends React.Component {
   constructor(props) {
@@ -40,7 +40,6 @@ class StockShow extends React.Component {
 
     // Check if nested fetch has terminated before rendering
     if (!stocks[symbol] || !stocks[symbol].stockNews) {
-
       return (
         <div className='loader-container'>
           <div className='loader'>
@@ -53,29 +52,32 @@ class StockShow extends React.Component {
         </div>
       )
     } else {
-
-      const { stockNews: { articles } } = stock;
-      const testArticle = articles[0];
       return(
-        <div className="stock-show-display">
-          <button onClick={logout}>Logout</button>        
-          <section className="chart-container">
-              <StockChart stock={stock} interval={interval} />
-              <nav className="interval-nav">
-                <div className="chart-buttons-container">
-                  <button onClick={() => this.setInterval('1D')} className={this.setClassName('1D')}>1D</button>
-                  <button onClick={() => this.setInterval('1W')} className={this.setClassName('1W')}>1W</button>
-                  <button onClick={() => this.setInterval('1M')} className={this.setClassName('1M')}>1M</button>
-                  <button onClick={() => this.setInterval('3M')} className={this.setClassName('3M')}>3M</button>
-                  <button onClick={() => this.setInterval('1Y')} className={this.setClassName('1Y')}>1Y</button>
-                  <button onClick={() => this.setInterval('5Y')} className={this.setClassName('5Y')}>5Y</button>
-                </div>
-              </nav>
-          </section>
-          <StockAbout stock={stock}/>
-          <ul>
-            <NewsIndexItem article={testArticle} />
-          </ul>
+        <div className="stock-show-container">
+          <nav className="nav-logged-in">
+            <div className="nav-logged-in-content">
+              <button onClick={logout} className="black-button">Logout</button>        
+            </div>
+          </nav>
+          <main className="main-container">
+            <div className="stock-info-container">
+              <section className="chart-container">
+                  <StockChart stock={stock} interval={interval} />
+                  <nav className="interval-nav">
+                    <div className="chart-buttons-container">
+                      <button onClick={() => this.setInterval('1D')} className={this.setClassName('1D')}>1D</button>
+                      <button onClick={() => this.setInterval('1W')} className={this.setClassName('1W')}>1W</button>
+                      <button onClick={() => this.setInterval('1M')} className={this.setClassName('1M')}>1M</button>
+                      <button onClick={() => this.setInterval('3M')} className={this.setClassName('3M')}>3M</button>
+                      <button onClick={() => this.setInterval('1Y')} className={this.setClassName('1Y')}>1Y</button>
+                      <button onClick={() => this.setInterval('5Y')} className={this.setClassName('5Y')}>5Y</button>
+                    </div>
+                  </nav>
+              </section>
+              <section> <StockAbout stock={stock}/> </section>
+              <section> <NewsIndex stock={stock} /> </section>
+            </div>
+          </main>
         </div>
       );
     }
