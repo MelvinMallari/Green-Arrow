@@ -70,3 +70,9 @@ export const fetchStockNews = symbol => dispatch => (
   StockApiUtil.fetchStockNews(symbol)
     .then(stockNews => dispatch(receiveStockNews(symbol, stockNews)))
 );
+
+export const fetchStockIndexItemTest = symbol => dispatch => (
+  StockApiUtil.fetchStock(symbol)
+    .then(stock => dispatch(receiveStock(stock.ticker_symbol, stock)))
+    .then(() => dispatch(fetchStockIntradayData(symbol)))
+);

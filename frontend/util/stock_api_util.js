@@ -39,6 +39,6 @@ export const fetchStockInfo = symbol => (
 export const fetchStockNews = symbol => (
   $.ajax({
     method: "GET",
-    url: `https://newsapi.org/v2/everything?q=${symbol}&sortBy=relevancy&pageSize=3&language=en&domains=yahoo.com,fool.com,forbes.com&apiKey=b20ba9a311bf4fa6b83c4f00e739bb02`,
+    url: `https://newsapi.org/v2/everything?q=${symbol}&sortBy=relevancy&pageSize=5&language=en&domains=yahoo.com,fool.com,forbes.com&apiKey=b20ba9a311bf4fa6b83c4f00e739bb02`,
   })
 );

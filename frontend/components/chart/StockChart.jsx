@@ -1,6 +1,11 @@
 import React from 'react'
 import {
-  LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend,
+  LineChart, 
+  Line, 
+  XAxis, 
+  YAxis, 
+  CartesianGrid, 
+  Tooltip, 
 } from 'recharts';
 import ToolTip from '../chart/ToolTip';
 
@@ -108,12 +113,10 @@ class StockChart extends React.Component {
           </div>
         </header>
         <LineChart
-         width={676}
-         height={196}
-         data={data}
-         margin={{
-            top: 0, right: 0, left: 0, bottom: 0,
-         }} >
+          width={676}
+          height={196}
+          data={data}
+          margin={{ top: 0, right: 0, left: 0, bottom: 0, }} >
           <CartesianGrid 
             strokeDasharray="3 3" 
             horizontal={false} 
