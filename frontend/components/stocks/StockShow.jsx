@@ -8,6 +8,7 @@ import ReactLoading from 'react-loading';
 import StockAbout from './StockAbout';
 import NewsIndex from '../news/NewsIndex';
 import StockSideBar from '../sidecard/StockSideBar';
+import NavBarContainer from '../nav_bar/NavBarContainer';
 
 class StockShow extends React.Component {
   constructor(props) {
@@ -55,11 +56,7 @@ class StockShow extends React.Component {
     } else {
       return(
         <div className="stock-show-container">
-          <nav className="nav-logged-in">
-            <div className="nav-logged-in-content">
-              <button onClick={logout} className="black-button">Logout</button>        
-            </div>
-          </nav>
+          <NavBarContainer />
           <main className="main-container">
             <div className="stock-info-container">
               <section className="chart-container">
