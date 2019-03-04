@@ -12,9 +12,9 @@ const TinyChart = props => {
 
   const calcDomain = data => (
     [Math.min(...data), Math.min(...data)]
-  )
-  const { data } = props;
+  );
 
+  const { data } = props;
 
   return (
         <LineChart

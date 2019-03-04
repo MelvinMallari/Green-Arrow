@@ -21,6 +21,11 @@ class SplashSideBarIndexItem extends React.Component {
     return sampleData[i].close;
   }
 
+  formatMoney(number) {
+    // credits: https://stackoverflow.com/questions/40426965/javascript-function-to-format-as-money
+    return number.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+  }
+
   render() {
     const { stock } = this.props;
     if (stock === undefined || stock.stockIntradayData === undefined) return null;
@@ -30,7 +35,7 @@ class SplashSideBarIndexItem extends React.Component {
       <div>
         <span>{this.props.symbol}</span>
         <TinyChart data={data}/>
-        <span>{close}</span>
+        <span>{this.formatMoney(close)}</span>
       </div>
     );
   }
