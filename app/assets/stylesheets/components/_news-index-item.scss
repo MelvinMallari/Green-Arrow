@@ -1,0 +1,42 @@
+.news-index-item {
+  border-radius: 4px;
+  margin: 0 -30px;
+  padding: 30px;
+  transition: 0.20s;
+}
+
+.news-index-item:hover {
+  background: #fafafa;
+}
+
+.news-index-item-content {
+  display: flex;
+}
+
+.news-index-img {
+  height: 134px;
+  width: 196px;
+  border-radius: 4px;
+  display: inline-block;
+}
+
+.news-index-info-container {
+  margin-left: 24px;
+}
+
+.news-source {
+  font-size: 13px;
+  line-height: 19px;
+  letter-spacing: 0.25px;
+  font-weight: 600;
+}
+
+.news-title {
+  margin: 4px 0; 
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.news-description {
+  font-size: 13px;
+}

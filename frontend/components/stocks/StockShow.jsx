@@ -6,6 +6,7 @@ import { debug } from 'util';
 import StockChart from '../chart/StockChart';
 import ReactLoading from 'react-loading';
 import StockAbout from './StockAbout';
+import NewsIndexItem from '../news/NewsIndexItem';
 
 class StockShow extends React.Component {
   constructor(props) {
@@ -39,6 +40,7 @@ class StockShow extends React.Component {
 
     // Check if nested fetch has terminated before rendering
     if (!stocks[symbol] || !stocks[symbol].stockNews) {
+
       return (
         <div className='loader-container'>
           <div className='loader'>
@@ -51,6 +53,9 @@ class StockShow extends React.Component {
         </div>
       )
     } else {
+
+      const { stockNews: { articles } } = stock;
+      const testArticle = articles[0];
       return(
         <div className="stock-show-display">
           <button onClick={logout}>Logout</button>        
@@ -68,6 +73,9 @@ class StockShow extends React.Component {
               </nav>
           </section>
           <StockAbout stock={stock}/>
+          <ul>
+            <NewsIndexItem article={testArticle} />
+          </ul>
         </div>
       );
     }
