@@ -2,7 +2,7 @@ import React from 'react';
 import NewsIndexItem from './NewsIndexItem';
 
 const NewsIndex = props => {
-  const {stockNews: { articles }} = props.stock;
+  const { articles } = props;
   return(
     <div className="news-index-container">
       <header className="news-index-header-container">

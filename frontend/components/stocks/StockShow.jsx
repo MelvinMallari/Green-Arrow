@@ -2,7 +2,6 @@ import React from 'react'
 import {
   LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend,
 } from 'recharts';
-import { debug } from 'util';
 import StockChart from '../chart/StockChart';
 import ReactLoading from 'react-loading';
 import StockAbout from './StockAbout';
@@ -54,6 +53,7 @@ class StockShow extends React.Component {
         </div>
       )
     } else {
+      const articles = stock.stockNews.articles
       return(
         <div className="stock-show-container">
           <NavBarContainer />
@@ -73,7 +73,7 @@ class StockShow extends React.Component {
                   </nav>
               </section>
               <section> <StockAbout stock={stock}/> </section>
-              <section> <NewsIndex stock={stock} /> </section>
+              <section> <NewsIndex articles={articles} /> </section>
             </div>
             <StockSideBar />
           </main>
