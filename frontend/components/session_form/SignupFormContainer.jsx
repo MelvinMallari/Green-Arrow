@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import SessionForm from './SessionForm';
-import { signup } from '../../actions/session_actions';
+import { signup, clearErrors } from '../../actions/session_actions';
 
 const mapStateToProps = ({ errors }) => {
   return ({
@@ -11,6 +11,7 @@ const mapStateToProps = ({ errors }) => {
 
 const mapDispatchToProps = dispatch => ({
   processForm: (user) => dispatch(signup(user)),
+  clearErrors: () => dispatch(clearErrors()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SessionForm);

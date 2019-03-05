@@ -7,4 +7,5 @@ Rails.application.routes.draw do
     get 'stocks/:ticker_symbol', :to => 'stocks#show'
     get 'stocks/', :to => 'stocks#index'
   end
+  match "*path", to: redirect('/'), via: :all
 end

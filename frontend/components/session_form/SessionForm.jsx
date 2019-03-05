@@ -7,7 +7,8 @@ class SessionForm extends React.Component {
     super(props);
     this.state = {
       username: "",
-      password: ""
+      password: "",
+      errors: [],
     }
     this.handleSubmit = this.handleSubmit.bind(this);
     this.demoUsername = this.demoUsername.bind(this);
@@ -17,6 +18,11 @@ class SessionForm extends React.Component {
   componentDidMount() {
     const { demoUser } = this.props;
     if (demoUser) this.demo(demoUser);
+    this.setState({errors: this.props.errors})
+  }
+
+  componentWillMount() {
+    this.props.clearErrors();
   }
 
   demo(user) {
@@ -84,7 +90,6 @@ class SessionForm extends React.Component {
   }
 
   render() {
-
     return (
       <div className="session-form">
         <div className="session-form-img">
