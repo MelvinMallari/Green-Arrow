@@ -7,8 +7,8 @@ class SplashSideBarIndexItem extends React.Component {
   }
 
   componentDidMount() {
-    const { symbol, fetchStockIndexItemTest} = this.props;
-    fetchStockIndexItemTest(symbol);
+    const { symbol, fetchStockIntradayData } = this.props;
+    fetchStockIntradayData(symbol);
   }
 
   findLatestValidClose(data) {
@@ -32,11 +32,13 @@ class SplashSideBarIndexItem extends React.Component {
     const data = stock.stockIntradayData;
     const close = this.findLatestValidClose(data);
     return(
-      <div>
-        <span>{this.props.symbol}</span>
-        <TinyChart data={data}/>
-        <span>{this.formatMoney(close)}</span>
-      </div>
+      <li>
+        <div>
+          <span>{this.props.symbol}</span>
+          <TinyChart data={data}/>
+          <span>{this.formatMoney(close)}</span>
+        </div>
+      </li>
     );
   }
 }

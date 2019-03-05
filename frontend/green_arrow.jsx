@@ -4,7 +4,7 @@ import { signup, login, logout } from './actions/session_actions';
 import configureStore from './store/store';
 import Root from './components/root';
 import { fetchStockData, fetchStockNews } from "./util/stock_api_util";
-import { fetchStock, fetchStockIndexItemTest } from '../frontend/actions/stock_actions';
+import { fetchStocks, fetchStockIndexItemTest } from '../frontend/actions/stock_actions';
 
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Stock API testing
   window.fetchStockData = fetchStockData;
   window.fetchStockNews = fetchStockNews;
-  window.fetchStock = fetchStock;
+  window.fetchStocks = fetchStocks;
   // Stock API testing
 
   // Stock Action Testing

@@ -14,7 +14,7 @@ export const receiveStock = (symbol, stock) => ({
 });
 
 export const receiveStocks = stocks => ({
-  type: RECEIVE_STOCK,
+  type: RECEIVE_STOCKS,
   stocks,
 });
 

@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { fetchStockIndexItemTest } from '../../actions/stock_actions';
+import { fetchStockIntradayData } from '../../actions/stock_actions';
 import SplashSideBarIndexItem from '../sidebar/SplashSideBarIndexItem';
 
 
@@ -9,11 +9,12 @@ const mapStateToProps = (state, ownProps) => {
   return ({
     symbol: symbol,
     stock: stock,
+    test: 'hello'
   });
 }
 
 const mapDispatchToProps = dispatch => ({
-  fetchStockIndexItemTest: (symbol) => dispatch(fetchStockIndexItemTest(symbol)) 
+  fetchStockIntradayData: (symbol) => dispatch(fetchStockIntradayData(symbol)) 
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SplashSideBarIndexItem);

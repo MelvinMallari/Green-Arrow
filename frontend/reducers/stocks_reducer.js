@@ -17,7 +17,13 @@ const stocksReducer = (state = {}, action) => {
       newState[action.symbol] = action.stock;
       return newState;
     case RECEIVE_STOCKS:
-      return action.stocks;
+      // Structure state for future calls. Only update non-existing keys.
+      const keys = Object.keys(newState);
+      for (let i = 0; i < action.stocks.length; i++) {
+        let symbol = action.stocks[i].symbol;
+        if (!keys.includes(symbol)) newState[symbol] = action.stocks[i]; 
+      }
+      return newState;
     case RECEIVE_STOCK_DATA:
       newState[action.symbol].stockData = action.stockData;
       return newState;
