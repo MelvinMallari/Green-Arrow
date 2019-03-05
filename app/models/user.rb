@@ -8,6 +8,7 @@
 #  session_token   :string           not null
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
+#  buying_power    :float
 #
 
 class User < ApplicationRecord
@@ -45,4 +46,9 @@ class User < ApplicationRecord
   def ensure_session_token
     self.session_token ||= User.generate_session_token
   end
+
+  has_many :transactions, 
+    primary_key: :id, 
+    foreign_key: :user_id,
+    class_name: :Transaction
 end
