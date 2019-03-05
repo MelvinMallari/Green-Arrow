@@ -6,7 +6,7 @@ import StockChart from '../chart/StockChart';
 import ReactLoading from 'react-loading';
 import StockAbout from './StockAbout';
 import NewsIndex from '../news/NewsIndex';
-import StockSideBar from '../sidecard/StockSideBar';
+import StockSideBar from '../sidebar/StockSideBar';
 import NavBarContainer from '../nav_bar/NavBarContainer';
 
 class StockShow extends React.Component {
