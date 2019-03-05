@@ -4,6 +4,9 @@ Rails.application.routes.draw do
     resource :users, only: [:create]
     resource :session, only: [:create, :destroy]
     resource :stocks, only: [:index]
+    resource :transactions, only: [:create]
+    get 'transactions/', :to => 'transactions#index'
+    get 'transactions/:id', :to => 'transactions#show'
     get 'stocks/:ticker_symbol', :to => 'stocks#show'
     get 'stocks/', :to => 'stocks#index'
   end

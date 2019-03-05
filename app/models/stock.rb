@@ -12,9 +12,4 @@
 class Stock < ApplicationRecord
   validates :ticker_symbol, :company_name, presence: true
   validates :ticker_symbol, uniqueness: true
-
-  has_many :transactions, 
-    primary_key: :id, 
-    foreign_key: :stock_id,
-    class_name: :Transaction
 end

@@ -16,6 +16,9 @@ class User < ApplicationRecord
   validates :username, :session_token, :password_digest, presence: true
   validates :password, length: {minimum: 6, allow_nil: true}
   validates :username, uniqueness: true
+  before_save :default_values
+
+  has_many :transactions 
 
   attr_reader :password
 
@@ -47,8 +50,8 @@ class User < ApplicationRecord
     self.session_token ||= User.generate_session_token
   end
 
-  has_many :transactions, 
-    primary_key: :id, 
-    foreign_key: :user_id,
-    class_name: :Transaction
+  private
+  def default_values
+    self.buying_power ||= "100000";
+  end
 end
