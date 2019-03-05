@@ -117,16 +117,11 @@ div.splash-image {
   -webkit-animation-duration: 2s;
   animation-name: splash;
   animation-duration: 1.5s;
-  // height: 740px;
-  // width: 922px;
 }
 
 .splash-image-bg {
   height: 740px;
   width: 922px;
-  // margin-right: -130px;
-  // display: block;
-  // background-color: powderblue;
 }
 
 @keyframes splash {
@@ -141,4 +136,58 @@ div.splash-image {
   100% {
     transform: translate(0px, 0px);
   }
+}
+
+.splash-sidebar-index-header {
+  padding: 0 24px;
+  display: flex;
+  height: 60px;
+  align-items: center;
+  font-size: 16px;
+  line-height: 22px;
+  font-weight: 600;
+  border-bottom: 1px solid #f4f4f4;
+}
+
+.splash-index-item-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 60px;
+  padding: 0 24px;
+}
+
+.splash-index-item-wrapper {
+  transition: 0.20s;
+}
+
+.splash-index-item-wrapper:hover {
+  background-color: #f4f4f4;
+}
+
+.splash-sidebar-container {
+  margin-left: 72px;
+  width: 276px;
+}
+
+.splash-sidebar-wrapper {
+  box-shadow: 0 0 4px 1px rgba(225, 225, 225, 0.01), 0 3px 24px rgba(225, 225, 225, 0.6);
+  border-radius: 4px;
+  margin-top: 72px;
+  position: fixed;
+  width: 276px;
+}
+
+.tiny-chart {
+  cursor: pointer;
+}
+
+.sidebar-symbol {
+  font-weight: 600;
+  font-size: 13px;
+}
+
+.sidebar-closing-price {
+  font-weight: 600;
+  font-size: 15px;
 }

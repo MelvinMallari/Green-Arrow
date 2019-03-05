@@ -1,5 +1,6 @@
 import React from 'react'
 import TinyChart from '../chart/TinyChart';
+import { Link } from 'react-router-dom';
 
 class SplashSideBarIndexItem extends React.Component {
   constructor(props) {
@@ -32,12 +33,14 @@ class SplashSideBarIndexItem extends React.Component {
     const data = stock.stockIntradayData;
     const close = this.findLatestValidClose(data);
     return(
-      <li>
-        <div>
-          <span>{this.props.symbol}</span>
-          <TinyChart data={data}/>
-          <span>{this.formatMoney(close)}</span>
-        </div>
+      <li className="splash-index-item-wrapper">
+        <Link to={`/stocks/${this.props.symbol}`} >
+          <div className="splash-index-item-container">
+            <span className="sidebar-symbol">{this.props.symbol}</span>
+            <TinyChart data={data} className="tiny-chart" />
+            <span className="sidebar-closing-price">{this.formatMoney(close)}</span>
+          </div>
+        </Link>
       </li>
     );
   }

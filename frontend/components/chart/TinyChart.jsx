@@ -21,6 +21,7 @@ const TinyChart = props => {
           width={60}
           height={16}
           data={data}
+          cursor="pointer"
           margin={{ top: 0, right: 0, left: 0, bottom: 0, }} >
           <CartesianGrid 
             strokeDasharray="3 3" 

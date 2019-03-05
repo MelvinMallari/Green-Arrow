@@ -11,15 +11,21 @@ class SplashSideBarIndex extends React.Component {
   }
   
   render() {
-    debugger;
-    if (!stocksIndex) return null;
-    const symbols = this.generateSymbols(stocksIndex);
+    let symbols = Object.keys(this.props.stocks);
+    if (symbols.length !== 6) return null;
     return (
-      <ul>
-        {
-          symbols.map(symbol => <SplashSideBarIndexItemContainer symbol={symbol} />)
-        }
-      </ul>
+      <div className="splash-sidebar-container">
+        <div className="splash-sidebar-wrapper">
+          <header className="splash-sidebar-index-header">
+            Stocks
+          </header>
+          <ul>
+            {
+              symbols.map(symbol => <SplashSideBarIndexItemContainer symbol={symbol} />)
+            }
+          </ul>
+        </div>
+      </div>
     );
   }
 }
