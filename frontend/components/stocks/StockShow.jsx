@@ -8,6 +8,7 @@ import StockAbout from './StockAbout';
 import NewsIndex from '../news/NewsIndex';
 import StockSideBar from '../sidebar/StockSideBar';
 import NavBarContainer from '../nav_bar/NavBarContainer';
+import { fetchUserData } from '../../util/session_api_util';
 
 class StockShow extends React.Component {
   constructor(props) {
@@ -18,8 +19,9 @@ class StockShow extends React.Component {
   }
 
   componentDidMount() {
-    const { symbol, fetchStock } = this.props;
+    const { symbol, fetchStock, currentUserId, fetchUserData } = this.props;
     fetchStock(symbol);
+    fetchUserData(currentUserId);
   }
 
   componentDidUpdate(oldProps) {
