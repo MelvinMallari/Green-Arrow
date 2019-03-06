@@ -50,6 +50,42 @@ class User < ApplicationRecord
     self.session_token ||= User.generate_session_token
   end
 
+  def current_buying_power
+    total = self.buying_power
+    self.transactions.each do |transaction|
+      # -= because positive share_difference corresponds to buying
+      total -= transaction.share_difference*transaction.share_price
+    end
+    total
+  end
+
+  def portfolio_shares
+    owned_shares = Hash.new(0)
+    self.transactions.each do |transaction|
+      owned_shares[transaction.ticker_symbol] += transaction.share_difference
+    end
+    owned_shares
+  end
+
+  def five_year_data
+    stocks = portfolio_shares
+
+    url = 'https://api.iextrading.com/1.0/stock/market/batch?types=chart&range=5y&symbols='
+    stocks.each { |symbol, _| url += "#{symbol}," }
+    uri = Net::HTTP.get(URI(url))
+    response = JSON.parse(uri)
+
+    res_data = Hash.new(0)
+    stocks.each do |symbol, share_amount|
+      chart_data = response[symbol]['chart']
+      chart_data.each do |data_point|
+        res_data[data_point['date']] += data_point['close'] * share_amount
+      end
+    end
+
+    res_data
+  end
+
   private
   def default_values
     self.buying_power ||= "100000";

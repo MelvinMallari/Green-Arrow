@@ -10,12 +10,11 @@ class TransactionsController < ApplicationController
   def create
     @transaction = Transaction.new(transaction_params)
     @transaction.user_id = current_user.id
-    @transaction.transaction_date = Time.now;
 
     transaction_total = @transaction.share_difference*@transaction.share_price
     shares_owned = current_user.portfolio_shares[@transaction.ticker_symbol]
     
-    if @transaction.share_difference >= 0 && transaction_total > current_user.buying_power
+    if @transaction.share_difference >= 0 && transaction_total > current_user.current_buying_power
       render json: ["Insufficient Buying Power"], status: 401
     elsif @transaction.share_difference <= 0 && shares_owned < @transaction.share_difference.abs
       render json: ["Insufficient Shares"], status: 401

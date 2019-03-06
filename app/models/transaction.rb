@@ -11,14 +11,14 @@
 #  updated_at       :datetime         not null
 #  ticker_symbol    :string           not null
 #
-
+require "date"
 class Transaction < ApplicationRecord
-  validates :user_id, :stock_id, :share_difference, :share_price, :transaction_date, presence: true
+  validates :user_id, :ticker_symbol, :share_difference, :share_price, presence: true
   belongs_to :user
   before_save :default_values
 
   private
   def default_values
-    self.transaction_date ||= Time.now
+    self.transaction_date ||= DateTime.now.to_date
   end
 end
