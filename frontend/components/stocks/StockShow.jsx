@@ -82,11 +82,11 @@ class StockShow extends React.Component {
               <section> <StockAbout stock={stock}/> </section>
               <section> <NewsIndex articles={articles} /> </section>
             </div>
-            <StockSideBar />
+            <StockSideBar stock={stock}/>
           </main>
         </div>
       );
-    }
+t   }
   }
 }
 

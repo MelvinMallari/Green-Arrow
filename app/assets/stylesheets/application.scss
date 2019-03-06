@@ -17,3 +17,7 @@
 @import "components/*";
 
 * {-webkit-font-smoothing: antialiased;}
+
+img {
+  object-fit: contain;
+}

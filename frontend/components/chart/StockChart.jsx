@@ -33,7 +33,11 @@ class StockChart extends React.Component {
 
     let data = stock.stockData.slice(0);
     if (interval === '1D') {
-      return stock.stockIntradayData[0].close;
+      let i = 0;
+      while (!stock.stockIntradayData[i].close) {
+        i++
+      }
+      return stock.stockIntradayData[i].close;
     } else if (interval === '5Y') {
       return data[0].close;
     } else {
@@ -59,11 +63,21 @@ class StockChart extends React.Component {
     return volWeightedAvg;
   }
 
+  calcInitPrice(stock) {
+    const stockIntradayData = stock.stockIntradayData;
+    let i = stockIntradayData.length - 1;
+    while (!stockIntradayData[i].close) {
+      i--;
+    }
+    
+    let currentPrice = stockIntradayData[i].close.toFixed(2);
+    const initPrice = parseFloat(currentPrice);
+    return initPrice;
+  }
+
   initialStockData(stock, reference) {
     const companyName = stock.companyName;
-    const stockData = stock.stockData;
-    const currentPrice = stockData[stockData.length - 1].close.toFixed(2);
-    const initPrice = parseFloat(currentPrice);
+    const initPrice = this.calcInitPrice(stock);
     const priceDifferential = parseFloat((initPrice - reference).toFixed(2));
     const pctDifferential = ((initPrice - reference) / reference).toFixed(2);
 
