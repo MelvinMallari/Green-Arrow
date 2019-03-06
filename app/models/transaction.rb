@@ -19,6 +19,6 @@ class Transaction < ApplicationRecord
 
   private
   def default_values
-    self.transaction_date ||= DateTime.now.to_date
+    self.transaction_date ||= Time.now
   end
 end

@@ -5,6 +5,7 @@ import configureStore from './store/store';
 import Root from './components/root';
 import { fetchStockData, fetchStockNews } from "./util/stock_api_util";
 import { fetchStocks, fetchStockIndexItemTest } from '../frontend/actions/stock_actions';
+import { createTransaction } from '../frontend/actions/transaction_actions';
 
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -27,18 +28,18 @@ document.addEventListener('DOMContentLoaded', () => {
   window.signup = signup;
   window.login = login;
   window.logout = logout;
-  // session_API testing
 
 
   // Stock API testing
   window.fetchStockData = fetchStockData;
   window.fetchStockNews = fetchStockNews;
   window.fetchStocks = fetchStocks;
-  // Stock API testing
 
   // Stock Action Testing
   window.fetchStockIndexItemTest = fetchStockIndexItemTest;
-  // Stock Action Testing
+
+  // Transaction action testing
+  window.createTransaction = createTransaction;
 
   // store testing
   window.getState = store.getState;
