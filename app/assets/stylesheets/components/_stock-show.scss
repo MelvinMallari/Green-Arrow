@@ -62,3 +62,12 @@
 .fa-feather-alt:hover {
   color: $r-green;
 }
+
+.buying-power-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 700;
+  padding: 16px 0;
+  border-top: 1px solid #eee;
+}

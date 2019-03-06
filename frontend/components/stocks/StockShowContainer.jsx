@@ -8,13 +8,13 @@ const mapStateToProps = (state, ownProps) => {
   return ({
     symbol: symbol,
     stocks: state.entities.stocks,
+    users: state.entities.users,
     currentUserId: state.session.id,
   });
 }
 
 const mapDispatchToProps = dispatch => ({
   fetchStock: symbol => dispatch(fetchStock(symbol)),
-  logout: () => dispatch(logout()),
   fetchUserData: userId =>  dispatch(fetchUserData(userId)),
 });
 

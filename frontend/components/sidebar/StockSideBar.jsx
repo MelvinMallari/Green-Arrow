@@ -9,6 +9,7 @@ class StockSideBar extends React.Component {
       share_price: 0,
       ticker_symbol: "",
       estimateTotal: 0,
+      currentUserBuyingPower: 0
     }
   }
   
@@ -16,6 +17,15 @@ class StockSideBar extends React.Component {
   componentDidMount() {
     const { stock } = this.props;
     this.setState({share_price: this.calcMarketPrice(stock)});
+  }
+
+  componentDidUpdate(oldProps) {
+    if (oldProps !== this.props) {
+      const { currentUserInfo } = this.props;
+      this.setState({
+        currentUserBuyingPower: currentUserInfo.current_buying_power
+      });
+    }
   }
 
   handleSubmit(e) {
@@ -53,9 +63,12 @@ class StockSideBar extends React.Component {
 
   render() {
     const {share_price, share_difference, transactionType} = this.state;
-    const { stock } = this.props;
+    const { stock, currentUserInfo } = this.props;
     const marketPrice = this.formatMoney(this.calcMarketPrice(stock));
     const transactionTotal = this.formatMoney(share_price*share_difference);
+    const buyingPower = currentUserInfo.current_buying_power;
+
+    if (buyingPower === undefined) return null;
     return (
       <div className="stock-sidebar-container">
         <div className="stock-sidebar">
@@ -97,6 +110,11 @@ class StockSideBar extends React.Component {
                 type="submit" 
                 value={transactionType === "sell" ? "Submit Sell" : "Submit Buy"}
                 className="submit-order-btn"/>
+            </div>
+            <div className="buying-power-container">
+              <span>
+                {this.formatMoney(buyingPower)} Buying Power Available
+              </span>
             </div>
           </form>
         </div>

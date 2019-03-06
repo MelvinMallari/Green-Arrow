@@ -26,8 +26,9 @@ class StockShow extends React.Component {
 
   componentDidUpdate(oldProps) {
     if (this.props.match.params.symbol !== oldProps.match.params.symbol) {
-      const { symbol, fetchStock } = this.props;
+      const { symbol, fetchStock, currentUserId, fetchUserData } = this.props;
       fetchStock(symbol);
+      fetchUserData(currentUserId);
     }
   }
 
@@ -44,12 +45,13 @@ class StockShow extends React.Component {
   }
 
   render() {
-    const { symbol, stocks, logout } = this.props;
+    const { symbol, stocks, users, currentUserId } = this.props;
     const { interval } = this.state;
     const stock = stocks[symbol];
+    const currentUserInfo = users[currentUserId]
 
     // Check if nested fetch has terminated before rendering
-    if (!stocks[symbol] || !stocks[symbol].stockNews) {
+    if (!stocks[symbol] || !stocks[symbol].stockNews || !currentUserInfo) {
       return (
         <div className='loader-container'>
           <div className='loader'>
@@ -96,7 +98,7 @@ class StockShow extends React.Component {
               <section> <StockAbout stock={stock}/> </section>
               <section> <NewsIndex articles={articles} /> </section>
             </div>
-            <StockSideBar stock={stock}/>
+            <StockSideBar stock={stock} currentUserInfo={currentUserInfo} />
           </main>
         </div>
       );
