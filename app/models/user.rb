@@ -67,7 +67,7 @@ class User < ApplicationRecord
     owned_shares
   end
 
-  def five_year_data
+  def five_year_portfolio
     stocks = portfolio_shares
 
     url = 'https://api.iextrading.com/1.0/stock/market/batch?types=chart&range=5y&symbols='
@@ -78,7 +78,7 @@ class User < ApplicationRecord
     res_data = Hash.new(0)
     stocks.each do |symbol, share_amount|
       chart_data = response[symbol]['chart']
-      chart_data.each do |data_point|
+      chart_data.each do |data_point| 
         res_data[data_point['date']] += data_point['close'] * share_amount
       end
     end

@@ -9,6 +9,7 @@ Rails.application.routes.draw do
     get 'transactions/:id', :to => 'transactions#show'
     get 'stocks/:ticker_symbol', :to => 'stocks#show'
     get 'stocks/', :to => 'stocks#index'
+    get 'users/:id', :to => 'users#show'
   end
   match "*path", to: redirect('/'), via: :all
 end

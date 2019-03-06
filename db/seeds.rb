@@ -9,6 +9,7 @@
 ActiveRecord::Base.transaction do 
   User.destroy_all
   Stock.destroy_all
+  Transaction.destroy_all
 
   demo_account = User.create({username: "dannyYAMMENonThem", password:"password"})
 
@@ -20,4 +21,16 @@ ActiveRecord::Base.transaction do
   Stock.create(ticker_symbol: 'NFLX', company_name: 'Netflix');
   Stock.create(ticker_symbol: 'FB', company_name: 'Facebook');
 
+  
+  Transaction.create!(user_id: User.first.id, 
+                        share_difference: 10, 
+                        share_price: 42, 
+                        transaction_date: DateTime.now.to_date,  
+                        ticker_symbol: "AAPL")
+
+  Transaction.create!(user_id: User.first.id, 
+                        share_difference: 8, 
+                        share_price: 50, 
+                        transaction_date: DateTime.now.to_date,  
+                        ticker_symbol: "TSLA")
 end
