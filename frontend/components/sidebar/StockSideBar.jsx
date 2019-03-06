@@ -52,11 +52,10 @@ class StockSideBar extends React.Component {
   }
 
   render() {
-    const {share_price, share_difference, estimateTotal} = this.state;
+    const {share_price, share_difference, transactionType} = this.state;
     const { stock } = this.props;
     const marketPrice = this.formatMoney(this.calcMarketPrice(stock));
     const transactionTotal = this.formatMoney(share_price*share_difference);
-
     return (
       <div className="stock-sidebar-container">
         <div className="stock-sidebar">
@@ -64,12 +63,12 @@ class StockSideBar extends React.Component {
             <button 
               onClick={() => this.setState({transactionType: "buy"})}
               className={this.setClassName('buy')}>
-              BUY AAPL
+              BUY {stock.ticker_symbol}
             </button>
             <button 
               onClick={() => this.setState({transactionType: "sell"})}
               className={this.setClassName('sell')}>
-              SELL AAPL
+              SELL {stock.ticker_symbol}
             </button>
           </header>
           <form 
@@ -78,7 +77,11 @@ class StockSideBar extends React.Component {
             <div className="sidebar-output">
               <div className="stock-sidebar-shares sidebar-label">
                 <label htmlFor="share-input">Shares</label>
-                <input type="number" placeholder="0" id="share-input" onChange={this.update('share_difference')}/>
+                <input 
+                  type="number" 
+                  placeholder="0" 
+                  id="share-input" 
+                  onChange={this.update('share_difference')}/>
               </div>
               <div className="stock-sidebar-price sidebar-label">
                 <span>Market Price</span>
@@ -92,7 +95,7 @@ class StockSideBar extends React.Component {
             <div className="submit-btn-container">
               <input 
                 type="submit" 
-                value="SUBMIT ORDER" 
+                value={transactionType === "sell" ? "Submit Sell" : "Submit Buy"}
                 className="submit-order-btn"/>
             </div>
           </form>

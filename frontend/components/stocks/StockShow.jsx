@@ -70,12 +70,24 @@ class StockShow extends React.Component {
                   <StockChart stock={stock} interval={interval} />
                   <nav className="interval-nav">
                     <div className="chart-buttons-container">
-                      <button onClick={() => this.setInterval('1D')} className={this.setClassName('1D')}>1D</button>
-                      <button onClick={() => this.setInterval('1W')} className={this.setClassName('1W')}>1W</button>
-                      <button onClick={() => this.setInterval('1M')} className={this.setClassName('1M')}>1M</button>
-                      <button onClick={() => this.setInterval('3M')} className={this.setClassName('3M')}>3M</button>
-                      <button onClick={() => this.setInterval('1Y')} className={this.setClassName('1Y')}>1Y</button>
-                      <button onClick={() => this.setInterval('5Y')} className={this.setClassName('5Y')}>5Y</button>
+                      <button 
+                        onClick={() => this.setInterval('1D')} 
+                        className={this.setClassName('1D')}>1D</button>
+                      <button 
+                        onClick={() => this.setInterval('1W')} 
+                        className={this.setClassName('1W')}>1W</button>
+                      <button 
+                        onClick={() => this.setInterval('1M')} 
+                        className={this.setClassName('1M')}>1M</button>
+                      <button 
+                        onClick={() => this.setInterval('3M')} 
+                        className={this.setClassName('3M')}>3M</button>
+                      <button 
+                        onClick={() => this.setInterval('1Y')} 
+                        className={this.setClassName('1Y')}>1Y</button>
+                      <button 
+                        onClick={() => this.setInterval('5Y')} 
+                        className={this.setClassName('5Y')}>5Y</button>
                     </div>
                   </nav>
               </section>
