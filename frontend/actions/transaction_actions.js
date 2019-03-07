@@ -9,7 +9,7 @@ export const receiveTransaction = transaction => ({
 });
 
 export const receiveTransactionErrors = transactionErrors => ({
-  type: RECEIVE_TRANSACTION,
+  type: RECEIVE_TRANSACTION_ERRORS,
   transactionErrors,
 });
 

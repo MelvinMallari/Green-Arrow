@@ -13,6 +13,17 @@ class StockSideBar extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  componentDidUpdate(oldProps) {
+    debugger;
+    if (oldProps.currentUserInfo !== this.props.currentUserInfo) {
+      const { currentUserInfo } = this.props;
+      this.setState({
+        shareDifference: 0,
+        currentBuyingPower: currentUserInfo.currentBuyingPower,
+      });
+    }
+  }
+
   handleSubmit(e) {
     e.preventDefault();
     const { shareDifference, sharePrice, transactionType } = this.state;
