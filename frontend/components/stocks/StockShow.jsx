@@ -6,16 +6,13 @@ import StockChart from '../chart/StockChart';
 import ReactLoading from 'react-loading';
 import StockAbout from './StockAbout';
 import NewsIndex from '../news/NewsIndex';
-import StockSideBar from '../sidebar/StockSideBar';
+import StockSideBarContainer from '../sidebar/StockSideBarContainer';
 import NavBarContainer from '../nav_bar/NavBarContainer';
-import { fetchUserData } from '../../util/session_api_util';
 
 class StockShow extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      interval: '5Y',
-    }
+    this.state = { interval: '5Y', }
   }
 
   componentDidMount() {
@@ -98,7 +95,7 @@ class StockShow extends React.Component {
               <section> <StockAbout stock={stock}/> </section>
               <section> <NewsIndex articles={articles} /> </section>
             </div>
-            <StockSideBar 
+            <StockSideBarContainer
               stock={stock} 
               currentUserInfo={currentUserInfo}
               createTransaction={createTransaction} />

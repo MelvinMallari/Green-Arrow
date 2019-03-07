@@ -1,4 +1,5 @@
 import React from 'react';
+import { debug } from 'util';
 
 class StockSideBar extends React.Component {
   constructor(props) {
@@ -14,8 +15,8 @@ class StockSideBar extends React.Component {
   }
 
   componentDidUpdate(oldProps) {
-    debugger;
-    if (oldProps.currentUserInfo !== this.props.currentUserInfo) {
+    if (oldProps.transactions !== this.props.transactions) {
+      debugger;
       const { currentUserInfo } = this.props;
       this.setState({
         shareDifference: 0,
@@ -45,6 +46,7 @@ class StockSideBar extends React.Component {
       }
     }
     if (shareDifference === 0) return null;
+    // debugger;
     createTransaction(transaction);
   }
 
@@ -105,6 +107,7 @@ class StockSideBar extends React.Component {
     const marketPrice = this.formatMoney(this.calcMarketPrice(stock));
     const transactionTotal = this.formatMoney(sharePrice*shareDifference);
     const buyingPower = currentUserInfo.currentBuyingPower;
+
     if (!buyingPower) return null;
     this.calcSharesOwned();
     return (

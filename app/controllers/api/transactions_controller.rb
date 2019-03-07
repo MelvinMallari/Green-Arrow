@@ -20,7 +20,8 @@ class Api::TransactionsController < ApplicationController
       render json: ["Insufficient Shares"], status: 401
     else
       if @transaction.save 
-        render json: ["Transaction Succesful"], status: 200
+        render "api/transactions/show"
+        # render json: ["Transaction Succesful"], status: 200
       else
         render json: @transaction.errors.full_messages, status: 422
       end
