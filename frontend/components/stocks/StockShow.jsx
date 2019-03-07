@@ -45,7 +45,7 @@ class StockShow extends React.Component {
   }
 
   render() {
-    const { symbol, stocks, users, currentUserId } = this.props;
+    const { symbol, stocks, users, currentUserId, createTransaction } = this.props;
     const { interval } = this.state;
     const stock = stocks[symbol];
     const currentUserInfo = users[currentUserId]
@@ -98,11 +98,14 @@ class StockShow extends React.Component {
               <section> <StockAbout stock={stock}/> </section>
               <section> <NewsIndex articles={articles} /> </section>
             </div>
-            <StockSideBar stock={stock} currentUserInfo={currentUserInfo} />
+            <StockSideBar 
+              stock={stock} 
+              currentUserInfo={currentUserInfo}
+              createTransaction={createTransaction} />
           </main>
         </div>
       );
-t   }
+    }
   }
 }
 
