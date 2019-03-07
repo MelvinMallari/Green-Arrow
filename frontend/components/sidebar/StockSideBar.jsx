@@ -14,15 +14,15 @@ class StockSideBar extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
 }
 
-  componentWillReceiveProps(nextProps) {
-    if (this.props.transactions !== nextProps.transactions) {
-      const nextBuyingPower = nextProps.currentUserInfo.currentBuyingPower;
-      this.setState({
-        shareDifference: 0,
-        currentBuyingPower: nextBuyingPower,
-      });
-    }
-} 
+//   componentWillReceiveProps(nextProps) {
+//     if (this.props.transactions !== nextProps.transactions) {
+//       const nextBuyingPower = nextProps.currentUserInfo.currentBuyingPower;
+//       this.setState({
+//         shareDifference: 0,
+//         currentBuyingPower: nextBuyingPower,
+//       });
+//     }
+// } 
 
   handleSubmit(e) {
     e.preventDefault();
@@ -68,12 +68,12 @@ class StockSideBar extends React.Component {
     this.setState({sharePrice: this.calcMarketPrice(stock)});
   }
 
-  componentDidUpdate(oldProps) {
-    if (oldProps !== this.props) {
-      const { currentUserInfo } = this.props;
-      this.setState({ currentBuyingPower: currentUserInfo.currrentBuyingPower });
-    }
-  }
+  // componentDidUpdate(oldProps) {
+  //   if (oldProps !== this.props) {
+  //     const { currentUserInfo } = this.props;
+  //     this.setState({ currentBuyingPower: currentUserInfo.currrentBuyingPower });
+  //   }
+  // }
   
   setClassName(type) {
     if (this.state.transactionType === type) {
