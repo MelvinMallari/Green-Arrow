@@ -44,7 +44,7 @@ export const receiveStockNews = (symbol, stockNews) => ({
 
 export const fetchStock = symbol => dispatch => (
   StockApiUtil.fetchStock(symbol)
-    .then(stock => dispatch(receiveStock(stock.ticker_symbol, stock)))
+    .then(stock => dispatch(receiveStock(stock.tickerSymbol, stock)))
     .then(() => dispatch(fetchStockData(symbol)))
     .then(() => dispatch(fetchStockIntradayData(symbol)))
     .then(() => dispatch(fetchStockInfo(symbol)))
@@ -78,6 +78,6 @@ export const fetchStockNews = symbol => dispatch => (
 
 export const fetchStockIndexItemTest = symbol => dispatch => (
   StockApiUtil.fetchStock(symbol)
-    .then(stock => dispatch(receiveStock(stock.ticker_symbol, stock)))
+    .then(stock => dispatch(receiveStock(stock.tickerSymbol, stock)))
     .then(() => dispatch(fetchStockIntradayData(symbol)))
 );

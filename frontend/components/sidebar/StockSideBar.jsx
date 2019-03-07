@@ -5,25 +5,41 @@ class StockSideBar extends React.Component {
     super(props);
     this.state = {
       transactionType: "buy",
-      share_difference: 0,
-      share_price: 0,
-      ticker_symbol: "",
+      shareDifference: 0,
+      sharePrice: 0,
+      tickerSymbol: "",
       estimateTotal: 0,
-      currentUserBuyingPower: 0
+      currentBuyingPower: 0
     }
   }
-  
+
+  calcMarketPrice(stock) {
+    const stockIntradayData = stock.stockIntradayData;
+    let i = stockIntradayData.length - 1;
+    while (!stockIntradayData[i].close) {
+      i--;
+    }
+    
+    let currentPrice = stockIntradayData[i].close.toFixed(2);
+    const initPrice = parseFloat(currentPrice);
+    return initPrice;
+  } 
+
+  calcSharesOwned() {
+    const { stock, currentUserInfo: { portfolioShares } } = this.props;
+    debugger;
+  }
 
   componentDidMount() {
     const { stock } = this.props;
-    this.setState({share_price: this.calcMarketPrice(stock)});
+    this.setState({sharePrice: this.calcMarketPrice(stock)});
   }
 
   componentDidUpdate(oldProps) {
     if (oldProps !== this.props) {
       const { currentUserInfo } = this.props;
       this.setState({
-        currentUserBuyingPower: currentUserInfo.current_buying_power
+        currentBuyingPower: currentUserInfo.currrentBuyingPower
       });
     }
   }
@@ -45,30 +61,18 @@ class StockSideBar extends React.Component {
     return number.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
   }
 
-  calcMarketPrice(stock) {
-    const stockIntradayData = stock.stockIntradayData;
-    let i = stockIntradayData.length - 1;
-    while (!stockIntradayData[i].close) {
-      i--;
-    }
-    
-    let currentPrice = stockIntradayData[i].close.toFixed(2);
-    const initPrice = parseFloat(currentPrice);
-    return initPrice;
-  }
-
   update(field) {
     return e => this.setState({ [field]: e.currentTarget.value });
   }
 
   render() {
-    const {share_price, share_difference, transactionType} = this.state;
+    const {sharePrice, shareDifference, transactionType} = this.state;
     const { stock, currentUserInfo } = this.props;
     const marketPrice = this.formatMoney(this.calcMarketPrice(stock));
-    const transactionTotal = this.formatMoney(share_price*share_difference);
-    const buyingPower = currentUserInfo.current_buying_power;
-
-    if (buyingPower === undefined) return null;
+    const transactionTotal = this.formatMoney(sharePrice*shareDifference);
+    const buyingPower = currentUserInfo.currentBuyingPower;
+    if (!buyingPower) return null;
+    debugger;
     return (
       <div className="stock-sidebar-container">
         <div className="stock-sidebar">
@@ -76,12 +80,12 @@ class StockSideBar extends React.Component {
             <button 
               onClick={() => this.setState({transactionType: "buy"})}
               className={this.setClassName('buy')}>
-              BUY {stock.ticker_symbol}
+              BUY {stock.tickerSymbol}
             </button>
             <button 
               onClick={() => this.setState({transactionType: "sell"})}
               className={this.setClassName('sell')}>
-              SELL {stock.ticker_symbol}
+              SELL {stock.tickerSymbol}
             </button>
           </header>
           <form 
@@ -94,7 +98,7 @@ class StockSideBar extends React.Component {
                   type="number" 
                   placeholder="0" 
                   id="share-input" 
-                  onChange={this.update('share_difference')}/>
+                  onChange={this.update('shareDifference')}/>
               </div>
               <div className="stock-sidebar-price sidebar-label">
                 <span>Market Price</span>
