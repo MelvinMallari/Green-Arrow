@@ -1,20 +1,22 @@
 import { connect } from 'react-redux';
 import SplashLoggedIn from "./SplashLoggedIn";
-import { logout } from '../../actions/session_actions';
+import { logout, fetchUserData } from '../../actions/session_actions';
 import { fetchStock } from '../../actions/stock_actions';
 import { fetchSplashNews } from '../../actions/news_actions';
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = ({entities: {stocks, news, users}, session}) => {
   return ({
-    stocks: state.entities.stocks,
-    splashNews: state.entities.news
+    stocks: stocks,
+    splashNews: news,
+    currentUser: users[session.id],
   });
 }
 
 const mapDispatchToProps = dispatch => ({
   logout: () => dispatch(logout()),
-  fetchStock: (symbol) => dispatch(fetchStock(symbol)),
-  fetchSplashNews: () => dispatch(fetchSplashNews())
+  fetchStock: symbol => dispatch(fetchStock(symbol)),
+  fetchSplashNews: () => dispatch(fetchSplashNews()),
+  fetchUserData: userId => dispatch(fetchUserData(userId)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SplashLoggedIn);

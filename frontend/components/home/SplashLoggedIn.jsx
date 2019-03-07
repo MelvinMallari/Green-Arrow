@@ -7,20 +7,23 @@ import ReactLoading from 'react-loading';
 import StockChart from '../chart/StockChart';
 import NewsIndex from '../news/NewsIndex';
 import SplashSideBarIndexContainer from '../sidebar/SplashSideBarIndexContainer';
+import { fetchUserData } from '../../actions/session_actions';
+import PortfolioChart from '../chart/PortfolioChart';
 
 class SplashLoggedIn extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       interval: '5Y',
-      symbol: 'AAPL'
+      // symbol: 'AAPL'
     }
   }
 
   componentDidMount() {
-    const { fetchStock, fetchSplashNews } = this.props;
-    fetchStock(this.state.symbol);
+    const { currentUser, fetchSplashNews, fetchUserData } = this.props;
+    // fetchStock(this.state.symbol);
     fetchSplashNews();
+    fetchUserData(currentUser.id);
   }
 
   setInterval(range) {
@@ -35,13 +38,15 @@ class SplashLoggedIn extends React.Component {
     }
   }
 
+
   render() {
-    const { interval, symbol } = this.state;
-    const { stocks, splashNews } = this.props;
-    const stock = stocks[symbol];
+    const { interval } = this.state;
+    const { stocks, splashNews, currentUser } = this.props;
+    // const stock = stocks[symbol];
     const articles = splashNews.articles;
 
-    if (!stocks[symbol] || !stocks[symbol].stockNews || !articles) {
+    // return null;
+    if (!currentUser.oneDayPortfolio || !articles) {
       return (
         <div className='loader-container'>
           <div className='loader'>
@@ -60,9 +65,13 @@ class SplashLoggedIn extends React.Component {
           <main className="main-container">
               <div className="stock-info-container">
                 <section className="chart-container">
-                    <StockChart 
+                    <PortfolioChart 
+                      oneDayPortfolioData={currentUser.oneDayPortfolio}
+                      fiveYearPortfolioData={currentUser.fiveYearPortfolio}
+                      interval={interval}/>
+                    {/* <StockChart 
                       stock={stock} 
-                      interval={interval} />
+                      interval={interval} /> */}
                     <nav className="interval-nav">
                       <div className="chart-buttons-container">
                         <button 

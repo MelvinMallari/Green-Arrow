@@ -115,7 +115,7 @@ class StockChart extends React.Component {
     const { stock } = this.props;
 
     const [companyName, initPrice, initPriceDiff, initPctDiff] = this.initialStockData(stock, diffReference);
-
+    debugger;
     return(
       <div>
         <header className="stock-info">
@@ -140,6 +140,7 @@ class StockChart extends React.Component {
             hide={true} />
           <YAxis 
             hide={true}
+            dataKey="close" 
             domain={this.calcDomain(data)} />
           <Tooltip  
             content={<ToolTip 

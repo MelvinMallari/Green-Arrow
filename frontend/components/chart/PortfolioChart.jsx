@@ -20,6 +20,11 @@ const INTERVAL_TO_AMOUNT_DATAPOINTS = {
 
 class PortfolioChart extends React.Component {
 
+
+  constructor(props) {
+    super(props);
+  }
+
   calcDomain(data) {
     return [Math.min(...data), Math.max(...data)];
   }
@@ -28,66 +33,63 @@ class PortfolioChart extends React.Component {
     return data.length < end ? data.length : end;
   }
 
-  findReference() {
-    const { currentUser, interval } = this.props;
-    let reference, i;
-    if (interval === "1D") {
+  findReference(data) {
+    let values = Object.values(data);
 
-    } else {
-
+    for (let i = 0; i < data.length - 1; i++) {
+      let reference = values[i]
+      if (reference) return reference;
     }
-    return reference;
+    return 0;
   }
 
-  calcVolWeightedAvg(sampleData) {
-    let sumVolPrice, sumVol, volWeightedAvg;
-    sumVolPrice = sumVol = volWeightedAvg = 0;
-
-    for (let i = 0; i < sampleData.length; i++) {
-      sumVolPrice += sampleData[i].close * sampleData[i].volume;
-      sumVol += sampleData[i].volume;
-    }
-
-    volWeightedAvg = (sumVolPrice / sumVol).toFixed(2);
-    return volWeightedAvg;
-  }
-
-  calcInitPrice(stock) {
-    const stockIntradayData = stock.stockIntradayData;
-    let i = stockIntradayData.length - 1;
-    while (!stockIntradayData[i].close) {
+  calcInitPrice(intradayData) {
+    let i = intradayData.length - 1;
+    while (!intradayData[i].close) {
       i--;
     }
-    
-    let currentPrice = stockIntradayData[i].close.toFixed(2);
-    const initPrice = parseFloat(currentPrice);
-    return initPrice;
+    return parseFloat(intradayData[i].close.toFixed(2));
   }
 
-  initialStockData(stock, reference) {
-    const companyName = stock.companyName;
-    const initPrice = this.calcInitPrice(stock);
+  initialDisplayData(intradayData, reference) {
+    const initPrice = this.calcInitPrice(intradayData);
     const priceDifferential = parseFloat((initPrice - reference).toFixed(2));
     const pctDifferential = ((initPrice - reference) / reference).toFixed(2);
 
+    return [this.formatMoney(initPrice), this.formatMoney(priceDifferential), pctDifferential]
+  }
 
-    return [companyName, this.formatMoney(initPrice), this.formatMoney(priceDifferential), pctDifferential]
+  structureData(data, interval) {
+    // structures data for charting. 
+    let res = [];
+    let dataPoint;
+    const labels = Object.keys(data);
+    for (let i = 0; i < labels.length - 1; i++) {
+      if (interval === '1D') {
+        dataPoint = { label: labels[i], close: data[labels[i]] };
+      } else {
+        dataPoint = { date: labels[i], close: data[labels[i]] };
+      }
+      res.push(dataPoint)
+    }
+    return res;
   }
 
   filterData() {
-    const { interval, stock  } = this.props;
+    let { interval, oneDayPortfolioData, fiveYearPortfolioData } = this.props;
 
     // returns relevant section of data given amount of data points
     let range = INTERVAL_TO_AMOUNT_DATAPOINTS[interval];
 
-    let data;
     // handle dataSet differently for intraday data
     if (interval === '1D') {
-      data = stock.stockIntradayData;
+      oneDayPortfolioData = this.structureData(oneDayPortfolioData, interval);
       // Handle intraday data in 5 minute increments
-      return data.filter((_, i) => { if (i === 0 || i % 5 === 0 || i === 390) return true; });
+      return oneDayPortfolioData.filter(
+              (_, i) => { if (i === 0 || i % 5 === 0 || i === 390) return true; });
     } else {
-      data = stock.stockData.slice(0);
+      fiveYearPortfolioData = this.structureData(fiveYearPortfolioData, interval);
+      let data = fiveYearPortfolioData.slice(0);
       let end = this.calcEndIndex(data, range);
       return data.reverse().slice(0, end).reverse();
     }
@@ -99,16 +101,15 @@ class PortfolioChart extends React.Component {
   }
 
   render() {
-    const data = this.filterData();
-    const diffReference = this.calcDiffReference();
-    const { stock } = this.props;
-
-    const [companyName, initPrice, initPriceDiff, initPctDiff] = this.initialStockData(stock, diffReference);
+    const filteredData = this.filterData();
+    const diffReference = this.findReference(filteredData).close
+    debugger;
+    const [initPrice, initPriceDiff, initPctDiff] = this.initialDisplayData(filteredData, diffReference);
 
     return(
       <div>
         <header className="stock-info">
-          <h1 className="company-name">{companyName}</h1>
+          <h1 className="company-name">Portfolio</h1>
           <div><span id="price">{initPrice}</span></div>
           <div className="price-diff">
             <span id="price-diff" className="diff"> {initPriceDiff}</span>
@@ -118,18 +119,19 @@ class PortfolioChart extends React.Component {
         <LineChart
           width={676}
           height={196}
-          data={data}
+          data={filteredData}
           margin={{ top: 0, right: 0, left: 0, bottom: 0, }} >
           <CartesianGrid 
             strokeDasharray="3 3" 
             horizontal={false} 
             vertical={false} />
           <XAxis 
-            dataKey="date" 
+            dataKey="label" 
             hide={true} />
           <YAxis 
             hide={true}
-            domain={this.calcDomain(data)} />
+            dataKey="close" 
+            domain={this.calcDomain(filteredData)} />
           <Tooltip  
             content={<ToolTip 
                       interval={this.props.interval} 
