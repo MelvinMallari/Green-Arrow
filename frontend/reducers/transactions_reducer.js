@@ -5,10 +5,9 @@ const transactionsReducer = (state = {}, action) => {
   Object.freeze(state);
 
   let newState = merge({}, state);
-
   switch(action.type) {
     case RECEIVE_TRANSACTION:
-      newState = merge(newState, action.transaction);
+      newState[action.transaction.id] = action.transaction;
       return newState;
     default:
       return state;

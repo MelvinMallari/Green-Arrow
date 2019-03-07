@@ -9,45 +9,40 @@ class StockSideBar extends React.Component {
       shareDifference: 0,
       sharePrice: 0,
       estimateTotal: 0,
-      currentBuyingPower: 0
+      currentBuyingPower: this.props.currentUserInfo.currentBuyingPower
     }
     this.handleSubmit = this.handleSubmit.bind(this);
-  }
+}
 
-  componentDidUpdate(oldProps) {
-    if (oldProps.transactions !== this.props.transactions) {
-      debugger;
-      const { currentUserInfo } = this.props;
+  componentWillReceiveProps(nextProps) {
+    if (this.props.transactions !== nextProps.transactions) {
+      const nextBuyingPower = nextProps.currentUserInfo.currentBuyingPower;
       this.setState({
         shareDifference: 0,
-        currentBuyingPower: currentUserInfo.currentBuyingPower,
+        currentBuyingPower: nextBuyingPower,
       });
     }
-  }
+} 
 
   handleSubmit(e) {
     e.preventDefault();
     const { shareDifference, sharePrice, transactionType } = this.state;
     const { currentUserInfo, createTransaction, stock } = this.props;
     let transaction;
-    if (transactionType === "buy") {
-      transaction = {
-        user_id: currentUserInfo.id,
-        share_difference: shareDifference,
-        share_price: sharePrice,
-        ticker_symbol: stock.tickerSymbol,
-      }
-    } else {
-      transaction = {
-        user_id: currentUserInfo.id,
-        share_difference: shareDifference*-1,
-        share_price: sharePrice,
-        ticker_symbol: stock.tickerSymbol,
-      }
+    const sign = (transactionType === "buy" ? 1 : -1)
+
+    transaction = {
+      user_id: currentUserInfo.id,
+      share_difference: shareDifference*sign,
+      share_price: sharePrice,
+      ticker_symbol: stock.tickerSymbol,
     }
+
     if (shareDifference === 0) return null;
-    // debugger;
     createTransaction(transaction);
+    // this.setState({
+    //     shareDifference: 0,
+    //     currentBuyingPower: currentUserInfo.currentBuyingPower,})
   }
 
   calcMarketPrice(stock) {
@@ -79,8 +74,8 @@ class StockSideBar extends React.Component {
       this.setState({ currentBuyingPower: currentUserInfo.currrentBuyingPower });
     }
   }
+  
   setClassName(type) {
-
     if (this.state.transactionType === type) {
       return "interval-btn active-button";
     } else {
@@ -133,7 +128,7 @@ class StockSideBar extends React.Component {
                 <label htmlFor="share-input">Shares</label>
                 <input 
                   type="number" 
-                  placeholder="0" 
+                  value={this.state.shareDifference}
                   id="share-input" 
                   onChange={this.update('shareDifference')}/>
               </div>

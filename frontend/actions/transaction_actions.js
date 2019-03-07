@@ -15,6 +15,9 @@ export const receiveTransactionErrors = transactionErrors => ({
 
 export const createTransaction = userTransaction => dispatch => (
   TransactionApiUtil.createTransaction(userTransaction)
-    .then(transaction => dispatch(receiveTransaction(transaction)),
+    .then(transaction => {
+        dispatch(receiveTransaction(transaction))
+        window.location.reload();
+       },
       errors => dispatch(receiveTransactionErrors(errors.responseJSON)))
 );

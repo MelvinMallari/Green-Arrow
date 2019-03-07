@@ -1,9 +1,9 @@
 import { connect } from 'react-redux';
 import StockSideBar from './StockSideBar';
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = ({entities: { transactions }}) => {
   return ({
-    transactions: state.entities.transactions    
+    transactions: transactions,    
   });
 }
 

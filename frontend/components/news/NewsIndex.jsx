@@ -10,7 +10,11 @@ const NewsIndex = props => {
       </header>
       <ul>
         {
-          articles.map(article => <NewsIndexItem article={article} key={article.publishedAt}/>)
+          articles.map(article => (
+            <NewsIndexItem 
+              article={article} 
+              key={article.publishedAt} />)
+            )
         }
       </ul>
     </div>

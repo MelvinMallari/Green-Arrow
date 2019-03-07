@@ -1,3 +1,4 @@
+json.id @transaction.id
 json.userId @transaction.user_id
 json.shareDifference @transaction.share_difference
 json.sharePrice @transaction.share_price
