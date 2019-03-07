@@ -11,6 +11,8 @@
 #  buying_power    :float
 #
 
+require 'net/http'
+
 class User < ApplicationRecord
   before_validation :ensure_session_token
   validates :username, :session_token, :password_digest, presence: true
