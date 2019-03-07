@@ -9,7 +9,6 @@ const mapStateToProps = (state, ownProps) => {
   return ({
     symbol: symbol,
     stock: stock,
-    test: 'hello'
   });
 }
 

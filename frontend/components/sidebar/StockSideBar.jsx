@@ -1,7 +1,7 @@
 import React from 'react';
-import { debug } from 'util';
 
 class StockSideBar extends React.Component {
+  // TODO: Figure out how to render given transaction
   constructor(props) {
     super(props);
     this.state = {
@@ -14,15 +14,6 @@ class StockSideBar extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
 }
 
-//   componentWillReceiveProps(nextProps) {
-//     if (this.props.transactions !== nextProps.transactions) {
-//       const nextBuyingPower = nextProps.currentUserInfo.currentBuyingPower;
-//       this.setState({
-//         shareDifference: 0,
-//         currentBuyingPower: nextBuyingPower,
-//       });
-//     }
-// } 
 
   handleSubmit(e) {
     e.preventDefault();

@@ -19,8 +19,6 @@ const INTERVAL_TO_AMOUNT_DATAPOINTS = {
 };
 
 class PortfolioChart extends React.Component {
-
-
   constructor(props) {
     super(props);
   }
@@ -103,7 +101,6 @@ class PortfolioChart extends React.Component {
   render() {
     const filteredData = this.filterData();
     const diffReference = this.findReference(filteredData).close
-    debugger;
     const [initPrice, initPriceDiff, initPctDiff] = this.initialDisplayData(filteredData, diffReference);
 
     return(

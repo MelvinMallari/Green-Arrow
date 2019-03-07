@@ -69,16 +69,14 @@ class User < ApplicationRecord
     owned_shares
   end
 
-  def one_day_portfolio
-    stocks = portfolio_shares
-
+  def one_day_portfolio  
     url = 'https://api.iextrading.com/1.0/stock/market/batch?types=chart&range=1d&symbols='
-    stocks.each { |symbol, _| url += "#{symbol}," }
-    uri = Net::HTTP.get(URI(url))
-    response = JSON.parse(uri)
+    shares = portfolio_shares
+    shares.each { |symbol, _| url += "#{symbol}," }
+    response = JSON.parse(Net::HTTP.get(URI(url)))
 
     res_data = Hash.new(0)
-    stocks.each do |symbol, share_amount|
+    shares.each do |symbol, share_amount|
       chart_data = response[symbol]['chart']
       chart_data.each do |data_point| 
         res_data[data_point['label']] += data_point['close'] * share_amount if data_point['close']
@@ -89,15 +87,13 @@ class User < ApplicationRecord
   end
 
   def five_year_portfolio
-    stocks = portfolio_shares
-
     url = 'https://api.iextrading.com/1.0/stock/market/batch?types=chart&range=5y&symbols='
-    stocks.each { |symbol, _| url += "#{symbol}," }
-    uri = Net::HTTP.get(URI(url))
-    response = JSON.parse(uri)
+    shares = portfolio_shares
+    shares.each { |symbol, _| url += "#{symbol}," }
+    response = JSON.parse(Net::HTTP.get(URI(url)))
 
     res_data = Hash.new(0)
-    stocks.each do |symbol, share_amount|
+    shares.each do |symbol, share_amount|
       chart_data = response[symbol]['chart']
       chart_data.each do |data_point| 
         res_data[data_point['date']] += data_point['close'] * share_amount if data_point['close']

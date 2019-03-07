@@ -42,6 +42,12 @@ export const receiveStockNews = (symbol, stockNews) => ({
   stockNews,
 });
 
+
+export const prefetchStock = symbol => dispatch => (
+  StockApiUtil.fetchStock(symbol)
+    .then(stock => dispatch(receiveStock(stock.tickerSymbol, stock)))
+);
+
 export const fetchStock = symbol => dispatch => (
   StockApiUtil.fetchStock(symbol)
     .then(stock => dispatch(receiveStock(stock.tickerSymbol, stock)))

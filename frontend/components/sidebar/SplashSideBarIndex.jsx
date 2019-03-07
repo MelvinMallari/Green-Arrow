@@ -3,30 +3,36 @@ import SplashSideBarIndexItemContainer from './SplashSideBarIndexItemContainer';
 
 class SplashSideBarIndex extends React.Component {
   componentDidMount() {
-    this.props.fetchStocks();
-  }
+    const { prefetchStock, currentUser } = this.props;
+    const portfolioSymbols = Object.keys(currentUser.portfolioShares);
+    for (let i = 0; i < portfolioSymbols.length; i++) {
+      prefetchStock(portfolioSymbols[i]);
+    }
+ }
 
   generateSymbols(stocksIndex) {
     return stocksIndex.map(stock => stock.symbol);
   }
   
   render() {
-    let symbols = Object.keys(this.props.stocks);
-    if (symbols.length !== 6) return null;
-    return (
+    const { stocks, currentUser } = this.props;
+    const portfolioSymbols = Object.keys(currentUser.portfolioShares);
+    if ( Object.keys(stocks).length < portfolioSymbols.length) return null;
+    return(
       <div className="splash-sidebar-container">
         <div className="splash-sidebar-wrapper">
           <header className="splash-sidebar-index-header">
-            Stocks
+            Portfolio
           </header>
           <ul>
             {
-              symbols.map(symbol => <SplashSideBarIndexItemContainer symbol={symbol} />)
+              portfolioSymbols.map(symbol => (
+                <SplashSideBarIndexItemContainer symbol={symbol} />))
             }
           </ul>
         </div>
-      </div>
-    );
+      </div> 
+    )
   }
 }
 

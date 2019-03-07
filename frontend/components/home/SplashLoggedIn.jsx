@@ -6,7 +6,7 @@ import NavBarContainer from '../nav_bar/NavBarContainer';
 import ReactLoading from 'react-loading';
 import StockChart from '../chart/StockChart';
 import NewsIndex from '../news/NewsIndex';
-import SplashSideBarIndexContainer from '../sidebar/SplashSideBarIndexContainer';
+import SplashSideBarIndex from '../sidebar/SplashSideBarIndex';
 import { fetchUserData } from '../../actions/session_actions';
 import PortfolioChart from '../chart/PortfolioChart';
 
@@ -15,13 +15,11 @@ class SplashLoggedIn extends React.Component {
     super(props);
     this.state = {
       interval: '5Y',
-      // symbol: 'AAPL'
     }
   }
 
   componentDidMount() {
     const { currentUser, fetchSplashNews, fetchUserData } = this.props;
-    // fetchStock(this.state.symbol);
     fetchSplashNews();
     fetchUserData(currentUser.id);
   }
@@ -41,11 +39,9 @@ class SplashLoggedIn extends React.Component {
 
   render() {
     const { interval } = this.state;
-    const { stocks, splashNews, currentUser } = this.props;
-    // const stock = stocks[symbol];
+    const { prefetchStock, splashNews, currentUser, stocks } = this.props;
     const articles = splashNews.articles;
 
-    // return null;
     if (!currentUser.oneDayPortfolio || !articles) {
       return (
         <div className='loader-container'>
@@ -97,7 +93,10 @@ class SplashLoggedIn extends React.Component {
                   <section> <NewsIndex articles={articles} /> </section>
                 </section>
               </div>
-              <SplashSideBarIndexContainer />
+              <SplashSideBarIndex
+                prefetchStock={prefetchStock}
+                currentUser={currentUser}
+                stocks={stocks} />
           </main>
         </div>
       );
