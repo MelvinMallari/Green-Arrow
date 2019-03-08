@@ -9,11 +9,12 @@ class NavSearchBar extends React.Component {
     this.update = this.update.bind(this);
     this.state = {
       searchInput: "",
+      hidden: false, 
     }
   }
 
   componentDidMount() {
-    if (!this.props.stocks.length) {
+    if (!this.props.stocks) {
       this.props.fetchStocks();
     }
   }
@@ -35,10 +36,10 @@ class NavSearchBar extends React.Component {
         let stock = stocks[i];
         if (this.queryMatch(stock)) {
           res.push(
-              <li key={stock.symbol}>
-                <Link to={`/stocks/${stock.symbol}`}>
-                  <span>{stock.symbol}</span>
-                  <span>{stock.name}</span>
+              <li key={stock.symbol} className="search-item">
+                <Link to={`/stocks/${stock.symbol}`} className="search-item-wrapper">
+                  <span className="search-item-symbol">{stock.symbol}</span>
+                  <span className="search-item-name">{stock.name}</span>
                 </Link>
               </li>
           );
@@ -59,18 +60,19 @@ class NavSearchBar extends React.Component {
 
   render() {
     return (
-      <div>
-        <input 
-          type="text"
-          placeholder="search"
-          className="search-input"
-          value={this.state.searchInput}
-          onChange={this.update("searchInput")}/>
-          <div>
-            <ul className="search-result">
+      <div className="search-wrapper">
+        <i className='fas fa-search fa-2x'></i>
+        <div className="search-input-wrapper">
+          <input 
+            type="text"
+            placeholder="Search"
+            className="search-input"
+            value={this.state.searchInput}
+            onChange={this.update("searchInput")}/>
+            <ul className="search-result"> 
               {this.queryStocks()}
             </ul>
-          </div>
+        </div>
       </div>
     ); 
   }

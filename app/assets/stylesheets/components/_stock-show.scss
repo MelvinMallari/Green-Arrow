@@ -31,13 +31,14 @@
   display: flex;
   justify-content: space-between;
   width: 125px;
+  margin-left: 250px;
 }
 
 .nav-logged-in-content {
   display: flex;
   width: 1000px;
   height: 72px;
-  justify-content: space-between;
+  // justify-content: space-between;
 }
 
 .active-button {
