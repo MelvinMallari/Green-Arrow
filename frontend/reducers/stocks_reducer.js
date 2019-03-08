@@ -23,6 +23,8 @@ const stocksReducer = (state = {}, action) => {
         let symbol = action.stocks[i].symbol;
         if (!keys.includes(symbol)) newState[symbol] = action.stocks[i]; 
       }
+      // newState.allStocks = Object.values(action.stocks);
+      // debugger;
       return newState;
     case RECEIVE_STOCK_DATA:
       newState[action.symbol].stockData = action.stockData;

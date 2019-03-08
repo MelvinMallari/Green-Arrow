@@ -7,6 +7,14 @@ class StockAbout extends React.Component {
     return number.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
   }
 
+  parseWebsite(website) {
+    let i = 0;
+    while (website[i] !== '.') {
+      i++
+    }
+    return website.slice(i+1);
+  }
+
   render() {
     const { stock } = this.props;
     return(
@@ -34,7 +42,8 @@ class StockAbout extends React.Component {
           </div>
           <div>
             <div className="about-info-label">Website</div>
-            <div><a href={stock.website} className='website-link'>{stock.website}</a></div>
+            <div><a href={stock.website} className='website-link'>
+                {this.parseWebsite(stock.website)}</a></div>
           </div>
           <div>
             <div className="about-info-label">Market Cap</div>

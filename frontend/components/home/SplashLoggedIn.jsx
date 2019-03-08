@@ -56,7 +56,8 @@ class SplashLoggedIn extends React.Component {
     } else {
       return(
         <div>
-          <NavBarContainer />
+          <NavBarContainer
+            stocks={this.props.stocks} />
           <main className="main-container">
               <div className="stock-info-container">
                 <section className="chart-container">

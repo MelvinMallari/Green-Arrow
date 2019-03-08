@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import NavSearchBar from './NavSearchBar'
 
 const NavBar = props => {
   const { logout } = props;
@@ -13,9 +14,7 @@ const NavBar = props => {
             </Link>
           </div>
           <div className="search-input-container">
-            <input 
-              type="text"
-              className="search-input"/>
+            <NavSearchBar />
           </div>
           <div className="nav-logged-in-links">
             <Link 
