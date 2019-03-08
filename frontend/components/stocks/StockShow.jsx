@@ -29,6 +29,14 @@ class StockShow extends React.Component {
     }
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.match.params.symbol !== this.props.match.params.symbol) {
+      const { symbol, fetchStock, currentUserId, fetchUserData } = this.props;
+      fetchStock(symbol);
+      fetchUserData(currentUserId);
+    }
+  }
+
   setInterval(range) {
     this.setState({interval: range});
   }
