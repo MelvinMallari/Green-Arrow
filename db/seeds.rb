@@ -36,7 +36,7 @@ ActiveRecord::Base.transaction do
   # Stock.create(ticker_symbol: 'NFLX', company_name: 'Netflix');
   # Stock.create(ticker_symbol: 'FB', company_name: 'Facebook');
 
-  
+  # Demo Transactions
   Transaction.create!(user_id: User.first.id, 
                         share_difference: 10, 
                         share_price: 42, 

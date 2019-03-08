@@ -23,27 +23,27 @@ const TinyChart = props => {
           data={data}
           cursor="pointer"
           margin={{ top: 0, right: 0, left: 0, bottom: 0, }} >
-          <CartesianGrid 
-            strokeDasharray="3 3" 
-            horizontal={false} 
-            vertical={false} />
-          <XAxis 
-            dataKey="date" 
-            hide={true} />
-          <YAxis 
-            hide={true}
-            domain={calcDomain(data)} />
-          <Tooltip 
-            cursor={false}
-            active={false}
-            content={<div />} />
-          <Line 
-            animationDuration={0} 
-            dataKey="close" 
-            stroke="#21ce99" 
-            activeDot={false}
-            dot={false} 
-            strokeWidth={1}/>
+            <CartesianGrid 
+              strokeDasharray="3 3" 
+              horizontal={false} 
+              vertical={false} />
+            <XAxis 
+              dataKey="date" 
+              hide={true} />
+            <YAxis 
+              hide={true}
+              domain={calcDomain(data)} />
+            <Tooltip 
+              cursor="false"
+              active="false"
+              content={<div />} />
+            <Line 
+              animationDuration={0} 
+              dataKey="close" 
+              stroke="#21ce99" 
+              activeDot={false}
+              dot={false} 
+              strokeWidth={1}/>
        </LineChart>
   );
 

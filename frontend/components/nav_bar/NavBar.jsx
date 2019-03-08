@@ -12,6 +12,11 @@ const NavBar = props => {
               <i className="fas fa-feather-alt fa-2x"></i>
             </Link>
           </div>
+          <div className="search-input-container">
+            <input 
+              type="text"
+              className="search-input"/>
+          </div>
           <div className="nav-logged-in-links">
             <Link 
               to="/" 

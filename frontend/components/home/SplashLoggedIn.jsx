@@ -4,10 +4,8 @@ import {
 } from 'recharts';
 import NavBarContainer from '../nav_bar/NavBarContainer';
 import ReactLoading from 'react-loading';
-import StockChart from '../chart/StockChart';
 import NewsIndex from '../news/NewsIndex';
 import SplashSideBarIndex from '../sidebar/SplashSideBarIndex';
-import { fetchUserData } from '../../actions/session_actions';
 import PortfolioChart from '../chart/PortfolioChart';
 
 class SplashLoggedIn extends React.Component {
@@ -19,7 +17,8 @@ class SplashLoggedIn extends React.Component {
   }
 
   componentDidMount() {
-    const { currentUser, fetchSplashNews, fetchUserData } = this.props;
+    const { currentUser, fetchSplashNews, fetchUserData, fetchStocks } = this.props;
+    fetchStocks();
     fetchSplashNews();
     fetchUserData(currentUser.id);
   }
@@ -65,9 +64,6 @@ class SplashLoggedIn extends React.Component {
                       oneDayPortfolioData={currentUser.oneDayPortfolio}
                       fiveYearPortfolioData={currentUser.fiveYearPortfolio}
                       interval={interval}/>
-                    {/* <StockChart 
-                      stock={stock} 
-                      interval={interval} /> */}
                     <nav className="interval-nav">
                       <div className="chart-buttons-container">
                         <button 

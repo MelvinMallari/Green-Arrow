@@ -17,7 +17,6 @@ const MONTHS = {
 
 class ToolTip extends React.Component {
   formatDate(date) {
-    debugger;
     const [year, month, day] = date.split("-");
     return `${MONTHS[month]} ${day}, ${year}`
   }
@@ -46,7 +45,6 @@ class ToolTip extends React.Component {
   render() {
     let { interval } = this.props;
     if (!this.props.payload.length) return null;
-    debugger;
     
     // grab the relevant information from the payload Tooltip passes in
     const payload =  this.props.payload[0].payload;

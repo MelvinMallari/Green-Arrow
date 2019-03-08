@@ -191,3 +191,16 @@ div.splash-image {
   font-weight: 600;
   font-size: 15px;
 }
+
+.search-input {
+  background: #f7f7f7;
+  height: 36px;
+  width: 475px;
+  border-radius: 4px;
+}
+
+.search-input-container {
+  display: flex;
+  align-items: center;
+
+}
