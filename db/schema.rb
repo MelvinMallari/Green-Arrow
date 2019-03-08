@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_06_031924) do
+ActiveRecord::Schema.define(version: 2019_03_08_013422) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,7 +20,7 @@ ActiveRecord::Schema.define(version: 2019_03_06_031924) do
     t.string "company_name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["company_name"], name: "index_stocks_on_company_name", unique: true
+    t.index ["company_name"], name: "index_stocks_on_company_name"
     t.index ["ticker_symbol"], name: "index_stocks_on_ticker_symbol", unique: true
   end
 

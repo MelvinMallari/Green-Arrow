@@ -13,13 +13,28 @@ ActiveRecord::Base.transaction do
 
   demo_account = User.create({username: "dannyYAMMENonThem", password:"password"})
 
+  exchange_files = Dir.glob("#{Rails.root}/exchange_data/**/*");
+
+  def create_stock_given_line(line)
+    data = line.split(",")
+    ticker = data[0].delete("\"")
+    name = data[1].delete("\"")
+    Stock.create(ticker_symbol: ticker, company_name: name)
+  end
+
+  exchange_files.each do |file|
+    File.foreach(file) do |line|
+      create_stock_given_line(line)
+    end
+  end
+
   # Demo Stock
-  Stock.create(ticker_symbol: 'AAPL', company_name: 'Apple Inc.');
-  Stock.create(ticker_symbol: 'GOOGL', company_name: 'Alphabet Inc.');
-  Stock.create(ticker_symbol: 'DIS', company_name: 'The Walt Disney Company');
-  Stock.create(ticker_symbol: 'TSLA', company_name: 'Tesla');
-  Stock.create(ticker_symbol: 'NFLX', company_name: 'Netflix');
-  Stock.create(ticker_symbol: 'FB', company_name: 'Facebook');
+  # Stock.create(ticker_symbol: 'AAPL', company_name: 'Apple Inc.');
+  # Stock.create(ticker_symbol: 'GOOGL', company_name: 'Alphabet Inc.');
+  # Stock.create(ticker_symbol: 'DIS', company_name: 'The Walt Disney Company');
+  # Stock.create(ticker_symbol: 'TSLA', company_name: 'Tesla');
+  # Stock.create(ticker_symbol: 'NFLX', company_name: 'Netflix');
+  # Stock.create(ticker_symbol: 'FB', company_name: 'Facebook');
 
   
   Transaction.create!(user_id: User.first.id, 

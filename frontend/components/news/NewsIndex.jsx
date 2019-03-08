@@ -6,7 +6,7 @@ const NewsIndex = props => {
   return(
     <div className="news-index-container">
       <header className="news-index-header-container">
-        <h2 className="news-index-header">News</h2>
+        <h2 className="news-index-header">Recent News</h2>
       </header>
       <ul>
         {

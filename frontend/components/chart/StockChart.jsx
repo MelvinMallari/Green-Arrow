@@ -115,7 +115,6 @@ class StockChart extends React.Component {
     const { stock } = this.props;
 
     const [companyName, initPrice, initPriceDiff, initPctDiff] = this.initialStockData(stock, diffReference);
-    debugger;
     return(
       <div>
         <header className="stock-info">
