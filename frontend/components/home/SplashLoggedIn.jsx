@@ -17,7 +17,12 @@ class SplashLoggedIn extends React.Component {
   }
 
   componentDidMount() {
-    const { currentUser, fetchSplashNews, fetchUserData, fetchStocks } = this.props;
+    const { 
+      currentUser, 
+      fetchSplashNews, 
+      fetchUserData, 
+      fetchStocks } = this.props;
+
     fetchStocks();
     fetchSplashNews();
     fetchUserData(currentUser.id);
@@ -38,7 +43,11 @@ class SplashLoggedIn extends React.Component {
 
   render() {
     const { interval } = this.state;
-    const { prefetchStock, splashNews, currentUser, stocks } = this.props;
+    const { 
+      prefetchStock, 
+      splashNews, 
+      currentUser, 
+      stocks } = this.props;
     const articles = splashNews.articles;
 
     if (!currentUser.oneDayPortfolio || !articles) {

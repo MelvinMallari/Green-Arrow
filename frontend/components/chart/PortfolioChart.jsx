@@ -99,9 +99,14 @@ class PortfolioChart extends React.Component {
   }
 
   render() {
+    let initPrice, initPriceDiff, initPctDiff, diffReference;
     const filteredData = this.filterData();
-    const diffReference = this.findReference(filteredData).close
-    const [initPrice, initPriceDiff, initPctDiff] = this.initialDisplayData(filteredData, diffReference);
+    if (Object.keys(this.props.oneDayPortfolioData).length) {
+      diffReference = this.findReference(filteredData).close;
+      [initPrice, initPriceDiff, initPctDiff] = this.initialDisplayData(filteredData, diffReference);
+    } else {
+      [initPrice, initPriceDiff, initPctDiff, diffReference] = [0, 0, 0, 0];
+    }
 
     return(
       <div>

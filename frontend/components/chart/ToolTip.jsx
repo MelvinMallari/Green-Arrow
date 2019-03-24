@@ -44,7 +44,7 @@ class ToolTip extends React.Component {
 
   render() {
     let { interval } = this.props;
-    if (!this.props.payload.length) return null;
+    if (!this.props.payload || !this.props.payload.length) return null;
     
     // grab the relevant information from the payload Tooltip passes in
     const payload =  this.props.payload[0].payload;
