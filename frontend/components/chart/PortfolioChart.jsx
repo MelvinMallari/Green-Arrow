@@ -50,17 +50,28 @@ class PortfolioChart extends React.Component {
     return parseFloat(intradayData[i].close.toFixed(2));
   }
 
-  initialDisplayData(intradayData, reference) {
+  initialDisplayData() {
+    const filteredData = this.filterData();
+    const diffReference = this.findReference(filteredData);
     const { currentUser } = this.props;
     let initPrice, priceDifferential, pctDifferential;
+
     if (Object.keys(this.props.oneDayPortfolioData).length) {
-      initPrice = this.calcInitPrice(intradayData);
-      priceDifferential = parseFloat((initPrice - reference).toFixed(2));
-      pctDifferential = ((initPrice - reference) / reference).toFixed(2);
+      initPrice = this.calcInitPrice(filteredData);
+      priceDifferential = parseFloat((initPrice - diffReference).toFixed(2));
+      pctDifferential = ((initPrice - diffReference) / diffReference).toFixed(2);
     } else {
-      initPrice = priceDifferential = pctDifferential = 0;
+      initPrice = currentUser.currentBuyingPower;
+      priceDifferential = pctDifferential = 0;
     }
-    return [formatMoney(initPrice), formatMoney(priceDifferential), pctDifferential];
+
+    return [
+      formatMoney(initPrice), 
+      formatMoney(priceDifferential), 
+      pctDifferential, 
+      filteredData, 
+      diffReference
+    ];
   }
 
   structureData(data, interval) {
@@ -100,9 +111,13 @@ class PortfolioChart extends React.Component {
   }
 
   render() {
-    const filteredData = this.filterData();
-    const diffReference = this.findReference(filteredData);
-    const [initPrice, initPriceDiff, initPctDiff] = this.initialDisplayData(filteredData, diffReference);
+    const [
+      initPrice, 
+      initPriceDiff, 
+      initPctDiff, 
+      filteredData, 
+      diffReference
+    ] = this.initialDisplayData();
 
     return(
       <div>
