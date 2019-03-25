@@ -1,12 +1,7 @@
 import React from 'react';
+import { formatMoney } from '../../util/util.js';
 
 class StockAbout extends React.Component {
-
-  formatMoney(number) {
-    // credits: https://stackoverflow.com/questions/40426965/javascript-function-to-format-as-money
-    return number.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
-  }
-
   parseWebsite(website) {
     let i = 0;
     while (website[i] !== '.') {
@@ -47,7 +42,7 @@ class StockAbout extends React.Component {
           </div>
           <div>
             <div className="about-info-label">Market Cap</div>
-            <div>{this.formatMoney(stock.marketcap)}</div>
+            <div>{formatMoney(stock.marketcap)}</div>
           </div>
           <div>
             <div className="about-info-label">Price-Earnings Ratio</div>

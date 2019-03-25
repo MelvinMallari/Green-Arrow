@@ -7,6 +7,7 @@ import {
   CartesianGrid, 
   Tooltip, 
 } from 'recharts';
+import { formatMoney } from '../../util/util.js';
 import ToolTip from '../chart/ToolTip';
 
 const INTERVAL_TO_AMOUNT_DATAPOINTS = {
@@ -57,10 +58,10 @@ class StockChart extends React.Component {
     for (let i = 0; i < sampleData.length; i++) {
       sumVolPrice += sampleData[i].close * sampleData[i].volume;
       sumVol += sampleData[i].volume;
-    }
 
     volWeightedAvg = (sumVolPrice / sumVol).toFixed(2);
     return volWeightedAvg;
+    }
   }
 
   calcInitPrice(stock) {
@@ -82,7 +83,7 @@ class StockChart extends React.Component {
     const pctDifferential = ((initPrice - reference) / reference).toFixed(2);
 
 
-    return [companyName, this.formatMoney(initPrice), this.formatMoney(priceDifferential), pctDifferential]
+    return [companyName, formatMoney(initPrice), formatMoney(priceDifferential), pctDifferential];
   }
 
   filterData() {
@@ -102,11 +103,6 @@ class StockChart extends React.Component {
       let end = this.calcEndIndex(data, range);
       return data.reverse().slice(0, end).reverse();
     }
-  }
-
-  formatMoney(number) {
-    // credits: https://stackoverflow.com/questions/40426965/javascript-function-to-format-as-money
-    return number.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
   }
 
   render() {

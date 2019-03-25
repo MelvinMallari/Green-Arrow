@@ -71,6 +71,7 @@ class SplashLoggedIn extends React.Component {
               <div className="stock-info-container">
                 <section className="chart-container">
                     <PortfolioChart 
+                      currentUser={currentUser}
                       oneDayPortfolioData={currentUser.oneDayPortfolio}
                       fiveYearPortfolioData={currentUser.fiveYearPortfolio}
                       interval={interval}/>

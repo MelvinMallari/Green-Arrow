@@ -1,4 +1,5 @@
 import React from 'react';
+import { formatMoney } from '../../util/util.js';
 
 class StockSideBar extends React.Component {
   // TODO: Figure out how to render given transaction
@@ -59,12 +60,6 @@ class StockSideBar extends React.Component {
     this.setState({sharePrice: this.calcMarketPrice(stock)});
   }
 
-  // componentDidUpdate(oldProps) {
-  //   if (oldProps !== this.props) {
-  //     const { currentUserInfo } = this.props;
-  //     this.setState({ currentBuyingPower: currentUserInfo.currrentBuyingPower });
-  //   }
-  // }
   
   setClassName(type) {
     if (this.state.transactionType === type) {
@@ -72,11 +67,6 @@ class StockSideBar extends React.Component {
     } else {
       return "interval-btn";
     }
-  }
-
-  formatMoney(number) {
-    // credits: https://stackoverflow.com/questions/40426965/javascript-function-to-format-as-money
-    return number.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
   }
 
   update(field) {
@@ -90,8 +80,8 @@ class StockSideBar extends React.Component {
   render() {
     const {sharePrice, shareDifference, transactionType} = this.state;
     const { stock, currentUserInfo } = this.props;
-    const marketPrice = this.formatMoney(this.calcMarketPrice(stock));
-    const transactionTotal = this.formatMoney(sharePrice*shareDifference);
+    const marketPrice = formatMoney(this.calcMarketPrice(stock));
+    const transactionTotal = formatMoney(sharePrice*shareDifference);
     const buyingPower = currentUserInfo.currentBuyingPower;
 
     if (!buyingPower) return null;
@@ -142,7 +132,7 @@ class StockSideBar extends React.Component {
               <span>
                 {
                   this.state.transactionType === 'buy' ? (
-                    `${this.formatMoney(buyingPower)} Buying Power Available`
+                    `${formatMoney(buyingPower)} Buying Power Available`
                   ) : (
                     `${this.calcSharesOwned()} Shares Owned`
                   )

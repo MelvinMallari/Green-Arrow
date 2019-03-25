@@ -1,6 +1,7 @@
 import React from 'react'
 import TinyChart from '../chart/TinyChart';
 import { Link } from 'react-router-dom';
+import { formatMoney } from '../../util/util.js';
 
 class SplashSideBarIndexItem extends React.Component {
   constructor(props) {
@@ -22,11 +23,6 @@ class SplashSideBarIndexItem extends React.Component {
     return sampleData[i].close;
   }
 
-  formatMoney(number) {
-    // credits: https://stackoverflow.com/questions/40426965/javascript-function-to-format-as-money
-    return number.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
-  }
-
   render() {
     const { stock } = this.props;
     if (stock === undefined || stock.stockIntradayData === undefined) return null;
@@ -38,7 +34,7 @@ class SplashSideBarIndexItem extends React.Component {
           <div className="splash-index-item-container">
             <span className="sidebar-symbol">{this.props.symbol}</span>
             <TinyChart data={data} className="tiny-chart" />
-            <span className="sidebar-closing-price">{this.formatMoney(close)}</span>
+            <span className="sidebar-closing-price">{formatMoney(close)}</span>
           </div>
         </Link>
       </li>

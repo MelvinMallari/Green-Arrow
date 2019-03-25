@@ -7,6 +7,7 @@ import {
   CartesianGrid, 
   Tooltip, 
 } from 'recharts';
+import { formatMoney } from '../../util/util.js';
 import ToolTip from '../chart/ToolTip';
 
 const INTERVAL_TO_AMOUNT_DATAPOINTS = {
@@ -36,7 +37,7 @@ class PortfolioChart extends React.Component {
 
     for (let i = 0; i < data.length - 1; i++) {
       let reference = values[i]
-      if (reference) return reference;
+      if (reference) return reference.close;
     }
     return 0;
   }
@@ -50,11 +51,16 @@ class PortfolioChart extends React.Component {
   }
 
   initialDisplayData(intradayData, reference) {
-    const initPrice = this.calcInitPrice(intradayData);
-    const priceDifferential = parseFloat((initPrice - reference).toFixed(2));
-    const pctDifferential = ((initPrice - reference) / reference).toFixed(2);
-
-    return [this.formatMoney(initPrice), this.formatMoney(priceDifferential), pctDifferential]
+    const { currentUser } = this.props;
+    let initPrice, priceDifferential, pctDifferential;
+    if (Object.keys(this.props.oneDayPortfolioData).length) {
+      initPrice = this.calcInitPrice(intradayData);
+      priceDifferential = parseFloat((initPrice - reference).toFixed(2));
+      pctDifferential = ((initPrice - reference) / reference).toFixed(2);
+    } else {
+      initPrice = priceDifferential = pctDifferential = 0;
+    }
+    return [formatMoney(initPrice), formatMoney(priceDifferential), pctDifferential];
   }
 
   structureData(data, interval) {
@@ -93,20 +99,10 @@ class PortfolioChart extends React.Component {
     }
   }
 
-  formatMoney(number) {
-    // credits: https://stackoverflow.com/questions/40426965/javascript-function-to-format-as-money
-    return number.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
-  }
-
   render() {
-    let initPrice, initPriceDiff, initPctDiff, diffReference;
     const filteredData = this.filterData();
-    if (Object.keys(this.props.oneDayPortfolioData).length) {
-      diffReference = this.findReference(filteredData).close;
-      [initPrice, initPriceDiff, initPctDiff] = this.initialDisplayData(filteredData, diffReference);
-    } else {
-      [initPrice, initPriceDiff, initPctDiff, diffReference] = [0, 0, 0, 0];
-    }
+    const diffReference = this.findReference(filteredData);
+    const [initPrice, initPriceDiff, initPctDiff] = this.initialDisplayData(filteredData, diffReference);
 
     return(
       <div>
@@ -115,7 +111,7 @@ class PortfolioChart extends React.Component {
           <div><span id="price">{initPrice}</span></div>
           <div className="price-diff">
             <span id="price-diff" className="diff"> {initPriceDiff}</span>
-            <span id="pct-diff" className="diff pct-diff">({initPctDiff})%</span>
+            <span id="pct-diff" className="diff pct-diff">({initPctDiff === 0 ? "0.00" : initPctDiff})%</span>
           </div>
         </header>
         <LineChart

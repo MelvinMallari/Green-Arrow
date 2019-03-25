@@ -1,4 +1,5 @@
-import React from 'react'
+import React from 'react';
+import { formatMoney } from '../../util/util.js';
 
 const MONTHS = {
   "01": "JAN",
@@ -21,11 +22,6 @@ class ToolTip extends React.Component {
     return `${MONTHS[month]} ${day}, ${year}`
   }
 
-  formatMoney(number) {
-    // credits: https://stackoverflow.com/questions/40426965/javascript-function-to-format-as-money
-    return number.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
-  }
-
   updateDisplay(payload) {
     const { diffReference } = this.props;
     const priceElement = document.getElementById('price');
@@ -36,8 +32,8 @@ class ToolTip extends React.Component {
     const priceDiff = parseFloat((price - diffReference));
     const pctDiff = ((priceDiff) / diffReference * 100).toFixed(2);
 
-    priceElement.innerHTML = `${this.formatMoney(price)}`;
-    priceDiffElement.innerHTML = `${this.formatMoney(priceDiff)}`;
+    priceElement.innerHTML = `${formatMoney(price)}`;
+    priceDiffElement.innerHTML = `${formatMoney(priceDiff)}`;
     pctDiffElement.innerHTML = `(${pctDiff}%)`;
 
   }
