@@ -35,9 +35,7 @@ class StockChart extends React.Component {
     let data = stock.stockData.slice(0);
     if (interval === '1D') {
       let i = 0;
-      while (!stock.stockIntradayData[i].close) {
-        i++
-      }
+      while (!stock.stockIntradayData[i].close) { i++ }
       return stock.stockIntradayData[i].close;
     } else if (interval === '5Y') {
       return data[0].close;
@@ -67,9 +65,7 @@ class StockChart extends React.Component {
   calcInitPrice(stock) {
     const stockIntradayData = stock.stockIntradayData;
     let i = stockIntradayData.length - 1;
-    while (!stockIntradayData[i].close) {
-      i--;
-    }
+    while (!stockIntradayData[i].close) { i--; }
     
     let currentPrice = stockIntradayData[i].close.toFixed(2);
     const initPrice = parseFloat(currentPrice);

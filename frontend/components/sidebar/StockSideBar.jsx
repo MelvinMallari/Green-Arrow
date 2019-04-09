@@ -71,7 +71,10 @@ class StockSideBar extends React.Component {
 
   update(field) {
     if (field === "shareDifference") {
-      return e => this.setState({ [field]: parseInt(e.currentTarget.value) });
+      return e => { 
+        let input = (e.currentTarget.value === "" ? '0' : e.currentTarget.value);
+        this.setState({ [field]: parseInt(input) });
+      };
     } else {
       return e => this.setState({ [field]: e.currentTarget.value });
     }
@@ -85,7 +88,9 @@ class StockSideBar extends React.Component {
     const buyingPower = currentUserInfo.currentBuyingPower;
 
     if (!buyingPower) return null;
+
     this.calcSharesOwned();
+
     return (
       <div className="stock-sidebar-container">
         <div className="stock-sidebar">
@@ -109,6 +114,7 @@ class StockSideBar extends React.Component {
                 <label htmlFor="share-input">Shares</label>
                 <input 
                   type="number" 
+                  placeholder="0"
                   value={this.state.shareDifference}
                   id="share-input" 
                   onChange={this.update('shareDifference')}/>
