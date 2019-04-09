@@ -11,9 +11,7 @@ import PortfolioChart from '../chart/PortfolioChart';
 class SplashLoggedIn extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      interval: '5Y',
-    }
+    this.state = { interval: '5Y', }
   }
 
   componentDidMount() {
@@ -22,10 +20,23 @@ class SplashLoggedIn extends React.Component {
       fetchSplashNews, 
       fetchUserData, 
       fetchStocks } = this.props;
-
+    
+    fetchUserData(currentUser.id);
     fetchStocks();
     fetchSplashNews();
-    fetchUserData(currentUser.id);
+  }
+
+  fetchPortfolioStocks() {
+    const { currentUser } = this.props;
+    let shares = currentUser.portfolioShares;
+    let portfolioSymbols = Object.keys(shares);
+    const { fetchStockIntradayData } = this.props;
+
+    // Only grab portfolio symbols that that are owned. 
+    portfolioSymbols = portfolioSymbols.filter(symbols => shares[symbols] > 0);
+    for (let i = 0; i < portfolioSymbols.length; i++) {
+      fetchStockIntradayData(portfolioSymbols[i]);
+    }
   }
 
   setInterval(range) {
@@ -40,14 +51,13 @@ class SplashLoggedIn extends React.Component {
     }
   }
 
-
   render() {
     const { interval } = this.state;
     const { 
-      prefetchStock, 
-      splashNews, 
+      splashNews,
       currentUser, 
-      stocks } = this.props;
+      stocks, 
+      fetchStockIntradayData } = this.props;
     const articles = splashNews.articles;
 
     if (!currentUser.oneDayPortfolio || !articles) {
@@ -101,7 +111,7 @@ class SplashLoggedIn extends React.Component {
                 </section>
               </div>
               <SplashSideBarIndex
-                prefetchStock={prefetchStock}
+                fetchStockIntradayData={fetchStockIntradayData}
                 currentUser={currentUser}
                 stocks={stocks} />
           </main>

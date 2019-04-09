@@ -1,4 +1,5 @@
 import * as SessionApiUtil from '../util/session_api_util';
+import { fetchStockIntradayData } from './stock_actions';
 
 export const RECEIVE_USER = "RECEIVE_USER";
 export const RECEIVE_USER_DATA = "RECEIVE_USER_DATA";

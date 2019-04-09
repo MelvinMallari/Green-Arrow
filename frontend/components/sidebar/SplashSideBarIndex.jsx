@@ -3,12 +3,12 @@ import SplashSideBarIndexItemContainer from './SplashSideBarIndexItemContainer';
 
 class SplashSideBarIndex extends React.Component {
   render() {
-    const { stocks, currentUser } = this.props;
+    const { stocks, currentUser, fetchStockIntradayData} = this.props;
     let shares = currentUser.portfolioShares;
     let portfolioSymbols = Object.keys(shares);
 
     // Only grab portfolio symbols that that are owned. 
-    portfolioSymbols = portfolioSymbols.filter(symbols => shares[symbols] > 0);
+    portfolioSymbols = portfolioSymbols.filter(symbol => shares[symbol] > 0);
 
     if ( Object.keys(stocks).length < portfolioSymbols.length) return null;
     return(
@@ -22,6 +22,7 @@ class SplashSideBarIndex extends React.Component {
               portfolioSymbols.map(symbol => (
                 <SplashSideBarIndexItemContainer 
                   symbol={symbol}
+                  stocks={stocks}
                   key={symbol} />))
             }
           </ul>

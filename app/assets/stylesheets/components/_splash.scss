@@ -159,6 +159,14 @@ div.splash-image {
   padding: 0 24px;
 }
 
+.splash-index-loader-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 60px;
+  padding: 0 24px;
+}
+
 .splash-index-item-wrapper {
   transition: 0.20s;
 }
