@@ -5,10 +5,10 @@ import { formatMoney } from '../../util/util.js';
 import ReactLoading from 'react-loading';
 
 class SplashSideBarIndexItem extends React.Component {
-  componentDidMount() {
-    const { symbol, fetchStockIntradayData } = this.props;
-    fetchStockIntradayData(symbol);
-  }
+  // componentDidMount() {
+  //   const { symbol, fetchStockIntradayData } = this.props;
+  //   // fetchStockIntradayData(symbol);
+  // }
 
   findLatestValidClose(data) {
     // Accounts for fact that intraday close sometimes null
@@ -21,7 +21,7 @@ class SplashSideBarIndexItem extends React.Component {
   }
 
   render() {
-    const { stock, stocks } = this.props;
+    const { stock } = this.props;
     if (stock === undefined || stock.stockIntradayData === undefined) {
       return (
         <li className="splash-index-item-wrapper">

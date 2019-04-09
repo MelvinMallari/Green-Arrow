@@ -25,12 +25,17 @@ class SplashLoggedIn extends React.Component {
     fetchStocks();
     fetchSplashNews();
   }
+  
+  componentDidUpdate(oldProps) {
+    if (oldProps.currentUser !== this.props.currentUser) {
+      this.fetchPortfolioStocks();
+    }
+  }
 
   fetchPortfolioStocks() {
-    const { currentUser } = this.props;
+    const { currentUser, fetchStockIntradayData } = this.props;
     let shares = currentUser.portfolioShares;
     let portfolioSymbols = Object.keys(shares);
-    const { fetchStockIntradayData } = this.props;
 
     // Only grab portfolio symbols that that are owned. 
     portfolioSymbols = portfolioSymbols.filter(symbols => shares[symbols] > 0);
@@ -60,7 +65,7 @@ class SplashLoggedIn extends React.Component {
       fetchStockIntradayData } = this.props;
     const articles = splashNews.articles;
 
-    if (!currentUser.oneDayPortfolio || !articles) {
+    if (!currentUser.oneDayPortfolio || !articles || ! currentUser.portfolioShares) {
       return (
         <div className='loader-container'>
           <div className='loader'>
