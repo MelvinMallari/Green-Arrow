@@ -70,6 +70,10 @@ class User < ApplicationRecord
     owned_shares
   end
 
+  def watched_stocks
+    self.watches
+  end
+
   def one_day_portfolio  
     url = 'https://api.iextrading.com/1.0/stock/market/batch?types=chart&range=1d&symbols='
     shares = portfolio_shares

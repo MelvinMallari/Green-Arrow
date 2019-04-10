@@ -3,7 +3,7 @@ import SplashSideBarIndexItemContainer from './SplashSideBarIndexItemContainer';
 
 class SplashSideBarIndex extends React.Component {
   render() {
-    const { stocks, currentUser, fetchStockIntradayData} = this.props;
+    const { stocks, currentUser} = this.props;
     let shares = currentUser.portfolioShares;
     let portfolioSymbols = Object.keys(shares);
 

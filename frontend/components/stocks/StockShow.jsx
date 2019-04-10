@@ -1,6 +1,12 @@
 import React from 'react'
-import {
-  LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend,
+import { 
+  LineChart, 
+  Line, 
+  XAxis, 
+  YAxis, 
+  CartesianGrid, 
+  Tooltip, 
+  Legend, 
 } from 'recharts';
 import StockChart from '../chart/StockChart';
 import ReactLoading from 'react-loading';

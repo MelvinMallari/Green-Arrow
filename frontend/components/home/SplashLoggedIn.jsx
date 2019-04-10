@@ -28,19 +28,27 @@ class SplashLoggedIn extends React.Component {
   
   componentDidUpdate(oldProps) {
     if (oldProps.currentUser !== this.props.currentUser) {
-      this.fetchPortfolioStocks();
+      this.fetchRelevantStocks();
     }
   }
 
-  fetchPortfolioStocks() {
+  fetchRelevantStocks() {
     const { currentUser, fetchStockIntradayData } = this.props;
     let shares = currentUser.portfolioShares;
     let portfolioSymbols = Object.keys(shares);
 
-    // Only grab portfolio symbols that that are owned. 
+    // Pull the stocks in portfolio stocks and watchlist
     portfolioSymbols = portfolioSymbols.filter(symbols => shares[symbols] > 0);
-    for (let i = 0; i < portfolioSymbols.length; i++) {
-      fetchStockIntradayData(portfolioSymbols[i]);
+    let watchedSymbols = currentUser.watchedStocks.map(stock => stock.ticker_symbol);
+
+    // Merge and de-duplicate the two portfolio and watch list stocks
+    let relevantStocks = portfolioSymbols.concat(watchedSymbols.filter(stock => {
+      return portfolioSymbols.indexOf(stock) < 0;
+    }))
+
+    // Only grab portfolio symbols that that are owned. 
+    for (let i = 0; i < relevantStocks.length; i++) {
+      fetchStockIntradayData(relevantStocks[i]);
     }
   }
 
