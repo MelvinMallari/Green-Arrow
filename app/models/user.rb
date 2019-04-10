@@ -21,6 +21,7 @@ class User < ApplicationRecord
   before_save :default_values
 
   has_many :transactions 
+  has_many :watches 
 
   attr_reader :password
 
