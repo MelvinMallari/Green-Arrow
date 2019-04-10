@@ -9,7 +9,7 @@ export const receiveAddWatch = watch => ({
 });
 
 export const receiveRemoveWatch = watch => ({
-  type: ADD_WATCH,
+  type: REMOVE_WATCH,
   watch,
 });
 

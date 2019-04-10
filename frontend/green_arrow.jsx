@@ -5,7 +5,8 @@ import configureStore from './store/store';
 import Root from './components/root';
 import { fetchStockData, fetchStockNews } from "./util/stock_api_util";
 import { fetchStocks, fetchStockIndexItemTest } from '../frontend/actions/stock_actions';
-import { createTransaction } from '../frontend/actions/transaction_actions';
+import { createTransaction } from './actions/transaction_actions';
+import { addWatch, removeWatch } from "./actions/watch_actions";
 
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -40,6 +41,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Transaction action testing
   window.createTransaction = createTransaction;
+
+  // Watchlist action testing
+  window.addWatch = addWatch;
+  window.removeWatch = removeWatch;
 
   // store testing
   window.getState = store.getState;

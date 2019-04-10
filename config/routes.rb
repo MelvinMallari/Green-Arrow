@@ -10,7 +10,7 @@ Rails.application.routes.draw do
     get 'transactions/:id', :to => 'transactions#show'
 
     resource :watches, only: [:create]
-    get 'watches/', :to => 'watches#index'
+    # get 'watches/', :to => 'watches#index'
     get 'watches/:ticker_symbol', :to => 'watches#destroy'
 
     get 'stocks/:ticker_symbol', :to => 'stocks#show'

@@ -1,17 +1,16 @@
-class WatchesController < ApplicationController
+class Api::WatchesController < ApplicationController
   def index
     @watches = current_user.watches
   end
   
   def destroy
-    @watch = current_user.watches.find(params[:ticker_symbol]) 
+    @watch = current_user.watches.find_by(ticker_symbol: params[:ticker_symbol]) 
     @watch.destroy
   end
   
   def create
     @watch = Watch.new(watch_params)
     @watch.user_id = current_user.id
-
     if @watch.save
       render json: ["Watchlist add successful"], status: 200
     else

@@ -8,7 +8,8 @@ export const addWatch = watch => (
 
 export const removeWatch = watch => (
   $.ajax({
-    method: "DELETE",
+    // GET due to custom rails routing
+    method: "GET",
     url: `api/watches/${watch.ticker_symbol}`
   })
 );
