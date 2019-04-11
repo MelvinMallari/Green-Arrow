@@ -11,7 +11,9 @@ import PortfolioChart from '../chart/PortfolioChart';
 class SplashLoggedIn extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { interval: '5Y', }
+    this.state = { 
+      interval: '5Y',
+    }
   }
 
   componentDidMount() {
@@ -124,7 +126,6 @@ class SplashLoggedIn extends React.Component {
                 </section>
               </div>
               <SplashSideBarIndex
-                fetchStockIntradayData={fetchStockIntradayData}
                 currentUser={currentUser}
                 stocks={stocks} />
           </main>

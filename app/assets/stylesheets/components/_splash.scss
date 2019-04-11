@@ -149,6 +149,7 @@ div.splash-image {
   line-height: 22px;
   font-weight: 600;
   border-bottom: 1px solid #f4f4f4;
+  border-top: 1px solid #f4f4f4;
 }
 
 .splash-index-item-container {
@@ -157,6 +158,11 @@ div.splash-image {
   justify-content: space-between;
   height: 60px;
   padding: 0 24px;
+}
+
+.splash-index-item-label {
+  flex-direction: column;
+  display: flex;
 }
 
 .splash-index-loader-container {
@@ -186,6 +192,10 @@ div.splash-image {
   margin-top: 72px;
   position: fixed;
   width: 276px;
+}
+
+.num-shares {
+  padding-top: 3px;
 }
 
 .tiny-chart {

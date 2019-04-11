@@ -2,6 +2,7 @@ import React from 'react';
 import SplashSideBarIndexItemContainer from './SplashSideBarIndexItemContainer';
 
 class SplashSideBarIndex extends React.Component {
+
   render() {
     const { stocks, currentUser} = this.props;
     let shares = currentUser.portfolioShares;
@@ -21,11 +22,14 @@ class SplashSideBarIndex extends React.Component {
             {
               portfolioSymbols.map(symbol => (
                 <SplashSideBarIndexItemContainer 
+                  numShares={shares[symbol]}
                   symbol={symbol}
-                  stocks={stocks}
                   key={symbol} />))
             }
           </ul>
+          <header className="splash-sidebar-index-header">
+            Watchlist
+          </header>
         </div>
       </div> 
     )

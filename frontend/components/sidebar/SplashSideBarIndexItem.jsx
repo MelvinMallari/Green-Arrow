@@ -5,11 +5,6 @@ import { formatMoney } from '../../util/util.js';
 import ReactLoading from 'react-loading';
 
 class SplashSideBarIndexItem extends React.Component {
-  // componentDidMount() {
-  //   const { symbol, fetchStockIntradayData } = this.props;
-  //   // fetchStockIntradayData(symbol);
-  // }
-
   findLatestValidClose(data) {
     // Accounts for fact that intraday close sometimes null
     let sampleData = data.slice().reverse();
@@ -21,7 +16,7 @@ class SplashSideBarIndexItem extends React.Component {
   }
 
   render() {
-    const { stock } = this.props;
+    const { stock, numShares } = this.props;
     if (stock === undefined || stock.stockIntradayData === undefined) {
       return (
         <li className="splash-index-item-wrapper">
@@ -37,14 +32,18 @@ class SplashSideBarIndexItem extends React.Component {
     }
     const data = stock.stockIntradayData;
     const close = this.findLatestValidClose(data);
-
     return(
       <li className="splash-index-item-wrapper">
         <Link to={`/stocks/${this.props.symbol}`} >
           <div className="splash-index-item-container">
-            <span className="sidebar-symbol">
-              {this.props.symbol}
-            </span>
+            <div className="splash-index-item-label">
+              <span className="sidebar-symbol">
+                {this.props.symbol}
+              </span>
+              <span className="num-shares">
+                {numShares} shares
+              </span>
+            </div>
             <TinyChart 
               data={data} 
               className="tiny-chart" />
