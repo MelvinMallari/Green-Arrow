@@ -6,10 +6,7 @@ class StockSideBar extends React.Component {
   constructor(props) {
     super(props);
     const { currentUser, stock } = this.props;
-    let watchedSymbols = currentUser.watchedStocks.map(stock => {
-      stock.ticker_symbol
-    });
-    let inWatchlist = watchedSymbols.includes(stock.tickerSymbol);
+    let inWatchlist = currentUser.watchedStocks.includes(stock.tickerSymbol);
 
     this.state = {
       transactionType: "buy",
@@ -22,20 +19,20 @@ class StockSideBar extends React.Component {
 
     this.handleTransactionSubmit = this.handleTransactionSubmit.bind(this); 
     this.handleWatchlistSubmit = this.handleWatchlistSubmit.bind(this);
-}
+  }
 
   handleTransactionSubmit(e) {
     e.preventDefault();
     const { shareDifference, sharePrice, transactionType } = this.state;
     const { currentUser, createTransaction, stock } = this.props;
-    const sign = (transactionType === "buy" ? 1 : -1)
+    const sign = (transactionType === "buy" ? 1 : -1);
 
     let transaction = {
       user_id: currentUser.id,
       share_difference: shareDifference*sign,
       share_price: sharePrice,
       ticker_symbol: stock.tickerSymbol,
-    }
+    };
 
     if (shareDifference === 0) return null;
     createTransaction(transaction);

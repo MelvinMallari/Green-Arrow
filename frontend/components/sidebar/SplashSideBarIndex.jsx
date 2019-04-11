@@ -10,9 +10,8 @@ class SplashSideBarIndex extends React.Component {
 
     // Only grab portfolio symbols that that are owned. 
     portfolioSymbols = portfolioSymbols.filter(symbol => shares[symbol] > 0);
-    
     // Grab watched Stocks
-    let watchedSymbols = currentUser.watchedStocks.map(stock => stock.ticker_symbol);
+    let watchedSymbols = currentUser.watchedStocks;
 
     if ( Object.keys(stocks).length < portfolioSymbols.length) return null;
     return(

@@ -71,7 +71,7 @@ class User < ApplicationRecord
   end
 
   def watched_stocks
-    self.watches
+    self.watches.map { |watch| watch['ticker_symbol'] }
   end
 
   def one_day_portfolio  

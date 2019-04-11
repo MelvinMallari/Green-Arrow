@@ -6,17 +6,17 @@ class Api::WatchesController < ApplicationController
   def destroy
     @watch = current_user.watches.find_by(ticker_symbol: params[:ticker_symbol]) 
     @watch.destroy
+    render "api/watches/show"
   end
   
   def create
     @watch = Watch.new(watch_params)
     @watch.user_id = current_user.id
     if @watch.save
-      render json: ["Watchlist add successful"], status: 200
+      render "api/watches/show"
     else
       render json: @watch.errors.full_messages, status: 422
     end
-
   end
 
   def watch_params
