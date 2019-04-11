@@ -6,7 +6,9 @@ class StockSideBar extends React.Component {
   constructor(props) {
     super(props);
     const { currentUser, stock } = this.props;
-    let watchedSymbols = currentUser.watchedStocks.map(stock => stock.ticker_symbol);
+    let watchedSymbols = currentUser.watchedStocks.map(stock => {
+      stock.ticker_symbol
+    });
     let inWatchlist = watchedSymbols.includes(stock.tickerSymbol);
 
     this.state = {
@@ -16,7 +18,7 @@ class StockSideBar extends React.Component {
       estimateTotal: 0,
       currentBuyingPower: currentUser.currentBuyingPower,
       inWatchlist,
-    }
+    };
 
     this.handleTransactionSubmit = this.handleTransactionSubmit.bind(this); 
     this.handleWatchlistSubmit = this.handleWatchlistSubmit.bind(this);
@@ -97,6 +99,8 @@ class StockSideBar extends React.Component {
     const marketPrice = formatMoney(this.calcMarketPrice(stock));
     const transactionTotal = formatMoney(sharePrice*shareDifference);
     const buyingPower = currentUser.currentBuyingPower;
+    const watchListStatus = this.state.inWatchlist ? 
+            "watch-list-btn watch-list-active" : "watch-list-btn";
 
     if (!buyingPower) return null;
 
@@ -164,7 +168,7 @@ class StockSideBar extends React.Component {
 
           <button 
             onClick={this.handleWatchlistSubmit}
-            className='watch-list-button'>
+            className={watchListStatus}>
             {this.state.inWatchlist ? "Remove from Watchlist" : "Add to Watchlist"}
           </button>
       </div>
