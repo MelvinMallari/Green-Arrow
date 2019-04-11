@@ -10,6 +10,9 @@ class SplashSideBarIndex extends React.Component {
 
     // Only grab portfolio symbols that that are owned. 
     portfolioSymbols = portfolioSymbols.filter(symbol => shares[symbol] > 0);
+    
+    // Grab watched Stocks
+    let watchedSymbols = currentUser.watchedStocks.map(stock => stock.ticker_symbol);
 
     if ( Object.keys(stocks).length < portfolioSymbols.length) return null;
     return(
@@ -30,6 +33,15 @@ class SplashSideBarIndex extends React.Component {
           <header className="splash-sidebar-index-header">
             Watchlist
           </header>
+          <ul>
+            {
+              watchedSymbols.map(symbol => (
+                <SplashSideBarIndexItemContainer 
+                  numShares={0}
+                  symbol={symbol}
+                  key={symbol} />))
+            }
+          </ul>
         </div>
       </div> 
     )

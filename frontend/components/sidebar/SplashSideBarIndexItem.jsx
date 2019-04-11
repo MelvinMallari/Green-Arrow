@@ -41,7 +41,7 @@ class SplashSideBarIndexItem extends React.Component {
                 {this.props.symbol}
               </span>
               <span className="num-shares">
-                {numShares} shares
+                {numShares > 0 ? `${numShares} shares` : ``}
               </span>
             </div>
             <TinyChart 
