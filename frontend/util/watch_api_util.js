@@ -6,10 +6,10 @@ export const addWatch = watch => (
   })
 );
 
-export const removeWatch = watch => (
-  $.ajax({
+export const removeWatch = watch => {
+  return $.ajax({
     // GET due to custom rails routing
     method: "GET",
     url: `api/watches/${watch.ticker_symbol}`
   })
-);
+};

@@ -5,7 +5,7 @@ import {
   XAxis, 
   YAxis, 
   CartesianGrid, 
-  Tooltip, 
+  Tooltip,
   Legend, 
 } from 'recharts';
 import StockChart from '../chart/StockChart';
@@ -22,25 +22,9 @@ class StockShow extends React.Component {
   }
 
   componentDidMount() {
-    const { symbol, fetchStock, currentUserId, fetchUserData } = this.props;
+    const { symbol, fetchStock, fetchUserData, currentUser } = this.props;
+    fetchUserData(currentUser.id);
     fetchStock(symbol);
-    fetchUserData(currentUserId);
-  }
-
-  componentDidUpdate(oldProps) {
-    if (oldProps.match.params.symbol !== this.props.match.params.symbol) {
-      const { symbol, fetchStock, currentUserId, fetchUserData } = this.props;
-      fetchStock(symbol);
-      fetchUserData(currentUserId);
-    }
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.match.params.symbol !== this.props.match.params.symbol) {
-      const { symbol, fetchStock, currentUserId, fetchUserData } = this.props;
-      fetchStock(symbol);
-      fetchUserData(currentUserId);
-    }
   }
 
   setInterval(range) {
@@ -48,21 +32,17 @@ class StockShow extends React.Component {
   }
 
   setClassName(current) {
-    if (this.state.interval === current) {
-      return "interval-btn active-button";
-    } else {
-      return "interval-btn";
-    }
+    const { interval } = this.state;
+    return interval === current ? "interval-btn active-button" : "interval-btn"
   }
 
   render() {
-    const { symbol, stocks, users, currentUserId, createTransaction } = this.props;
+    const { symbol, stocks, currentUser } = this.props;
     const { interval } = this.state;
     const stock = stocks[symbol];
-    const currentUserInfo = users[currentUserId]
 
     // Check if nested fetch has terminated before rendering
-    if (!stocks[symbol] || !stocks[symbol].stockNews || !currentUserInfo) {
+    if (!stocks[symbol] || !stocks[symbol].stockNews || !currentUser.watchedStocks) {
       return (
         <div className='loader-container'>
           <div className='loader'>
@@ -111,8 +91,8 @@ class StockShow extends React.Component {
             </div>
             <StockSideBarContainer
               stock={stock} 
-              currentUserInfo={currentUserInfo}
-              createTransaction={createTransaction} />
+              currentUser={currentUser}
+              />
           </main>
         </div>
       );

@@ -5,26 +5,31 @@ class StockSideBar extends React.Component {
   // TODO: Figure out how to render given transaction
   constructor(props) {
     super(props);
+    const { currentUser, stock } = this.props;
+    let watchedSymbols = currentUser.watchedStocks.map(stock => stock.ticker_symbol);
+    let inWatchlist = watchedSymbols.includes(stock.tickerSymbol);
+
     this.state = {
       transactionType: "buy",
       shareDifference: 0,
       sharePrice: 0,
       estimateTotal: 0,
-      currentBuyingPower: this.props.currentUserInfo.currentBuyingPower
+      currentBuyingPower: currentUser.currentBuyingPower,
+      inWatchlist,
     }
-    this.handleSubmit = this.handleSubmit.bind(this);
+
+    this.handleTransactionSubmit = this.handleTransactionSubmit.bind(this); 
+    this.handleWatchlistSubmit = this.handleWatchlistSubmit.bind(this);
 }
 
-
-  handleSubmit(e) {
+  handleTransactionSubmit(e) {
     e.preventDefault();
     const { shareDifference, sharePrice, transactionType } = this.state;
-    const { currentUserInfo, createTransaction, stock } = this.props;
-    let transaction;
+    const { currentUser, createTransaction, stock } = this.props;
     const sign = (transactionType === "buy" ? 1 : -1)
 
-    transaction = {
-      user_id: currentUserInfo.id,
+    let transaction = {
+      user_id: currentUser.id,
       share_difference: shareDifference*sign,
       share_price: sharePrice,
       ticker_symbol: stock.tickerSymbol,
@@ -32,9 +37,19 @@ class StockSideBar extends React.Component {
 
     if (shareDifference === 0) return null;
     createTransaction(transaction);
-    // this.setState({
-    //     shareDifference: 0,
-    //     currentBuyingPower: currentUserInfo.currentBuyingPower,})
+  }
+
+  handleWatchlistSubmit(e) {
+    e.preventDefault();
+    const { addWatch, removeWatch, currentUser, stock } = this.props;
+    const watch = {
+      user_id: currentUser.id,
+      ticker_symbol: stock.tickerSymbol,
+    }
+
+    this.state.inWatchlist ? removeWatch(watch) : addWatch(watch);
+    const newWatchState = !this.state.inWatchlist;
+    this.setState({inWatchlist: newWatchState});
   }
 
   calcMarketPrice(stock) {
@@ -50,7 +65,7 @@ class StockSideBar extends React.Component {
   } 
 
   calcSharesOwned() {
-    const { stock, currentUserInfo: { portfolioShares } } = this.props;
+    const { stock, currentUser: { portfolioShares } } = this.props;
     const res = portfolioShares[stock.tickerSymbol]
     return res ? res : 0;
   }
@@ -59,14 +74,10 @@ class StockSideBar extends React.Component {
     const { stock } = this.props;
     this.setState({sharePrice: this.calcMarketPrice(stock)});
   }
-
   
   setClassName(type) {
-    if (this.state.transactionType === type) {
-      return "interval-btn active-button";
-    } else {
-      return "interval-btn";
-    }
+    const { transactionType } = this.state;
+    return transactionType === type ? "interval-btn active-button" : "interval-btn";
   }
 
   update(field) {
@@ -82,10 +93,10 @@ class StockSideBar extends React.Component {
 
   render() {
     const {sharePrice, shareDifference, transactionType} = this.state;
-    const { stock, currentUserInfo } = this.props;
+    const { stock, currentUser } = this.props;
     const marketPrice = formatMoney(this.calcMarketPrice(stock));
     const transactionTotal = formatMoney(sharePrice*shareDifference);
-    const buyingPower = currentUserInfo.currentBuyingPower;
+    const buyingPower = currentUser.currentBuyingPower;
 
     if (!buyingPower) return null;
 
@@ -106,8 +117,9 @@ class StockSideBar extends React.Component {
               SELL {stock.tickerSymbol}
             </button>
           </header>
+
           <form 
-            onSubmit={this.handleSubmit} 
+            onSubmit={this.handleTransactionSubmit} 
             className="stock-sidebar-form">
             <div className="sidebar-output">
               <div className="stock-sidebar-shares sidebar-label">
@@ -128,12 +140,14 @@ class StockSideBar extends React.Component {
                 <span className="sidebar-output-label">{transactionTotal}</span>
               </div>
             </div>
+
             <div className="submit-btn-container">
               <input 
                 type="submit" 
                 value={transactionType === "sell" ? "Submit Sell" : "Submit Buy"}
                 className="submit-order-btn"/>
             </div>
+
             <div className="buying-power-container">
               <span>
                 {
@@ -147,6 +161,12 @@ class StockSideBar extends React.Component {
             </div>
           </form>
         </div>
+
+          <button 
+            onClick={this.handleWatchlistSubmit}
+            className='watch-list-button'>
+            {this.state.inWatchlist ? "Remove from Watchlist" : "Add to Watchlist"}
+          </button>
       </div>
 
     );

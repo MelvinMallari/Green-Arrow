@@ -10,14 +10,13 @@ const mapStateToProps = (state, ownProps) => {
     symbol: symbol,
     stocks: state.entities.stocks,
     users: state.entities.users,
-    currentUserId: state.session.id,
+    currentUser: state.entities.users[state.session.id],
   });
 }
 
 const mapDispatchToProps = dispatch => ({
   fetchStock: symbol => dispatch(fetchStock(symbol)),
   fetchUserData: userId =>  dispatch(fetchUserData(userId)),
-  createTransaction: userTransaction => dispatch(createTransaction(userTransaction))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(StockShow);
