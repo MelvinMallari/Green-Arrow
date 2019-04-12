@@ -3,9 +3,11 @@ import StockSideBar from './StockSideBar';
 import { createTransaction } from '../../actions/transaction_actions';
 import { addWatch, removeWatch } from '../../actions/watch_actions';
 
-const mapStateToProps = ({entities: { transactions }}) => {
+const mapStateToProps = (state, ownProps) => {
+  let currentUser = state.entities.users[state.session.id]
   return ({
-    transactions: transactions,    
+    transactions: state.entities.transactions,    
+    watched: currentUser.watchedStocks.includes(ownProps.stock.tickerSymbol)
   });
 }
 

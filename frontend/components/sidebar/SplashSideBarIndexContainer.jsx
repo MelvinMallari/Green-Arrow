@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import SplashSideBarIndex from '../sidebar/SplashSideBarIndex';
 import { fetchStocks } from '../../actions/stock_actions';
 
-const mapStateToProps = state => {
+const mapStateToProps = (state, ownProps) => {
   return ({
     stocks: state.entities.stocks,
   });

@@ -18,12 +18,11 @@ import NavBarContainer from '../nav_bar/NavBarContainer';
 class StockShow extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { interval: '5Y', }
+    this.state = { interval: '5Y'};
   }
 
   componentDidMount() {
-    const { symbol, fetchStock, fetchUserData, currentUser } = this.props;
-    fetchUserData(currentUser.id);
+    const { symbol, fetchStock } = this.props;
     fetchStock(symbol);
   }
 

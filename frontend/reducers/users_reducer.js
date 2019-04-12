@@ -17,7 +17,6 @@ const usersReducer = (state = {}, action) => {
       newState[currentUserId].watchedStocks.push(action.watch.tickerSymbol);
       return newState;
     case REMOVE_WATCH:
-      debugger;
       currentUserId = action.watch.userId;
       let symbol = action.watch.tickerSymbol;
       let index = newState[currentUserId].watchedStocks.indexOf(symbol);

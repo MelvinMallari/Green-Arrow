@@ -5,8 +5,12 @@ class Api::WatchesController < ApplicationController
   
   def destroy
     @watch = current_user.watches.find_by(ticker_symbol: params[:ticker_symbol]) 
-    @watch.destroy
-    render "api/watches/show"
+    if @watch
+      @watch.destroy
+      render "api/watches/show"
+    else
+      render json: @watch.errors.full_messages, status: 422
+    end
   end
   
   def create
@@ -15,7 +19,7 @@ class Api::WatchesController < ApplicationController
     if @watch.save
       render "api/watches/show"
     else
-      render json: @watch.errors.full_messages, status: 422
+      render plain: "Stock not in watchlist", status: 422
     end
   end
 

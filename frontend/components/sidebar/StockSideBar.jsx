@@ -5,8 +5,7 @@ class StockSideBar extends React.Component {
   // TODO: Figure out how to render given transaction
   constructor(props) {
     super(props);
-    const { currentUser, stock } = this.props;
-    let inWatchlist = currentUser.watchedStocks.includes(stock.tickerSymbol);
+    const { currentUser, watched } = this.props;
 
     this.state = {
       transactionType: "buy",
@@ -14,7 +13,7 @@ class StockSideBar extends React.Component {
       sharePrice: 0,
       estimateTotal: 0,
       currentBuyingPower: currentUser.currentBuyingPower,
-      inWatchlist,
+      watched,
     };
 
     this.handleTransactionSubmit = this.handleTransactionSubmit.bind(this); 
@@ -40,15 +39,9 @@ class StockSideBar extends React.Component {
 
   handleWatchlistSubmit(e) {
     e.preventDefault();
-    const { addWatch, removeWatch, currentUser, stock } = this.props;
-    const watch = {
-      user_id: currentUser.id,
-      ticker_symbol: stock.tickerSymbol,
-    }
-
-    this.state.inWatchlist ? removeWatch(watch) : addWatch(watch);
-    const newWatchState = !this.state.inWatchlist;
-    this.setState({inWatchlist: newWatchState});
+    const { addWatch, removeWatch, currentUser, stock, watched } = this.props;
+    const watch = { user_id: currentUser.id, ticker_symbol: stock.tickerSymbol };
+    watched ? removeWatch(watch) : addWatch(watch);
   }
 
   calcMarketPrice(stock) {
@@ -65,7 +58,7 @@ class StockSideBar extends React.Component {
 
   calcSharesOwned() {
     const { stock, currentUser: { portfolioShares } } = this.props;
-    const res = portfolioShares[stock.tickerSymbol]
+    const res = portfolioShares[stock.tickerSymbol];
     return res ? res : 0;
   }
 
@@ -92,11 +85,11 @@ class StockSideBar extends React.Component {
 
   render() {
     const {sharePrice, shareDifference, transactionType} = this.state;
-    const { stock, currentUser } = this.props;
+    const { stock, currentUser, watched } = this.props;
     const marketPrice = formatMoney(this.calcMarketPrice(stock));
     const transactionTotal = formatMoney(sharePrice*shareDifference);
     const buyingPower = currentUser.currentBuyingPower;
-    const watchListStatus = this.state.inWatchlist ? 
+    const watchListStatus = watched ? 
             "watch-list-btn watch-list-active" : "watch-list-btn";
 
     if (!buyingPower) return null;
@@ -166,7 +159,7 @@ class StockSideBar extends React.Component {
           <button 
             onClick={this.handleWatchlistSubmit}
             className={watchListStatus}>
-            {this.state.inWatchlist ? "Remove from Watchlist" : "Add to Watchlist"}
+            {watched ? "Remove from Watchlist" : "Add to Watchlist"}
           </button>
       </div>
 

@@ -27,9 +27,9 @@ class SplashLoggedIn extends React.Component {
   
   componentDidUpdate(oldProps) {
     const { currentUser } = this.props;
-    if (oldProps.currentUser !== currentUser) {
-      this.fetchRelevantStocks();
-    }
+    let oldUserInfo = oldProps.currentUser;
+    if (oldUserInfo !== currentUser) this.fetchRelevantStocks() 
+    if (oldUserInfo.watchedStocks !== currentUser.watchedStocks) this.forceUpdate();
   }
 
   fetchRelevantStocks() {
