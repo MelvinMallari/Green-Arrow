@@ -1,7 +1,4 @@
 import React from 'react';
-import {
-  LineChart, Line, XAxis, YAxis 
-} from 'recharts';
 import NavBarContainer from '../nav_bar/NavBarContainer';
 import ReactLoading from 'react-loading';
 import NewsIndex from '../news/NewsIndex';
@@ -40,7 +37,6 @@ class SplashLoggedIn extends React.Component {
     // Pull the stocks in portfolio stocks and watchlist
     portfolioSymbols = portfolioSymbols.filter(symbols => shares[symbols] > 0);
     let watchedSymbols = currentUser.watchedStocks;
-    // let watchedSymbols = currentUser.watchedStocks.map(stock => stock.ticker_symbol);
 
     // Merge and de-duplicate the two portfolio and watch list stocks
     let relevantStocks = portfolioSymbols.concat(watchedSymbols.filter(stock => {
@@ -58,20 +54,13 @@ class SplashLoggedIn extends React.Component {
   }
 
   setClassName(current) {
-    if (this.state.interval === current) {
-      return "interval-btn active-button";
-    } else {
-      return "interval-btn";
-    }
+    const { interval } = this.state;
+    return "interval-btn ".concat(interval === current ? "active-button" : "");
   }
 
   render() {
     const { interval } = this.state;
-    const { 
-      splashNews,
-      currentUser, 
-      stocks, 
-      fetchStockIntradayData } = this.props;
+    const { splashNews, currentUser, stocks } = this.props;
     const articles = splashNews.articles;
 
     if (!currentUser.oneDayPortfolio || !articles || ! currentUser.portfolioShares) {

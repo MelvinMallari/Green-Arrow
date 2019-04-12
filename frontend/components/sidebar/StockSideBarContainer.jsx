@@ -7,7 +7,8 @@ const mapStateToProps = (state, ownProps) => {
   let currentUser = state.entities.users[state.session.id]
   return ({
     transactions: state.entities.transactions,    
-    watched: currentUser.watchedStocks.includes(ownProps.stock.tickerSymbol)
+    watched: currentUser.watchedStocks.includes(ownProps.stock.tickerSymbol),
+    errors: state.errors.transaction
   });
 }
 

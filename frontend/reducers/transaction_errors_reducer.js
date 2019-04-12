@@ -4,7 +4,7 @@ const transactionErrorsReducers = (state = [], action) => {
   Object.freeze(state);
   switch (action.type) {
     case RECEIVE_TRANSACTION_ERRORS:
-      return action.errors;
+      return action.transactionErrors;
     default:
       return state;
   }

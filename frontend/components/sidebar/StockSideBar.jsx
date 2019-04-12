@@ -66,6 +66,23 @@ class StockSideBar extends React.Component {
     const { stock } = this.props;
     this.setState({sharePrice: this.calcMarketPrice(stock)});
   }
+
+  renderErrors() {
+    const { errors } = this.props;
+    return(
+      <div className="tx-error-container">
+        <ul>
+          {
+            errors.map((error, i) => ( 
+              <li key={`${i}`} className="tx-error-list-item">
+                <i class="fas fa-exclamation-circle"></i>
+                {error}
+              </li>))
+          }
+        </ul>
+      </div>
+    );
+  }
   
   setClassName(type) {
     const { transactionType } = this.state;
@@ -134,7 +151,7 @@ class StockSideBar extends React.Component {
                 <span className="sidebar-output-label">{transactionTotal}</span>
               </div>
             </div>
-
+            {this.renderErrors()}
             <div className="submit-btn-container">
               <input 
                 type="submit" 

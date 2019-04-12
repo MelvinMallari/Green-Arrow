@@ -38,7 +38,6 @@ input[type=number]::-webkit-outer-spin-button {
 
 .sidebar-output {
   padding-top: 16px;
-  padding-bottom: 24px;
 }
 
 .sidebar-output-label {
@@ -93,11 +92,23 @@ input[type=number]::-webkit-outer-spin-button {
   margin-top: 400px;
   margin-left: 105px;
   width: 206.5px;
-}
+}  
 
 .watch-list-btn:hover {
   color: $light-r-green;
 }
+
+.tx-error-list-item {
+  font-size: 12px;
+}
+
+.tx-error-container {
+  height: 24px;
+  display: flex;
+  justify-content: center;
+  align-items:  center;
+}
+
 
 #share-input {
   border-radius: 4px;
