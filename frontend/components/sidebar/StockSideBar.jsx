@@ -44,6 +44,12 @@ class StockSideBar extends React.Component {
     watched ? removeWatch(watch) : addWatch(watch);
   }
 
+  handleTab(e, transactionType) {
+    e.preventDefault();
+    this.props.clearErrors();
+    this.setState({transactionType,});
+  }
+
   calcMarketPrice(stock) {
     const stockIntradayData = stock.stockIntradayData;
     let i = stockIntradayData.length - 1;
@@ -118,12 +124,12 @@ class StockSideBar extends React.Component {
         <div className="stock-sidebar">
           <header>
             <button 
-              onClick={() => this.setState({transactionType: "buy"})}
+              onClick={e => this.handleTab(e, 'buy')}
               className={this.setClassName('buy')}>
               BUY {stock.tickerSymbol}
             </button>
             <button 
-              onClick={() => this.setState({transactionType: "sell"})}
+              onClick={e => this.handleTab(e, 'sell')}
               className={this.setClassName('sell')}>
               SELL {stock.tickerSymbol}
             </button>

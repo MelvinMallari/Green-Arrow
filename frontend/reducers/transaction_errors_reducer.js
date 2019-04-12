@@ -6,7 +6,7 @@ const transactionErrorsReducers = (state = [], action) => {
     case RECEIVE_TRANSACTION_ERRORS:
       return action.transactionErrors;
     default:
-      return state;
+      return [];
   }
 }
 
