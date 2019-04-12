@@ -79,11 +79,17 @@ class SessionForm extends React.Component {
   renderErrors() {
     const { errors } = this.props;
     return(
-      <ul>
-        {
-          errors.map((error, i) => ( <li key={`${i}`}>{error}</li>))
-        }
-      </ul>
+      <div className="error-container">
+        <ul>
+          {
+            errors.map((error, i) => ( 
+              <li key={`${i}`} className="error-list-item">
+                <i class="fas fa-exclamation-circle"></i>
+                {error}
+              </li>))
+          }
+        </ul>
+      </div>
     );
   }
 
@@ -116,7 +122,9 @@ class SessionForm extends React.Component {
                     className="session-input" />
                 </label>
               </div>
+
               {this.renderErrors()}
+
               <input 
                 type="submit" 
                 value={this.props.formType}

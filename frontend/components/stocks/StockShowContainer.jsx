@@ -1,7 +1,6 @@
 import { connect } from 'react-redux';
 import { fetchStock } from '../../actions/stock_actions';
 import { fetchUserData } from '../../actions/session_actions';
-import { createTransaction } from '../../actions/transaction_actions';
 import StockShow from './StockShow';
 
 const mapStateToProps = (state, ownProps) => {

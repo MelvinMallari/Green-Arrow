@@ -33,7 +33,7 @@ class StockShow extends React.Component {
 
   setClassName(current) {
     const { interval } = this.state;
-    return interval === current ? "interval-btn active-button" : "interval-btn"
+    return "interval-btn" + interval === current ? " active-button" : "";
   }
 
   render() {

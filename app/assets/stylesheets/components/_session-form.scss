@@ -1,3 +1,17 @@
+.error-list-item {
+  padding: 5px 0;
+  font-size: 13px;
+}
+
+.error-container {
+  height: 60px;
+  display: flex;
+  align-items: center;
+}
+
+.fa-exclamation-circle {
+  padding-right: 5px;
+}
 
 .session-form {
   display: flex;
@@ -12,7 +26,6 @@
   background-image: url(https://d2ue93q3u507c2.cloudfront.net/assets/generated_assets/94977d34f99015525dcd0fc9987fcbe6.png);
   align-items: center;
 }
-
 
 .session-form-display {
   display: flex;
@@ -85,7 +98,7 @@
 }
 
 .session-form-vertical {
-  margin-bottom: 60px;
+  // margin-bottom: 60px;
 }
 
 input.session-input {
