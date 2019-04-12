@@ -22,7 +22,8 @@ class StockShow extends React.Component {
   }
 
   componentDidMount() {
-    const { symbol, fetchStock } = this.props;
+    const { symbol, fetchStock, fetchUserData, currentUser } = this.props;
+    if (!currentUser.watchedStocks) fetchUserData(currentUser.id);
     fetchStock(symbol);
   }
 
