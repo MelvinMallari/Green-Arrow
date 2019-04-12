@@ -6,4 +6,8 @@ const mapDispatchToProps = dispatch => ({
   logout: () => dispatch(logout()),
 });
 
-export default connect(null, mapDispatchToProps)(NavBar);
+const mapStateToProps = state => ({
+  stocks: state.entities.stocks
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(NavBar);

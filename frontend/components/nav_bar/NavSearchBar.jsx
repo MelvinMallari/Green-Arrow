@@ -14,9 +14,7 @@ class NavSearchBar extends React.Component {
   }
 
   componentDidMount() {
-    if (!this.props.stocks) {
-      this.props.fetchStocks();
-    }
+    this.props.fetchStocks();
   }
 
   update(field) {
@@ -29,7 +27,7 @@ class NavSearchBar extends React.Component {
     const { searchInput } = this.state;
     const cutoff = 10;
 
-    let res=[];
+    let res = [];
     if (searchInput.length > 0) {
       for (let i = 0; i < stocks.length; i++) {
         if (res.length > cutoff) break;

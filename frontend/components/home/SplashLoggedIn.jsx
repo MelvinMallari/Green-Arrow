@@ -55,7 +55,7 @@ class SplashLoggedIn extends React.Component {
 
   setClassName(current) {
     const { interval } = this.state;
-    return "interval-btn ".concat(interval === current ? "active-button" : "");
+    return "interval-btn " + (interval === current ? "active-button" : "");
   }
 
   render() {
@@ -78,8 +78,7 @@ class SplashLoggedIn extends React.Component {
     } else {
       return(
         <div>
-          <NavBarContainer
-            stocks={this.props.stocks} />
+          <NavBarContainer />
           <main className="main-container">
               <div className="stock-info-container">
                 <section className="chart-container">

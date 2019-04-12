@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import NavSearchBar from './NavSearchBar'
 
 const NavBar = props => {
-  const { logout } = props;
   return (
     <div className="nav-container">
       <nav className="nav-logged-in">
@@ -21,7 +20,7 @@ const NavBar = props => {
               to="/" 
               className="black-button link">Home</Link>
             <button 
-              onClick={logout} 
+              onClick={props.logout} 
               className="black-button">Logout</button>        
           </div>
         </div>

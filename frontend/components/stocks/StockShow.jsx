@@ -22,9 +22,20 @@ class StockShow extends React.Component {
   }
 
   componentDidMount() {
-    const { symbol, fetchStock, fetchUserData, currentUser } = this.props;
+    const { symbol, 
+      fetchStock, 
+      fetchUserData, 
+      currentUser, 
+    } = this.props;
+    // if (!stocks) fetchStocks();
     if (!currentUser.watchedStocks) fetchUserData(currentUser.id);
     fetchStock(symbol);
+  }
+
+  componentDidUpdate(oldProps) {
+    if (oldProps.match.params !== this.props.match.params) {
+      window.location.reload();
+    }
   }
 
   setInterval(range) {
@@ -33,7 +44,7 @@ class StockShow extends React.Component {
 
   setClassName(current) {
     const { interval } = this.state;
-    return "interval-btn ".concat(interval === current ? "active-button" : "");
+    return "interval-btn " + (interval === current ? "active-button" : "");
   }
 
   render() {

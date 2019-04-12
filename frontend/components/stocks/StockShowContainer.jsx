@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { fetchStock } from '../../actions/stock_actions';
+import { fetchStock, fetchStocks } from '../../actions/stock_actions';
 import { fetchUserData } from '../../actions/session_actions';
 import StockShow from './StockShow';
 
@@ -16,6 +16,7 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = dispatch => ({
   fetchStock: symbol => dispatch(fetchStock(symbol)),
   fetchUserData: userId =>  dispatch(fetchUserData(userId)),
+  fetchStocks: () => dispatch(fetchStocks()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(StockShow);

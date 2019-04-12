@@ -2,7 +2,6 @@ import React from 'react';
 import { formatMoney } from '../../util/util.js';
 
 class StockSideBar extends React.Component {
-  // TODO: Figure out how to render given transaction
   constructor(props) {
     super(props);
     const { currentUser, watched } = this.props;
@@ -53,10 +52,7 @@ class StockSideBar extends React.Component {
   calcMarketPrice(stock) {
     const stockIntradayData = stock.stockIntradayData;
     let i = stockIntradayData.length - 1;
-    while (!stockIntradayData[i].close) {
-      i--;
-    }
-    
+    while (!stockIntradayData[i].close) { i--; } 
     let currentPrice = stockIntradayData[i].close.toFixed(2);
     const initPrice = parseFloat(currentPrice);
     return initPrice;
@@ -69,8 +65,16 @@ class StockSideBar extends React.Component {
   }
 
   componentDidMount() {
-    const { stock } = this.props;
-    this.setState({sharePrice: this.calcMarketPrice(stock)});
+    this.setState({sharePrice: this.calcMarketPrice(this.props.stock)});
+  }
+
+  renderAssets() {
+    const buyingPower = this.props.currentUser.currentBuyingPower;
+    return this.state.transactionType === 'buy' ? (
+      `${formatMoney(buyingPower)} Buying Power Available`
+    ) : (
+      `${this.calcSharesOwned()} Shares Owned`
+    )
   }
 
   renderErrors() {
@@ -81,8 +85,7 @@ class StockSideBar extends React.Component {
           {
             errors.map((error, i) => ( 
               <li key={`${i}`} className="tx-error-list-item">
-                <i class="fas fa-exclamation-circle"></i>
-                {error}
+                <i class="fas fa-exclamation-circle"></i> {error}
               </li>))
           }
         </ul>
@@ -92,7 +95,7 @@ class StockSideBar extends React.Component {
   
   setClassName(type) {
     const { transactionType } = this.state;
-    return transactionType === type ? "interval-btn active-button" : "interval-btn";
+    return "interval-btn " + (transactionType === type ? "active-button" : "");
   }
 
   update(field) {
@@ -111,12 +114,9 @@ class StockSideBar extends React.Component {
     const { stock, currentUser, watched } = this.props;
     const marketPrice = formatMoney(this.calcMarketPrice(stock));
     const transactionTotal = formatMoney(sharePrice*shareDifference);
+    const watchListStatus = "watch-list-btn" + (watched ? " watch-list-active" : "");
     const buyingPower = currentUser.currentBuyingPower;
-    const watchListStatus = watched ? 
-            "watch-list-btn watch-list-active" : "watch-list-btn";
-
     if (!buyingPower) return null;
-
     this.calcSharesOwned();
 
     return (
@@ -153,7 +153,7 @@ class StockSideBar extends React.Component {
                 <span className="sidebar-output-label">{marketPrice}</span>
               </div>
               <div className="stock-sidebar-cost sidebar-label">
-                <span >Estimate Cost</span>
+                <span>Estimate Cost</span>
                 <span className="sidebar-output-label">{transactionTotal}</span>
               </div>
             </div>
@@ -164,21 +164,11 @@ class StockSideBar extends React.Component {
                 value={transactionType === "sell" ? "Submit Sell" : "Submit Buy"}
                 className="submit-order-btn"/>
             </div>
-
             <div className="buying-power-container">
-              <span>
-                {
-                  this.state.transactionType === 'buy' ? (
-                    `${formatMoney(buyingPower)} Buying Power Available`
-                  ) : (
-                    `${this.calcSharesOwned()} Shares Owned`
-                  )
-                }
-              </span>
+              <span> {this.renderAssets()} </span>
             </div>
           </form>
         </div>
-
           <button 
             onClick={this.handleWatchlistSubmit}
             className={watchListStatus}>
