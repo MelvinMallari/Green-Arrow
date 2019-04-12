@@ -9,10 +9,15 @@ class SplashSideBarIndexItem extends React.Component {
     // Accounts for fact that intraday close sometimes null
     let sampleData = data.slice().reverse();
     let i = 0;
-    while (!sampleData[i].close) {
-      i++;
-    }
+    while (!sampleData[i].close) { i++; }
     return sampleData[i].close;
+  }
+
+  filterData(data) {
+    return data.filter( (stock, i) => { 
+      if ((i === 0 || i % 5 === 0 || i === 390) && stock.close) {
+        return true; 
+    }});
   }
 
   render() {
@@ -30,7 +35,7 @@ class SplashSideBarIndexItem extends React.Component {
         </li>
       );
     }
-    const data = stock.stockIntradayData;
+    const data = this.filterData(stock.stockIntradayData);
     const close = this.findLatestValidClose(data);
     return(
       <li className="splash-index-item-wrapper">

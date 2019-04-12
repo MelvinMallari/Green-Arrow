@@ -100,8 +100,10 @@ class PortfolioChart extends React.Component {
     if (interval === '1D') {
       oneDayPortfolioData = this.structureData(oneDayPortfolioData, interval);
       // Handle intraday data in 5 minute increments
-      return oneDayPortfolioData.filter(
-              (_, i) => { if (i === 0 || i % 5 === 0 || i === 390) return true; });
+      return oneDayPortfolioData.filter( (stock, i) => { 
+        if ((i === 0 || i % 5 === 0 || i === 390) && stock.close) {
+          return true; 
+        }});
     } else {
       fiveYearPortfolioData = this.structureData(fiveYearPortfolioData, interval);
       let data = fiveYearPortfolioData.slice(0);
@@ -117,7 +119,7 @@ class PortfolioChart extends React.Component {
       initPctDiff, 
       filteredData, 
       diffReference
-    ] = this.initialDisplayData();
+  ] = this.initialDisplayData();
 
     return(
       <div>

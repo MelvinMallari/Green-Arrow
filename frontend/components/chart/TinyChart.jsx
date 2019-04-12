@@ -1,21 +1,12 @@
 import React from 'react';
-import {
-  LineChart, 
-  Line, 
-  XAxis, 
-  YAxis, 
-} from 'recharts';
-
+import { LineChart, Line, XAxis, YAxis, } from 'recharts';
 const TinyChart = props => {
-
   const calcDomain = data => ( [Math.min(...data), Math.min(...data)] );
-  const { data } = props;
-
   return (
         <LineChart
           width={60}
           height={16}
-          data={data}
+          data={props.data}
           cursor="pointer"
           margin={{ top: 0, right: 0, left: 0, bottom: 0, }} >
             <XAxis 
@@ -23,7 +14,7 @@ const TinyChart = props => {
               hide={true} />
             <YAxis 
               hide={true}
-              domain={calcDomain(data)} />
+              domain={calcDomain(props.data)} />
             <Line 
               animationDuration={0} 
               dataKey="close" 

@@ -38,7 +38,7 @@ class StockShow extends React.Component {
         <button 
           onClick={() => this.setInterval(interval)} 
           className={this.setClassName(interval)}>{interval}</button>
-      ))
+    ));
   }
 
   setInterval(range) {
