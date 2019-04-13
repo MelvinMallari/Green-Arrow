@@ -48,14 +48,18 @@ export const prefetchStock = symbol => dispatch => (
     .then(stock => dispatch(receiveStock(stock.tickerSymbol, stock)))
 );
 
-export const fetchStock = symbol => dispatch => (
+export const fetchStock = symbol => dispatch => {
+  const fetchAll = () => Promise.all([
+    dispatch(fetchStockData(symbol)),
+    dispatch(fetchStockIntradayData(symbol)),
+    dispatch(fetchStockInfo(symbol)),
+    dispatch(fetchStockNews(symbol))
+  ]);
+
   StockApiUtil.fetchStock(symbol)
     .then(stock => dispatch(receiveStock(stock.tickerSymbol, stock)))
-    .then(() => dispatch(fetchStockData(symbol)))
-    .then(() => dispatch(fetchStockIntradayData(symbol)))
-    .then(() => dispatch(fetchStockInfo(symbol)))
-    .then(() => dispatch(fetchStockNews(symbol)))
-);
+    .then(fetchAll());
+};
 
 export const fetchStocks = symbol => dispatch => (
   StockApiUtil.fetchStocks()

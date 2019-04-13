@@ -34,7 +34,6 @@ class PortfolioChart extends React.Component {
 
   findReference(data) {
     let values = Object.values(data);
-
     for (let i = 0; i < data.length - 1; i++) {
       let reference = values[i]
       if (reference) return reference.close;
@@ -83,7 +82,7 @@ class PortfolioChart extends React.Component {
       } else {
         dataPoint = { date: labels[i], close: data[labels[i]] };
       }
-      res.push(dataPoint)
+      res.push(dataPoint);
     }
     return res;
   }
@@ -99,9 +98,8 @@ class PortfolioChart extends React.Component {
       oneDayPortfolioData = this.structureData(oneDayPortfolioData, interval);
       // Handle intraday data in 5 minute increments
       return oneDayPortfolioData.filter( (stock, i) => { 
-        if ((i === 0 || i % 5 === 0 || i === 390) && stock.close) {
-          return true; 
-        }});
+        if ((i % 5 === 0) && stock.close)  return true; });
+
     } else {
       fiveYearPortfolioData = this.structureData(fiveYearPortfolioData, interval);
       let data = fiveYearPortfolioData.slice(0);
@@ -111,7 +109,9 @@ class PortfolioChart extends React.Component {
   }
 
   renderThemeChanges(initPctDiff) {
-    if (initPctDiff < 0) document.body.classList.add('red-theme');
+    // Add class to body, css renders differently given body class
+    let docBody = document.body.classList;
+    initPctDiff < 0 ? docBody.add('red-theme') : docBody.remove('red-theme');
   }
 
   render() {

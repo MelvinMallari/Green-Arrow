@@ -18,7 +18,7 @@ import NavBarContainer from '../nav_bar/NavBarContainer';
 class StockShow extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { interval: '1D'};
+    this.state = { interval: '5Y'};
   }
 
   componentDidMount() {
@@ -55,9 +55,12 @@ class StockShow extends React.Component {
     const { symbol, stocks, currentUser } = this.props;
     const { interval } = this.state;
     const stock = stocks[symbol];
+    const numStocksSlices = 17;
 
     // Check if nested fetch has terminated before rendering
-    if (!stocks[symbol] || !stocks[symbol].stockNews || !currentUser.watchedStocks) {
+    if (!stocks[symbol] 
+      || Object.keys(stocks[symbol]).length < numStocksSlices
+      || !currentUser.watchedStocks) {
       return (
         <div className='loader-container'>
           <div className='loader'>
