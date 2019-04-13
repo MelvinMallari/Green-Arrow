@@ -20,8 +20,7 @@ class SplashLoggedIn extends React.Component {
       splashNews, 
       stocks } = this.props;
 
-    // if (!Object.keys(stocks).length) fetchStocks();
-    fetchStocks();
+    if (!Object.keys(stocks).length) fetchStocks();
     if (!currentUser.watchedStocks) fetchUserData(currentUser.id);
     if (!splashNews.articles) fetchSplashNews();
   }
