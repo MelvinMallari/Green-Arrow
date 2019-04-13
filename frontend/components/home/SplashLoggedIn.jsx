@@ -4,6 +4,7 @@ import ReactLoading from 'react-loading';
 import NewsIndex from '../news/NewsIndex';
 import SplashSideBarIndex from '../sidebar/SplashSideBarIndex';
 import PortfolioChart from '../chart/PortfolioChart';
+import { debug } from 'util';
 
 class SplashLoggedIn extends React.Component {
   constructor(props) {
@@ -74,7 +75,10 @@ class SplashLoggedIn extends React.Component {
     const { splashNews, currentUser, stocks } = this.props;
     const articles = splashNews.articles;
 
-    if (!currentUser.oneDayPortfolio || !articles || ! currentUser.portfolioShares) {
+    if (!currentUser.oneDayPortfolio 
+        || !articles 
+        || !currentUser.portfolioShares
+        || !Object.keys(stocks).length) {
       return (
         <div className='loader-container'>
           <div className='loader'>

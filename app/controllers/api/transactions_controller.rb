@@ -4,7 +4,7 @@ class Api::TransactionsController < ApplicationController
   end
 
   def index
-    @transactions = current_user.transactions; 
+    debugger;
   end
 
   def create
