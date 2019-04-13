@@ -57,7 +57,7 @@ class PortfolioChart extends React.Component {
     if (Object.keys(this.props.oneDayPortfolioData).length) {
       initPrice = this.calcInitPrice(filteredData);
       priceDifferential = parseFloat((initPrice - diffReference).toFixed(2));
-      pctDifferential = ((initPrice - diffReference) / diffReference).toFixed(2);
+      pctDifferential = ((initPrice - diffReference) / diffReference * 100).toFixed(2);
     } else {
       initPrice = currentUser.currentBuyingPower;
       priceDifferential = pctDifferential = 0;
@@ -123,6 +123,7 @@ class PortfolioChart extends React.Component {
       diffReference
     ] = this.initialDisplayData();
     this.renderThemeChanges(initPctDiff);
+    const theme = initPctDiff < 0 ? '#f45531' : '#21ce99';
     return(
       <div>
         <header className="stock-info">
@@ -159,7 +160,7 @@ class PortfolioChart extends React.Component {
           <Line 
             animationDuration={850} 
             dataKey="close" 
-            stroke="#21ce99" 
+            stroke={theme} 
             dot={false} 
             strokeWidth={2}/>
        </LineChart>

@@ -77,8 +77,6 @@ class StockChart extends React.Component {
     const initPrice = this.calcInitPrice(stock);
     const priceDifferential = parseFloat((initPrice - reference).toFixed(2));
     const pctDifferential = ((initPrice - reference) / reference * 100).toFixed(2);
-
-
     return [companyName, formatMoney(initPrice), formatMoney(priceDifferential), pctDifferential];
   }
 

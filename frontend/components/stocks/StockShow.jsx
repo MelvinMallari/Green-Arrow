@@ -18,7 +18,7 @@ import NavBarContainer from '../nav_bar/NavBarContainer';
 class StockShow extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { interval: '5Y'};
+    this.state = { interval: '1D'};
   }
 
   componentDidMount() {
