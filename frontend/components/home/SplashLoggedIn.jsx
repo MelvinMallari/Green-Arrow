@@ -19,6 +19,7 @@ class SplashLoggedIn extends React.Component {
       fetchStocks, 
       splashNews, 
       stocks } = this.props;
+
     // if (!Object.keys(stocks).length) fetchStocks();
     fetchStocks();
     if (!currentUser.watchedStocks) fetchUserData(currentUser.id);
@@ -28,7 +29,7 @@ class SplashLoggedIn extends React.Component {
   componentDidUpdate(oldProps) {
     const { currentUser } = this.props;
     let oldUserInfo = oldProps.currentUser;
-    if (oldUserInfo !== currentUser) this.fetchRelevantStocks() 
+    if (oldUserInfo !== currentUser) this.fetchRelevantStocks();
     if (oldUserInfo.watchedStocks !== currentUser.watchedStocks) this.forceUpdate();
   }
 
