@@ -58,7 +58,7 @@ export const fetchStock = symbol => dispatch => {
 
   StockApiUtil.fetchStock(symbol)
     .then(stock => dispatch(receiveStock(stock.tickerSymbol, stock)))
-    .then(fetchAll());
+    .then(() => fetchAll());
 };
 
 export const fetchStocks = symbol => dispatch => (
