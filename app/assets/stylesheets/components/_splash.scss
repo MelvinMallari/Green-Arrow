@@ -54,6 +54,12 @@ nav.nav-bar {
   color: $r-green;
 }
 
+body.red-theme {
+  .black-button:hover {
+    color: $r-red;
+  }
+}
+
 .r-button:hover {
   box-shadow: 0px 4px 8px rgba(0,0,0,0.16)
 }

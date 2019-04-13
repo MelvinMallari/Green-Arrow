@@ -47,10 +47,13 @@
 
 body.red-theme {
 
-.active-button {
-  color: $r-red;
-}
+  .active-button {
+    color: $r-red;
+  }
 
+  .fa-feather-alt:hover {
+    color: $r-red;
+  }
 }
 
 .link {
