@@ -14,7 +14,8 @@ class NavSearchBar extends React.Component {
   }
 
   componentDidMount() {
-    this.props.fetchStocks();
+    let { stocks, fetchStocks } = this.props;
+    if (!Object.keys(stocks).length) fetchStocks();
   }
 
   update(field) {
