@@ -105,12 +105,23 @@ class StockChart extends React.Component {
     }
   }
 
+  renderThemeChanges(initPctDiff) {
+    if (initPctDiff < 0) {
+     document.body.classList.add('red-theme');
+    } else {
+     document.body.classList.remove('red-theme');
+    }
+  }
+
   render() {
     const data = this.filterData();
     const diffReference = this.calcDiffReference();
     const { stock } = this.props;
 
     const [companyName, initPrice, initPriceDiff, initPctDiff] = this.initialStockData(stock, diffReference);
+    const theme = initPctDiff < 0 ? '#f45531' : '#21ce99';
+
+    this.renderThemeChanges(initPctDiff);
     return(
       <div>
         <header className="stock-info">
@@ -147,7 +158,7 @@ class StockChart extends React.Component {
           <Line 
             animationDuration={850} 
             dataKey="close" 
-            stroke="#21ce99" 
+            stroke={theme} 
             dot={false} 
             strokeWidth={2}/>
        </LineChart>

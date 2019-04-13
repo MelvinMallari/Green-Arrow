@@ -106,9 +106,35 @@ input[type=number]::-webkit-outer-spin-button {
   height: 24px;
   display: flex;
   justify-content: center;
-  align-items:  center;
+  align-items: center;
 }
 
+body.red-theme {
+  // .stock-sidebar-container {
+
+  // }
+  .submit-order-btn {
+    background: $r-red;
+  }
+
+  .submit-order-btn:hover {
+    background: $light-r-red;
+  }
+
+  .watch-list-btn {
+    color: $r-red;
+    border-color: $r-red;
+    border: 1px solid $r-red;
+  }  
+
+  .watch-list-btn:hover {
+    color: $light-r-red;
+  }
+
+  #share-input:focus {
+    border-color: $r-red;
+  }
+}
 
 #share-input {
   border-radius: 4px;

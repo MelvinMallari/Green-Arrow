@@ -4,9 +4,7 @@ import { formatMoney } from '../../util/util.js';
 class StockAbout extends React.Component {
   parseWebsite(website) {
     let i = 0;
-    while (website[i] !== '.') {
-      i++
-    }
+    while (website[i] !== '.') { i++ }
     return website.slice(i+1);
   }
 

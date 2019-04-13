@@ -45,6 +45,10 @@
   color: $r-green;
 }
 
+body.red-theme .website-link {
+  color: $r-red;
+}
+
 .about-info-label {
   padding-bottom: 4px;
   font-weight: 600;

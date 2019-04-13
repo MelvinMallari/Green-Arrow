@@ -43,7 +43,15 @@
 
 .active-button {
   color: $r-green;
-  border-bottom: 3px solid #21ce99;
+  border-bottom: 3px solid;
+}
+
+body.red-theme {
+
+.active-button {
+  color: $r-red;
+}
+
 }
 
 .link {
@@ -72,3 +80,4 @@
   padding: 16px 0;
   border-top: 1px solid #eee;
 }
+

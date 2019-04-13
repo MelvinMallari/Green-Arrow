@@ -111,6 +111,11 @@ class PortfolioChart extends React.Component {
       return data.reverse().slice(0, end).reverse();
     }
   }
+  renderThemeChanges(initPctDiff) {
+    if (initPctDiff < 0) {
+      document.body.classList.add('red-theme');
+    }
+  }
 
   render() {
     const [
@@ -119,8 +124,8 @@ class PortfolioChart extends React.Component {
       initPctDiff, 
       filteredData, 
       diffReference
-  ] = this.initialDisplayData();
-
+    ] = this.initialDisplayData();
+    this.renderThemeChanges(initPctDiff);
     return(
       <div>
         <header className="stock-info">
