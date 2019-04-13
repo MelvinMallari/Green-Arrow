@@ -44,9 +44,7 @@ class PortfolioChart extends React.Component {
 
   calcInitPrice(intradayData) {
     let i = intradayData.length - 1;
-    while (!intradayData[i].close) {
-      i--;
-    }
+    while (!intradayData[i].close) { i--; }
     return parseFloat(intradayData[i].close.toFixed(2));
   }
 
@@ -111,10 +109,9 @@ class PortfolioChart extends React.Component {
       return data.reverse().slice(0, end).reverse();
     }
   }
+
   renderThemeChanges(initPctDiff) {
-    if (initPctDiff < 0) {
-      document.body.classList.add('red-theme');
-    }
+    if (initPctDiff < 0) document.body.classList.add('red-theme');
   }
 
   render() {
