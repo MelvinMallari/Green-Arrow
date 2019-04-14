@@ -11,7 +11,7 @@ ActiveRecord::Base.transaction do
   Stock.destroy_all
   Transaction.destroy_all
 
-  demo_account = User.create({username: "dannyYAMMENonThem", password:"password"})
+  demo_account = User.create({username: "jordanWOLFbelfort", password:"password"})
 
   exchange_files = Dir.glob("#{Rails.root}/exchange_data/**/*");
 
