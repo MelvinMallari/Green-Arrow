@@ -209,6 +209,34 @@ div.splash-image {
   overflow: scroll;
 }
 
+.splash-footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.personal-links-container {
+  color: #111;
+  width: 1000px;
+  border-top: 1px solid #eee;
+  border-bottom: 1px solid #eee;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.fa-icon:hover {
+  color: $r-green;
+}
+
+.personal-links {
+  width: 175px;
+  display: flex;
+  justify-content: space-between;
+}
+
 .watchlist-container {
   max-height: 240px;
   overflow: scroll;
