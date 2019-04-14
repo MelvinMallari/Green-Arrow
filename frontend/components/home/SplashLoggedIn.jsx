@@ -4,6 +4,7 @@ import ReactLoading from 'react-loading';
 import NewsIndex from '../news/NewsIndex';
 import SplashSideBarIndex from '../sidebar/SplashSideBarIndex';
 import PortfolioChart from '../chart/PortfolioChart';
+import LinksFooter from '../LinksFooter';
 import { debug } from 'util';
 
 class SplashLoggedIn extends React.Component {
@@ -116,21 +117,7 @@ class SplashLoggedIn extends React.Component {
                 currentUser={currentUser}
                 stocks={stocks} />
           </main>
-          <footer className="splash-footer">
-            <div className="personal-links-container">
-              <div className="personal-links">
-                <a href="https://github.com/MelvinMallari/Green-Arrow">
-                  <i class="fab fa-github-square fa-3x fa-icon"></i>
-                </a>
-                <a href="https://www.linkedin.com/in/melvinmallari/">
-                  <i class="fab fa-linkedin fa-3x fa-icon"></i>
-                </a>
-                <a href="https://melvinmallari.com/">
-                  <i class="fas fa-address-card fa-3x fa-icon"></i>
-                </a>  
-              </div>
-            </div>
-          </footer>
+          <LinksFooter />
         </div>
       );
     }

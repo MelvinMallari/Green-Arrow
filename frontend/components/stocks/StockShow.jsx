@@ -8,12 +8,13 @@ import {
   Tooltip,
   Legend, 
 } from 'recharts';
-import StockChart from '../chart/StockChart';
 import ReactLoading from 'react-loading';
+import StockChart from '../chart/StockChart';
 import StockAbout from './StockAbout';
 import NewsIndex from '../news/NewsIndex';
 import StockSideBarContainer from '../sidebar/StockSideBarContainer';
 import NavBarContainer from '../nav_bar/NavBarContainer';
+import LinksFooter from '../LinksFooter';
 
 class StockShow extends React.Component {
   constructor(props) {
@@ -94,6 +95,7 @@ class StockShow extends React.Component {
               stock={stock} 
               currentUser={currentUser} />
           </main>
+          <LinksFooter />
         </div>
       );
     }

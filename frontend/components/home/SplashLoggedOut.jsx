@@ -1,5 +1,6 @@
 import React from 'react';
 import GreetingContainer from "../greeting/GreetingContainer";
+import LinksFooter from '../LinksFooter';
 import { Link } from 'react-router-dom';
 
 class SplashLoggedOut extends React.Component {
@@ -33,21 +34,7 @@ class SplashLoggedOut extends React.Component {
             </section>
           </div>
         </div>
-        <footer className="splash-footer">
-          <div className="personal-links-container">
-            <div className="personal-links">
-              <a href="https://github.com/MelvinMallari/Green-Arrow">
-                <i class="fab fa-github-square fa-3x fa-icon"></i>
-              </a>
-              <a href="https://www.linkedin.com/in/melvinmallari/">
-                <i class="fab fa-linkedin fa-3x fa-icon"></i>
-              </a>
-              <a href="https://melvinmallari.com/">
-                <i class="fas fa-address-card fa-3x fa-icon"></i>
-              </a>  
-            </div>
-          </div>
-        </footer>
+        <LinksFooter />
       </div>
     );
   }
