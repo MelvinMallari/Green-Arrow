@@ -153,7 +153,7 @@ div.splash-image {
   align-items: center;
   font-size: 16px;
   line-height: 22px;
-  font-weight: 600;
+  font-weight: 500;
   border-bottom: 1px solid #f4f4f4;
   border-top: 1px solid #f4f4f4;
 }
@@ -204,6 +204,16 @@ div.splash-image {
   padding-top: 3px;
 }
 
+.portfolio-container {
+  max-height: 240px;
+  overflow: scroll;
+}
+
+.watchlist-container {
+  max-height: 240px;
+  overflow: scroll;
+}
+
 .tiny-chart {
   cursor: pointer;
 }
@@ -214,8 +224,8 @@ div.splash-image {
 }
 
 .sidebar-closing-price {
-  font-weight: 600;
-  font-size: 15px;
+  font-weight: 500;
+  font-size: 16px;
 }
 
 .hidden {

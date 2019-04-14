@@ -77,6 +77,18 @@ class StockSideBar extends React.Component {
     )
   }
 
+  renderSellButton() {
+    if (this.calcSharesOwned() > 0) {
+      return (
+        <button 
+          onClick={e => this.handleTab(e, 'sell')}
+          className={this.setClassName('sell')}>
+          Sell {this.props.stock.tickerSymbol}
+        </button>
+      );
+    }
+  }
+
   renderErrors() {
     const { errors } = this.props;
     return(
@@ -126,15 +138,10 @@ class StockSideBar extends React.Component {
             <button 
               onClick={e => this.handleTab(e, 'buy')}
               className={this.setClassName('buy')}>
-              BUY {stock.tickerSymbol}
+              Buy {stock.tickerSymbol}
             </button>
-            <button 
-              onClick={e => this.handleTab(e, 'sell')}
-              className={this.setClassName('sell')}>
-              SELL {stock.tickerSymbol}
-            </button>
+            {this.renderSellButton()}
           </header>
-
           <form 
             onSubmit={this.handleTransactionSubmit} 
             className="stock-sidebar-form">

@@ -21,8 +21,10 @@ class SplashLoggedIn extends React.Component {
       splashNews, 
       stocks } = this.props;
 
-    if (!Object.keys(stocks).length) fetchStocks();
-    if (!currentUser.watchedStocks) fetchUserData(currentUser.id);
+    // if (!Object.keys(stocks).length) 
+    fetchStocks();
+    fetchUserData(currentUser.id);
+    // if (!currentUser.watchedStocks) fetchUserData(currentUser.id);
     if (!splashNews.articles) fetchSplashNews();
   }
   
@@ -30,7 +32,7 @@ class SplashLoggedIn extends React.Component {
     const { currentUser } = this.props;
     let oldUserInfo = oldProps.currentUser;
     if (oldUserInfo !== currentUser) this.fetchRelevantStocks();
-    if (oldUserInfo.watchedStocks !== currentUser.watchedStocks) this.forceUpdate();
+    // if (oldUserInfo.watchedStocks !== currentUser.watchedStocks) this.forceUpdate();
   }
 
   fetchRelevantStocks() {
