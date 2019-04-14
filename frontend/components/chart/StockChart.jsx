@@ -29,37 +29,30 @@ class StockChart extends React.Component {
     return data.length < end ? data.length : end;
   }
 
-  calcDiffReference() {
+  findDiffReference() {
     const { interval, stock } = this.props;
 
-    let data = stock.stockData.slice(0);
+    let data;
     if (interval === '1D') {
-      let i = 0;
-      while (!stock.stockIntradayData[i].close) { i++ }
-      return stock.stockIntradayData[i].close;
+      data = stock.stockIntradayData;
     } else if (interval === '5Y') {
-      return data[0].close;
+      data = stock.stockData;
     } else {
-      data = stock.stockData.slice(0);
+      let copy = stock.stockData.slice(0);
       const start = INTERVAL_TO_AMOUNT_DATAPOINTS[interval] + 1;
       const end = 2*INTERVAL_TO_AMOUNT_DATAPOINTS[interval] + 1;
-
-      const prevData = data.reverse().slice(start, end).reverse();
-      return this.calcVolWeightedAvg(prevData); 
+      data = copy.reverse().slice(start, end).reverse(); 
     }
+    return this.findReference(data);
   }
 
-  calcVolWeightedAvg(sampleData) {
-    let sumVolPrice, sumVol, volWeightedAvg;
-    sumVolPrice = sumVol = volWeightedAvg = 0;
-
-    for (let i = 0; i < sampleData.length; i++) {
-      sumVolPrice += sampleData[i].close * sampleData[i].volume;
-      sumVol += sampleData[i].volume;
-
-    volWeightedAvg = (sumVolPrice / sumVol).toFixed(2);
-    return volWeightedAvg;
+  findReference(data) {
+    let values = Object.values(data);
+    for (let i = 0; i < data.length - 1; i++) {
+      let reference = values[i]
+      if (reference) return reference.close;
     }
+    return 0;
   }
 
   calcInitPrice(stock) {
@@ -83,18 +76,15 @@ class StockChart extends React.Component {
   filterData() {
     const { interval, stock  } = this.props;
 
-    // returns relevant section of data given amount of data points
+    // returns relevant section of data given interval
     let range = INTERVAL_TO_AMOUNT_DATAPOINTS[interval];
 
     let data;
-    // handle dataSet differently for intraday data
     if (interval === '1D') {
       data = stock.stockIntradayData;
       // Handle intraday data in 5 minute increments
       return data.filter((stock, i) => { 
-        if ((i === 0 || i % 5 === 0 || i === 390) && stock.close) {
-          return true; 
-        }
+        if (i % 5 === 0 && stock.close) return true;
       });
     } else {
       data = stock.stockData.slice(0);
@@ -113,7 +103,7 @@ class StockChart extends React.Component {
 
   render() {
     const data = this.filterData();
-    const diffReference = this.calcDiffReference();
+    const diffReference = this.findDiffReference();
     const { stock } = this.props;
 
     const [companyName, initPrice, initPriceDiff, initPctDiff] = this.initialStockData(stock, diffReference);

@@ -32,7 +32,6 @@ class StockSideBar extends React.Component {
       ticker_symbol: stock.tickerSymbol,
     };
 
-    if (shareDifference === 0) return null;
     createTransaction(transaction);
   }
 

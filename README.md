@@ -21,8 +21,68 @@ Green Arrow is a Robinhood clone that allows you to simulate investment strategi
 
   ### Dashboard & Portfolio
   Upon login, users are greeted with a dashboard hosting information including portfolio performance, stocks owned, stocks watched, and a news feed of recent events. 
+  <img src="./assets/GreenArrowSplashStandard.gif" align="center">
 
   ### Stock Show
-  
+
+  ```js
+  filterData() {
+    const { interval, stock  } = this.props;
+
+    // returns relevant section of data given interval
+    let range = INTERVAL_TO_AMOUNT_DATAPOINTS[interval];
+
+    let data;
+    if (interval === '1D') {
+      data = stock.stockIntradayData;
+      // Handle intraday data in 5 minute increments
+      return data.filter((stock, i) => { 
+        if (i % 5 === 0 && stock.close) return true;
+      });
+    } else {
+      data = stock.stockData.slice(0);
+      let end = this.calcEndIndex(data, range);
+      return data.reverse().slice(0, end).reverse();
+    }
+  }
+
+  findDiffReference() {
+    const { interval, stock } = this.props;
+
+    let data;
+    if (interval === '1D') {
+      data = stock.stockIntradayData;
+    } else if (interval === '5Y') {
+      data = stock.stockData;
+    } else {
+      let copy = stock.stockData.slice(0);
+      const start = INTERVAL_TO_AMOUNT_DATAPOINTS[interval] + 1;
+      const end = 2*INTERVAL_TO_AMOUNT_DATAPOINTS[interval] + 1;
+      data = copy.reverse().slice(start, end).reverse(); 
+    }
+    return this.findReference(data);
+  }
+
+  findReference(data) {
+    let values = Object.values(data);
+    for (let i = 0; i < data.length - 1; i++) {
+      let reference = values[i]
+      if (reference) return reference.close;
+    }
+    return 0;
+  }
+
+  initialStockData(stock, reference) {
+    const companyName = stock.companyName;
+    const initPrice = this.calcInitPrice(stock);
+    const priceDifferential = parseFloat((initPrice - reference).toFixed(2));
+    const pctDifferential = ((initPrice - reference) / reference * 100).toFixed(2);
+    return [companyName, formatMoney(initPrice), formatMoney(priceDifferential), pctDifferential];
+  }
+  ```
+
+  A variety of mathemtical calculations are required to communicate stock fluctuation data. The first step is to filter for the section of data relevant to a given interval. This is a necessary preprocessing step in a chosen tradeoff to minimize API calls, as all five years worth of data are pulled every query. Given the relevant slice of data, we choose the opening stock price from the relevant slice as our reference point. This reference point forms the basis of all our calculations, as can be seen in `initialStockData`.
+
+  ### Transaction System
 
   ### Watchlist

@@ -113,3 +113,4 @@ class User < ApplicationRecord
     self.buying_power ||= "100000";
   end
 end
+  
