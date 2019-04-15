@@ -77,12 +77,46 @@ Green Arrow is a Robinhood clone that allows you to simulate investment strategi
     const initPrice = this.calcInitPrice(stock);
     const priceDifferential = parseFloat((initPrice - reference).toFixed(2));
     const pctDifferential = ((initPrice - reference) / reference * 100).toFixed(2);
-    return [companyName, formatMoney(initPrice), formatMoney(priceDifferential), pctDifferential];
+    return [
+      companyName, 
+      formatMoney(initPrice), 
+      formatMoney(priceDifferential), 
+      pctDifferential
+    ];
   }
   ```
 
-  A variety of mathemtical calculations are required to communicate stock fluctuation data. The first step is to filter for the section of data relevant to a given interval. This is a necessary preprocessing step in a chosen tradeoff to minimize API calls, as all five years worth of data are pulled every query. Given the relevant slice of data, we choose the opening stock price from the relevant slice as our reference point. This reference point forms the basis of all our calculations, as can be seen in `initialStockData`.
+  A variety of mathematical calculations are required to communicate stock fluctuation data. The first step is to filter for the section of data relevant to a given interval. This is a necessary preprocessing step in a chosen tradeoff to minimize API calls, as all five years worth of data are pulled every query. Given the relevant slice of data, we choose the opening stock price from the relevant slice as our reference point. This reference point forms the basis of all our calculations, as can be seen in `initialStockData`.
 
   ### Transaction System
+  The transaction system has a series of validation checks in the backend to ensure only proper transactions are carried through. A series of errors inform the users how to modify their transaction to be valid.
+
+  ```rb
+  def create
+    @transaction = Transaction.new(transaction_params)
+    @transaction.user_id = current_user.id
+
+    transaction_total = @transaction.share_difference*@transaction.share_price
+    shares_owned = current_user.portfolio_shares[@transaction.ticker_symbol]
+    
+    if @transaction.share_difference == 0
+      render json: ["Please input valid share amount"], status: 401
+    elsif @transaction.share_difference > 0 
+          && transaction_total > current_user.current_buying_power
+      render json: ["Insufficient Buying Power"], status: 401
+    elsif @transaction.share_difference < 0
+          && shares_owned < @transaction.share_difference.abs
+      render json: ["Insufficient Shares"], status: 401
+    else
+      if @transaction.save 
+        render "api/transactions/show"
+      else
+        render json: @transaction.errors.full_messages, status: 422
+      end
+    end
+  end
+  ```
 
   ### Watchlist
+  Users can keep track of stocks they are interested in via watchlists. The stocks that form the watchlist can be viewed in the dashboard. 
+
