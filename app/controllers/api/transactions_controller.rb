@@ -15,11 +15,9 @@ class Api::TransactionsController < ApplicationController
     
     if @transaction.share_difference == 0
       render json: ["Please input valid share amount"], status: 401
-    elsif @transaction.share_difference > 0 
-          && transaction_total > current_user.current_buying_power
+    elsif @transaction.share_difference > 0 && transaction_total > current_user.current_buying_power
       render json: ["Insufficient Buying Power"], status: 401
-    elsif @transaction.share_difference < 0 
-          && shares_owned < @transaction.share_difference.abs
+    elsif @transaction.share_difference < 0 && shares_owned < @transaction.share_difference.abs
       render json: ["Insufficient Shares"], status: 401
     else
       if @transaction.save 
