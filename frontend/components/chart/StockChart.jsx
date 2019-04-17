@@ -29,23 +29,6 @@ class StockChart extends React.Component {
     return data.length < end ? data.length : end;
   }
 
-  findDiffReference() {
-    const { interval, stock } = this.props;
-
-    let data;
-    if (interval === '1D') {
-      data = stock.stockIntradayData;
-    } else if (interval === '5Y') {
-      data = stock.stockData;
-    } else {
-      let copy = stock.stockData.slice(0);
-      const start = INTERVAL_TO_AMOUNT_DATAPOINTS[interval] + 1;
-      const end = 2*INTERVAL_TO_AMOUNT_DATAPOINTS[interval] + 1;
-      data = copy.reverse().slice(start, end).reverse(); 
-    }
-    return this.findReference(data);
-  }
-
   findReference(data) {
     let values = Object.values(data);
     for (let i = 0; i < data.length - 1; i++) {
@@ -103,10 +86,10 @@ class StockChart extends React.Component {
 
   render() {
     const data = this.filterData();
-    const diffReference = this.findDiffReference();
+    const diffReference = this.findReference(data);
     const { stock } = this.props;
-
     const [companyName, initPrice, initPriceDiff, initPctDiff] = this.initialStockData(stock, diffReference);
+
     const theme = initPctDiff < 0 ? '#f45531' : '#21ce99';
 
     this.renderThemeChanges(initPctDiff);
