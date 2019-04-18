@@ -5,7 +5,6 @@ const TinyChart = props => {
 
   const findReference = data =>  {
     let values = Object.values(data);
-
     for (let i = 0; i < data.length; i++) {
       if (values[i]) return values[i].close;
     }
