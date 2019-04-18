@@ -22,9 +22,9 @@ Green Arrow is a Robinhood clone that allows you to simulate investment strategi
   ### Dashboard & Portfolio
   Upon login, users are greeted with a dashboard hosting information including portfolio performance, stocks owned, stocks watched, and a news feed of recent events. 
 
-  <div style="text-align:center"> 
+  <p align="center">
     <img src="./assets/GreenArrowSplashStandard.gif" align="center">
-  </div>
+  </p>
 
   ### Stock Show
   Several external API queries are made to pull the requisite stock data. Non-dependent API are made in parallel via `Promise.all`
@@ -135,6 +135,6 @@ Green Arrow is a Robinhood clone that allows you to simulate investment strategi
 
   ### Watchlist
   Users can keep track of stocks they are interested in via watchlists. The stocks that form the watchlist can be viewed in the dashboard. 
-  <div style="text-align:center"> 
+  <p align="center">
     <img src="./assets/Watchlist-Standard.gif" align="center">
-  </div>
+  </p>
