@@ -24,6 +24,24 @@ Green Arrow is a Robinhood clone that allows you to simulate investment strategi
   <img src="./assets/GreenArrowSplashStandard.gif" align="center">
 
   ### Stock Show
+  Several external API queries are made to pull the requisite stock data. Non-dependent API are made in parallel via `Promise.all`
+
+  ```js
+  export const fetchStock = symbol => dispatch => {
+    const fetchAll = () => Promise.all([
+      dispatch(fetchStockData(symbol)),
+      dispatch(fetchStockIntradayData(symbol)),
+      dispatch(fetchStockInfo(symbol)),
+      dispatch(fetchStockNews(symbol))
+    ]);
+
+    StockApiUtil.fetchStock(symbol)
+      .then(stock => dispatch(receiveStock(stock.tickerSymbol, stock)))
+      .then(() => fetchAll());
+  };
+  ```
+
+  A variety of mathematical calculations are required to communicate stock fluctuation data. The first step is to filter for the section of data relevant to a given interval. This is a necessary preprocessing step in a chosen tradeoff to minimize API calls, as all five years worth of data are pulled every query. Given the relevant slice of data, we choose the opening stock price from the relevant slice as our reference point. This reference point forms the basis of all our calculations, as can be seen in `initialStockData`.
 
   ```js
   filterData() {
@@ -86,8 +104,8 @@ Green Arrow is a Robinhood clone that allows you to simulate investment strategi
   }
   ```
 
-  A variety of mathematical calculations are required to communicate stock fluctuation data. The first step is to filter for the section of data relevant to a given interval. This is a necessary preprocessing step in a chosen tradeoff to minimize API calls, as all five years worth of data are pulled every query. Given the relevant slice of data, we choose the opening stock price from the relevant slice as our reference point. This reference point forms the basis of all our calculations, as can be seen in `initialStockData`.
 
+  
   ### Transaction System
   The transaction system has a series of validation checks in the backend to ensure only proper transactions are carried through. A series of errors inform the users how to modify their transaction to be valid.
 
@@ -101,11 +119,9 @@ Green Arrow is a Robinhood clone that allows you to simulate investment strategi
     
     if @transaction.share_difference == 0
       render json: ["Please input valid share amount"], status: 401
-    elsif @transaction.share_difference > 0 
-          && transaction_total > current_user.current_buying_power
+    elsif @transaction.share_difference > 0 && transaction_total > current_user.current_buying_power
       render json: ["Insufficient Buying Power"], status: 401
-    elsif @transaction.share_difference < 0
-          && shares_owned < @transaction.share_difference.abs
+    elsif @transaction.share_difference < 0 && shares_owned < @transaction.share_difference.abs
       render json: ["Insufficient Shares"], status: 401
     else
       if @transaction.save 
@@ -120,3 +136,4 @@ Green Arrow is a Robinhood clone that allows you to simulate investment strategi
   ### Watchlist
   Users can keep track of stocks they are interested in via watchlists. The stocks that form the watchlist can be viewed in the dashboard. 
 
+  <img src="./assets/Watchlist-Standard.gif" align="center">
