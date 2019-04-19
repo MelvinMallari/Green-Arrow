@@ -12,6 +12,7 @@ const TinyChart = props => {
   }
 
   const calcInitPrice = data => {
+    if (data.length === 0 ) return 0;
     let i = data.length - 1;
     while (!data[i].close) { i--; }
     return parseFloat(data[i].close.toFixed(2));

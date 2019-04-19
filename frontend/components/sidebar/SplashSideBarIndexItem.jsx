@@ -8,9 +8,10 @@ class SplashSideBarIndexItem extends React.Component {
   findLatestValidClose(data) {
     // Accounts for fact that intraday close sometimes null
     let sampleData = data.slice().reverse();
-    let i = 0;
-    while (!sampleData[i].close) { i++; }
-    return sampleData[i].close;
+    for (let i = 0; i < sampleData.length; i++) {
+      if (sampleData[i].close) return sampleData[i].close;
+    }
+    return 0;
   }
 
   filterData(data) {

@@ -40,10 +40,16 @@ class StockChart extends React.Component {
 
   calcInitPrice(stock) {
     const stockIntradayData = stock.stockIntradayData;
-    let i = stockIntradayData.length - 1;
-    while (!stockIntradayData[i].close) { i--; }
-    
-    let currentPrice = stockIntradayData[i].close.toFixed(2);
+    let currentPrice;
+
+    if (!stockIntradayData.length) {
+      // Edge case for when API's down and no data pulled
+      currentPrice = 0;
+    } else {
+      let i = stockIntradayData.length - 1;
+      while (!stockIntradayData[i].close) { i--; }
+      currentPrice = stockIntradayData[i].close.toFixed(2);
+    }
     const initPrice = parseFloat(currentPrice);
     return initPrice;
   }
