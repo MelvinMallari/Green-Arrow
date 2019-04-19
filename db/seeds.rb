@@ -23,7 +23,7 @@ ActiveRecord::Base.transaction do
   end
 
   exchange_files.each do |file|
-    File.forEach(file) { |line| create_stock_given_line(line) }
+    File.foreach(file) { |line| create_stock_given_line(line) }
   end
 
   Transaction.create!(user_id: User.first.id, 
