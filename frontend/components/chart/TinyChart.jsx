@@ -1,5 +1,6 @@
 import React from 'react';
 import { LineChart, Line, XAxis, YAxis, } from 'recharts';
+
 const TinyChart = props => {
   const calcDomain = data => ( [Math.min(...data), Math.min(...data)] );
 

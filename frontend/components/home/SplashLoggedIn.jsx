@@ -107,6 +107,9 @@ class SplashLoggedIn extends React.Component {
                         {this.renderIntervalButtons()}
                       </div>
                     </nav>
+                    <span className="attention-msg">
+                      *Attention: Our current API provider, <a href="https://iextrading.com/developer/docs/#getting-started">IEX</a> is currently in the process of sunsetting endpoints used in this app as of April 19, 2019. As a result, we are currently unable to display intraday data. Please reference <a href="https://github.com/MelvinMallari/Green-Arrow">this link</a> to view a gif of the full functionality while we work to incorporate a replacement provider. Thank you for your patience!
+                    </span>
                   <section> <NewsIndex articles={articles} /> </section>
                 </section>
               </div>
