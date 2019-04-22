@@ -27,7 +27,7 @@ Green Arrow is a Robinhood clone that allows you to simulate investment strategi
   </p>
 
   ### Stock Show
-  Several external API queries are made to pull the requisite stock data. Non-dependent API are made in parallel via `Promise.all`
+  Several external API queries are made to pull the requisite stock data. Non-dependent API requests are made in parallel via `Promise.all`
 
   ```js
   export const fetchStock = symbol => dispatch => {
