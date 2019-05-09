@@ -5,7 +5,6 @@ import NewsIndex from '../news/NewsIndex';
 import SplashSideBarIndex from '../sidebar/SplashSideBarIndex';
 import PortfolioChart from '../chart/PortfolioChart';
 import LinksFooter from '../LinksFooter';
-import { debug } from 'util';
 
 class SplashLoggedIn extends React.Component {
   constructor(props) {
@@ -19,8 +18,7 @@ class SplashLoggedIn extends React.Component {
       fetchSplashNews, 
       fetchUserData, 
       fetchStocks, 
-      splashNews, 
-      stocks } = this.props;
+      splashNews } = this.props;
 
     fetchStocks();
     fetchUserData(currentUser.id);
@@ -58,7 +56,7 @@ class SplashLoggedIn extends React.Component {
         <button 
           onClick={() => this.setInterval(interval)} 
           className={this.setClassName(interval)}>{interval}</button>
-      ))
+      ));
   }
 
   setInterval(range) {
@@ -89,7 +87,7 @@ class SplashLoggedIn extends React.Component {
               width={125} />
           </div>
         </div>
-      )
+      );
     } else {
       return(
         <div>

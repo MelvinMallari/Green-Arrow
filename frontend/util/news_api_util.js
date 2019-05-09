@@ -1,4 +1,3 @@
-
 export const fetchSplashNews = () => (
   $.ajax({
     method: "GET",

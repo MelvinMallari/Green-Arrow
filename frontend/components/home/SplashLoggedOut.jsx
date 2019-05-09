@@ -18,9 +18,7 @@ class SplashLoggedOut extends React.Component {
                       <h1>Invest for Free</h1>
                     </div>
                     <div className="splash-text-phrase-container">
-                      <span>
-                        Green Arrow allows you to make money moves, for free. 
-                        </span>
+                      <span> Green Arrow allows you to make money moves, for free. </span>
                     </div>
                     <Link to="/demo"> <span className="r-button">Demo</span> </Link>
                   </div>
