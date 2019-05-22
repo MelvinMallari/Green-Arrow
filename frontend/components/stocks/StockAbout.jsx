@@ -4,15 +4,17 @@ import { formatMoney } from '../../util/util.js';
 class StockAbout extends React.Component {
   parseWebsite(website) {
     let i = 0;
-    while (website[i] !== '.') { i++ }
-    return website.slice(i+1);
+    while (website[i] !== '.') {
+      i++;
+    }
+    return website.slice(i + 1);
   }
 
   render() {
     const { stock } = this.props;
-    return(
+    return (
       <section className="stock-about-container">
-        <header >
+        <header>
           <div>
             <h2>About</h2>
           </div>
@@ -23,7 +25,14 @@ class StockAbout extends React.Component {
         <div className="about-info">
           <div>
             <div className="about-info-label">CEO</div>
-            <div><a href={`https://en.wikipedia.org/wiki/${stock.ceo}`} className='website-link'>{stock.ceo}</a></div>
+            <div>
+              <a
+                href={`https://en.wikipedia.org/wiki/${stock.ceo}`}
+                className="website-link"
+              >
+                {stock.ceo}
+              </a>
+            </div>
           </div>
           <div>
             <div className="about-info-label">Industry</div>
@@ -35,8 +44,11 @@ class StockAbout extends React.Component {
           </div>
           <div>
             <div className="about-info-label">Website</div>
-            <div><a href={stock.website} className='website-link'>
-                {this.parseWebsite(stock.website)}</a></div>
+            <div>
+              <a href={stock.website} className="website-link">
+                {this.parseWebsite(stock.website)}
+              </a>
+            </div>
           </div>
           <div>
             <div className="about-info-label">Market Cap</div>
@@ -55,7 +67,6 @@ class StockAbout extends React.Component {
             <div>{stock.shortRatio === null ? `-` : stock.shortRatio}</div>
           </div>
         </div>
-
       </section>
     );
   }

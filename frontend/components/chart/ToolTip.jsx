@@ -2,24 +2,24 @@ import React from 'react';
 import { formatMoney } from '../../util/util.js';
 
 const MONTHS = {
-  "01": "JAN",
-  "02": "FEB",
-  "03": "MAR",
-  "04": "APR",
-  "05": "MAY",
-  "06": "JUN",
-  "07": "JUL",
-  "08": "AUG",
-  "09": "SEP",
-  "10": "OCT",
-  "11": "NOV",
-  "12": "DEC",
-}
+  '01': 'JAN',
+  '02': 'FEB',
+  '03': 'MAR',
+  '04': 'APR',
+  '05': 'MAY',
+  '06': 'JUN',
+  '07': 'JUL',
+  '08': 'AUG',
+  '09': 'SEP',
+  '10': 'OCT',
+  '11': 'NOV',
+  '12': 'DEC',
+};
 
 class ToolTip extends React.Component {
   formatDate(date) {
-    const [year, month, day] = date.split("-");
-    return `${MONTHS[month]} ${day}, ${year}`
+    const [year, month, day] = date.split('-');
+    return `${MONTHS[month]} ${day}, ${year}`;
   }
 
   updateDisplay(payload) {
@@ -29,33 +29,26 @@ class ToolTip extends React.Component {
     const pctDiffElement = document.getElementById('pct-diff');
 
     const price = parseFloat(payload.close);
-    const priceDiff = parseFloat((price - diffReference));
-    const pctDiff = ((priceDiff) / diffReference * 100).toFixed(2);
+    const priceDiff = parseFloat(price - diffReference);
+    const pctDiff = ((priceDiff / diffReference) * 100).toFixed(2);
 
     priceElement.innerHTML = `${formatMoney(price)}`;
     priceDiffElement.innerHTML = `${formatMoney(priceDiff)}`;
     pctDiffElement.innerHTML = `(${pctDiff}%)`;
-
   }
 
   render() {
-    let { interval } = this.props;
+    const { interval } = this.props;
     if (!this.props.payload || !this.props.payload.length) return null;
-    
+
     // grab the relevant information from the payload Tooltip passes in
-    const payload =  this.props.payload[0].payload;
-  
+    const { payload } = this.props.payload[0];
+
     this.updateDisplay(payload);
 
-    return(
+    return (
       <div>
-        <span className="tooltip"> 
-          {
-            interval === '1D' ? 
-            (`${payload.label} ET`) : 
-            (this.formatDate(payload.date)
-          )
-          } </span>
+        <span className="tooltip">{interval === '1D' ? `${payload.label} ET` : this.formatDate(payload.date)} </span>
       </div>
     );
   }
