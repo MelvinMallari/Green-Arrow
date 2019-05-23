@@ -67,9 +67,12 @@ class StockChart extends React.Component {
       data = this.parseData(stock.stockIntradayData.intraday);
 
       // Handle intraday data in 5 minute increments
-      return data.filter((stock, i) => {
-        if (i % 5 === 0 && stock.close) return true;
-      });
+      debugger;
+      return data
+        .filter((stock, i) => {
+          if ((i + 1) % 5 === 0 && stock.close) return true;
+        })
+        .reverse();
     }
 
     data = this.parseData(stock.stockData.history);
@@ -81,8 +84,13 @@ class StockChart extends React.Component {
     const data = [];
     const dataKeys = Object.keys(dataJSON);
     for (let i = 0; i < dataKeys.length; i++) {
-      const key = dataKeys[i];
+      let key = dataKeys[i];
       const tempObj = dataJSON[key];
+
+      // Handle intraday case
+      const parsedKey = key.split(' ');
+      key = parsedKey.length > 1 ? parsedKey[1] : parsedKey[0];
+
       tempObj.date = key;
       data.push(tempObj);
     }

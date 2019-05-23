@@ -19,8 +19,8 @@ export const fetchStockData = symbol =>
 export const fetchStockIntradayData = symbol =>
   $.ajax({
     method: 'GET',
-    url: `https://api.iextrading.com/1.0/stock/${symbol}/chart/1D?filter=close,label`,
-    // url: `https://intraday.worldtradingdata.com/api/v1/intraday?symbol=${symbol}&range=1&interval=1&api_token=3byQgXtIwUX4TsXM5ph7P2owTntgiAlEpNexNgDaeNVISVmxyIGJbPKXA7UA`,
+    // url: `https://api.iextrading.com/1.0/stock/${symbol}/chart/1D?filter=close,label`,
+    url: `https://intraday.worldtradingdata.com/api/v1/intraday?symbol=${symbol}&range=1&interval=1&api_token=3byQgXtIwUX4TsXM5ph7P2owTntgiAlEpNexNgDaeNVISVmxyIGJbPKXA7UA`,
   });
 
 export const fetchStockInfo = symbol =>
