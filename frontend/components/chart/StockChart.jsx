@@ -65,6 +65,7 @@ class StockChart extends React.Component {
     let data;
     if (interval === '1D') {
       data = this.parseData(stock.stockIntradayData.intraday);
+
       // Handle intraday data in 5 minute increments
       return data.filter((stock, i) => {
         if (i % 5 === 0 && stock.close) return true;
@@ -73,10 +74,7 @@ class StockChart extends React.Component {
 
     data = this.parseData(stock.stockData.history);
     const end = this.calcEndIndex(data, range);
-    return data
-      .reverse()
-      .slice(0, end)
-      .reverse();
+    return data.slice(0, end).reverse();
   }
 
   parseData(dataJSON) {
