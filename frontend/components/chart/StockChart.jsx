@@ -1,7 +1,7 @@
 import React from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip } from 'recharts';
 import { formatMoney } from '../../util/util.js';
-import ToolTip from "./ToolTip";
+import ToolTip from './ToolTip';
 
 const INTERVAL_TO_AMOUNT_DATAPOINTS = {
   '5Y': 1258,
@@ -31,7 +31,7 @@ class StockChart extends React.Component {
   }
 
   calcInitPrice(stock) {
-    const {stockIntradayData} = stock;
+    const { stockIntradayData } = stock;
     let currentPrice;
 
     if (!stockIntradayData.length) {
@@ -49,7 +49,7 @@ class StockChart extends React.Component {
   }
 
   initialStockData(stock, reference) {
-    const {companyName} = stock;
+    const { companyName } = stock;
     const initPrice = this.calcInitPrice(stock);
     const priceDifferential = parseFloat((initPrice - reference).toFixed(2));
     const pctDifferential = (((initPrice - reference) / reference) * 100).toFixed(2);
@@ -57,23 +57,39 @@ class StockChart extends React.Component {
   }
 
   filterData() {
-    const { interval, stock  } = this.props;
+    const { interval, stock } = this.props;
 
     // returns relevant section of data given interval
-    let range = INTERVAL_TO_AMOUNT_DATAPOINTS[interval];
+    const range = INTERVAL_TO_AMOUNT_DATAPOINTS[interval];
 
     let data;
     if (interval === '1D') {
-      data = stock.stockIntradayData;
+      data = this.parseData(stock.stockIntradayData.intraday);
       // Handle intraday data in 5 minute increments
-      return data.filter((stock, i) => { 
+      return data.filter((stock, i) => {
         if (i % 5 === 0 && stock.close) return true;
       });
-    } 
-      data = stock.stockData.slice(0);
-      let end = this.calcEndIndex(data, range);
-      return data.reverse().slice(0, end).reverse();
-    
+    }
+
+    debugger;
+    data = this.parseData(stock.stockData.history);
+    const end = this.calcEndIndex(data, range);
+    return data
+      .reverse()
+      .slice(0, end)
+      .reverse();
+  }
+
+  parseData(dataJSON) {
+    const data = [];
+    const dataKeys = Object.keys(dataJSON);
+    for (let i = 0; i < dataKeys.length; i++) {
+      const key = dataKeys[i];
+      const tempObj = dataJSON[key];
+      tempObj.date = key;
+      data.push(tempObj);
+    }
+    return data;
   }
 
   renderThemeChanges(initPctDiff) {
@@ -113,7 +129,7 @@ class StockChart extends React.Component {
         <LineChart width={676} height={196} data={data} margin={{ top: 0, right: 0, left: 0, bottom: 0 }}>
           <CartesianGrid strokeDasharray="3 3" horizontal={false} vertical={false} />
           <XAxis dataKey="date" hide />
-          <YAxis hide={true} dataKey="close" domain={this.calcDomain(data)} />
+          <YAxis hide dataKey="close" domain={this.calcDomain(data)} />
           <Tooltip
             content={<ToolTip interval={this.props.interval} diffReference={diffReference} />}
             isAnimationActive={false}
