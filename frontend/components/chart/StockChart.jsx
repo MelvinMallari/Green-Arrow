@@ -71,7 +71,6 @@ class StockChart extends React.Component {
       });
     }
 
-    debugger;
     data = this.parseData(stock.stockData.history);
     const end = this.calcEndIndex(data, range);
     return data
