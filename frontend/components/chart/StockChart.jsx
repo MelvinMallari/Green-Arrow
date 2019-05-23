@@ -67,7 +67,6 @@ class StockChart extends React.Component {
       data = this.parseData(stock.stockIntradayData.intraday);
 
       // Handle intraday data in 5 minute increments
-      debugger;
       return data
         .filter((stock, i) => {
           if ((i + 1) % 5 === 0 && stock.close) return true;
