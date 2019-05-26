@@ -3,52 +3,40 @@ import SplashSideBarIndexItemContainer from './SplashSideBarIndexItemContainer';
 
 class SplashSideBarIndex extends React.Component {
   renderPortfolio() {
-    let shares = this.props.currentUser.portfolioShares;
+    const shares = this.props.currentUser.portfolioShares;
     let portfolioSymbols = Object.keys(shares);
     portfolioSymbols = portfolioSymbols.filter(symbol => shares[symbol] > 0);
     return (
       <ul>
-        {
-          portfolioSymbols.map(symbol => (
-            <SplashSideBarIndexItemContainer 
-              numShares={shares[symbol]}
-              symbol={symbol}
-              key={symbol} />))
-        }
+        {portfolioSymbols.map(symbol => (
+          <SplashSideBarIndexItemContainer numShares={shares[symbol]} symbol={symbol} key={symbol} />
+        ))}
       </ul>
     );
   }
 
   renderWatchlist() {
-    let watchedSymbols = this.props.currentUser.watchedStocks;
+    const watchedSymbols = this.props.currentUser.watchedStocks;
     return (
       <ul>
-        {
-          watchedSymbols.map(symbol => (
-            <SplashSideBarIndexItemContainer 
-              numShares={0}
-              symbol={symbol}
-              key={symbol} />))
-        }
+        {watchedSymbols.map(symbol => (
+          <SplashSideBarIndexItemContainer numShares={0} symbol={symbol} key={symbol} />
+        ))}
       </ul>
     );
   }
 
   render() {
-    return(
+    return (
       <div className="splash-sidebar-container">
         <div className="splash-sidebar-wrapper">
           <header className="splash-sidebar-index-header"> Portfolio </header>
-          <div className="portfolio-container">
-            {this.renderPortfolio()}
-          </div>
+          <div className="portfolio-container">{this.renderPortfolio()}</div>
           <header className="splash-sidebar-index-header"> Watchlist </header>
-          <div className="watchlist-container">
-            {this.renderWatchlist()}
-          </div>
+          <div className="watchlist-container">{this.renderWatchlist()}</div>
         </div>
-      </div> 
-    )
+      </div>
+    );
   }
 }
 

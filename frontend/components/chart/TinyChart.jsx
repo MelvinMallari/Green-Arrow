@@ -18,7 +18,6 @@ const TinyChart = (props) => {
     while (!data[i].close) {
       i--;
     }
-    debugger;
     return parseFloat(data[i].close).toFixed(2);
   };
 

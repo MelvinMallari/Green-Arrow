@@ -46,7 +46,7 @@ class SplashLoggedIn extends React.Component {
 
   renderIntervalButtons() {
     return ['1D', '1W', '1M', '3M', '1Y', '5Y'].map(interval => (
-      <button onClick={() => this.setInterval(interval)} className={this.setClassName(interval)}>
+      <button type="button" onClick={() => this.setInterval(interval)} className={this.setClassName(interval)}>
         {interval}
       </button>
     ));
@@ -63,7 +63,7 @@ class SplashLoggedIn extends React.Component {
 
   render() {
     const { interval } = this.state;
-    const { splashNews, currentUser, stocks } = this.props;
+    const { splashNews, currentUser, stocks, fetchStockData } = this.props;
     const { articles } = splashNews;
 
     if (!currentUser.oneDayPortfolio || !articles || !currentUser.portfolioShares || !Object.keys(stocks).length) {
@@ -83,6 +83,9 @@ class SplashLoggedIn extends React.Component {
             <section className="chart-container">
               <PortfolioChart
                 currentUser={currentUser}
+                stocks={stocks}
+                fetchStockData={fetchStockData}
+                portfolioShares={currentUser.portfolioShares}
                 oneDayPortfolioData={currentUser.oneDayPortfolio}
                 fiveYearPortfolioData={currentUser.fiveYearPortfolio}
                 interval={interval}
