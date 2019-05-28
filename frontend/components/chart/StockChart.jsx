@@ -43,6 +43,7 @@ class StockChart extends React.Component {
         const initPrice = stockIntradayData[date].close;
         return parseFloat(initPrice);
       }
+    }
     return 0;
   }
 
