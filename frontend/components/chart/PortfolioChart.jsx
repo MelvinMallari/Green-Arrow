@@ -24,9 +24,10 @@ class PortfolioChart extends React.Component {
     this.portfolioSymbols = Object.keys(portfolioShares).filter(share => portfolioShares[share] > 0);
     this.portfolioSymbols.forEach(share => promises.push(fetchStockData(share)));
 
+    // Doesn't have to be promise.all
     Promise.all(promises)
-      .then(results => {})
-      .catch(e => {
+      .then((results) => {})
+      .catch((e) => {
         console.log('NOT OKAY');
       });
   }
@@ -56,15 +57,15 @@ class PortfolioChart extends React.Component {
     return parseFloat(intradayData[i].close.toFixed(2));
   }
 
-  initialDisplayData() {
-    const filteredData = this.filterData();
+  initialDisplayData(rawData) {
+    const filteredData = this.filterData(rawData);
     const diffReference = this.findReference(filteredData);
     const { currentUser } = this.props;
     let initPrice;
     let priceDifferential;
     let pctDifferential;
 
-    if (Object.keys(this.props.oneDayPortfolioData).length) {
+    if (filteredData.length) {
       initPrice = this.calcInitPrice(filteredData);
       priceDifferential = parseFloat((initPrice - diffReference).toFixed(2));
       pctDifferential = (((initPrice - diffReference) / diffReference) * 100).toFixed(2);
@@ -92,7 +93,7 @@ class PortfolioChart extends React.Component {
     return res;
   }
 
-  filterData() {
+  filterData(rawData) {
     let { interval, oneDayPortfolioData, fiveYearPortfolioData } = this.props;
 
     // returns relevant section of data given amount of data points
@@ -106,14 +107,33 @@ class PortfolioChart extends React.Component {
         if (i % 5 === 0 && stock.close) return true;
       });
     }
-    fiveYearPortfolioData = this.structureData(fiveYearPortfolioData, interval);
-    const data = fiveYearPortfolioData.slice(0);
+    const data = this.structureData(rawData, interval);
     const end = this.calcEndIndex(data, range);
-    return data
-      .reverse()
-      .slice(0, end)
-      .reverse();
+    return data.slice(0, end).reverse();
   }
+
+  // filterData() {
+  //   let { interval, oneDayPortfolioData, fiveYearPortfolioData } = this.props;
+
+  //   // returns relevant section of data given amount of data points
+  //   const range = INTERVAL_TO_AMOUNT_DATAPOINTS[interval];
+
+  //   // handle dataSet differently for intraday data
+  //   if (interval === '1D') {
+  //     oneDayPortfolioData = this.structureData(oneDayPortfolioData, interval);
+  //     // Handle intraday data in 5 minute increments
+  //     return oneDayPortfolioData.filter((stock, i) => {
+  //       if (i % 5 === 0 && stock.close) return true;
+  //     });
+  //   }
+  //   fiveYearPortfolioData = this.structureData(fiveYearPortfolioData, interval);
+  //   const data = fiveYearPortfolioData.slice(0);
+  //   const end = this.calcEndIndex(data, range);
+  //   return data
+  //     .reverse()
+  //     .slice(0, end)
+  //     .reverse();
+  // }
 
   renderCheck() {
     const { stocks } = this.props;
@@ -131,10 +151,25 @@ class PortfolioChart extends React.Component {
     initPctDiff < 0 ? docBodyClass.add('red-theme') : docBodyClass.remove('red-theme');
   }
 
+  buildPortfolioData() {
+    const { stocks, portfolioShares } = this.props;
+    const counterHash = {};
+
+    this.portfolioSymbols.forEach((symbol) => {
+      const stockHistory = stocks[symbol].stockData.history;
+      const sharesOwned = portfolioShares[symbol];
+      Object.keys(stockHistory).forEach((date) => {
+        if (date in counterHash) {
+          counterHash[date] += parseFloat(stockHistory[date].close) * sharesOwned;
+        } else {
+          counterHash[date] = parseFloat(stockHistory[date].close) * sharesOwned;
+        }
+      });
+    });
+    return counterHash;
+  }
+
   render() {
-    const [initPrice, initPriceDiff, initPctDiff, filteredData, diffReference] = this.initialDisplayData();
-    this.renderThemeChanges(initPctDiff);
-    const theme = initPctDiff < 0 ? '#f45531' : '#21ce99';
     if (!this.renderCheck()) {
       return (
         <li className="splash-index-item-wrapper">
@@ -144,6 +179,12 @@ class PortfolioChart extends React.Component {
         </li>
       );
     }
+
+    const rawData = this.buildPortfolioData();
+    const [initPrice, initPriceDiff, initPctDiff, filteredData, diffReference] = this.initialDisplayData(rawData);
+    this.renderThemeChanges(initPctDiff);
+    const theme = initPctDiff < 0 ? '#f45531' : '#21ce99';
+
     return (
       <div>
         <header className="stock-info">
