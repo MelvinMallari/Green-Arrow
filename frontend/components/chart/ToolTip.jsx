@@ -32,9 +32,12 @@ class ToolTip extends React.Component {
     const priceDiff = parseFloat(price - diffReference);
     const pctDiff = ((priceDiff / diffReference) * 100).toFixed(2);
 
+    const priceDiffSign = priceDiff == '0' ? '' : priceDiff < 0 ? '' : '+';
+    const pctDiffSign = pctDiff == '0' ? '' : pctDiff < 0 ? '' : '+';
+
     priceElement.innerHTML = `${formatMoney(price)}`;
-    priceDiffElement.innerHTML = `${formatMoney(priceDiff)}`;
-    pctDiffElement.innerHTML = `(${pctDiff}%)`;
+    priceDiffElement.innerHTML = `${priceDiffSign}${formatMoney(priceDiff)}`;
+    pctDiffElement.innerHTML = `(${pctDiffSign}${pctDiff}%)`;
   }
 
   convertTime(time) {
@@ -59,13 +62,7 @@ class ToolTip extends React.Component {
     const { payload } = this.props.payload[0];
 
     this.updateDisplay(payload);
-    let time;
-    if (interval === '1D') {
-      const militaryTime = payload.label;
-      time = this.convertTime(militaryTime.split(' ')[1]);
-    } else {
-      time = this.convertTime(payload.date);
-    }
+    const time = this.convertTime(payload.date);
     return (
       <div>
         <span className="tooltip">{interval === '1D' ? `${time} ET` : this.formatDate(payload.date)} </span>

@@ -42,20 +42,6 @@ export const receiveStockNews = (symbol, stockNews) => ({
   stockNews,
 });
 
-export const fetchStock = symbol => (dispatch) => {
-  const fetchAll = () =>
-    Promise.all([
-      dispatch(fetchStockData(symbol)),
-      dispatch(fetchStockIntradayData(symbol)),
-      dispatch(fetchStockInfo(symbol)),
-      dispatch(fetchStockNews(symbol)),
-    ]);
-
-  StockApiUtil.fetchStock(symbol)
-    .then(stock => dispatch(receiveStock(stock.tickerSymbol, stock)))
-    .then(() => fetchAll());
-};
-
 export const fetchStocks = () => dispatch => StockApiUtil.fetchStocks().then(stocks => dispatch(receiveStocks(stocks)));
 
 export const fetchStockData = symbol => dispatch =>
@@ -71,3 +57,17 @@ export const fetchStockInfo = symbol => dispatch =>
 
 export const fetchStockNews = symbol => dispatch =>
   StockApiUtil.fetchStockNews(symbol).then(stockNews => dispatch(receiveStockNews(symbol, stockNews)));
+
+export const fetchStock = symbol => (dispatch) => {
+  const fetchAll = () =>
+    Promise.all([
+      dispatch(fetchStockData(symbol)),
+      dispatch(fetchStockIntradayData(symbol)),
+      dispatch(fetchStockInfo(symbol)),
+      dispatch(fetchStockNews(symbol)),
+    ]);
+
+  StockApiUtil.fetchStock(symbol)
+    .then(stock => dispatch(receiveStock(stock.tickerSymbol, stock)))
+    .then(() => fetchAll());
+};

@@ -69,14 +69,10 @@ class PortfolioChart extends React.Component {
   structureData(data, interval) {
     // structures data for charting.
     const res = [];
-    let dataPoint;
     const labels = Object.keys(data);
     for (let i = 0; i < labels.length - 1; i++) {
-      if (interval === '1D') {
-        dataPoint = { label: labels[i], close: data[labels[i]] };
-      } else {
-        dataPoint = { date: labels[i], close: data[labels[i]] };
-      }
+      const date = interval === '1D' ? labels[i].split(' ')[1] : labels[i];
+      const dataPoint = { date: `${date}`, close: data[labels[i]] };
       res.push(dataPoint);
     }
     return res;
@@ -119,7 +115,6 @@ class PortfolioChart extends React.Component {
         const value = parseFloat(stockData[date].close) * sharesOwned;
         date in counterHash ? (counterHash[date] += value) : (counterHash[date] = value);
       });
-      debugger;
     });
     return counterHash;
   }
