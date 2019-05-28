@@ -22,14 +22,7 @@ class PortfolioChart extends React.Component {
     this.temp = [];
     this.fiveYearPortfolioData = [];
     this.portfolioSymbols = Object.keys(portfolioShares).filter(share => portfolioShares[share] > 0);
-    this.portfolioSymbols.forEach(share => promises.push(fetchStockData(share)));
-
-    // Doesn't have to be promise.all
-    Promise.all(promises)
-      .then((results) => {})
-      .catch((e) => {
-        console.log('NOT OKAY');
-      });
+    this.portfolioSymbols.forEach(share => fetchStockData(share));
   }
 
   calcDomain(data) {
@@ -94,18 +87,20 @@ class PortfolioChart extends React.Component {
   }
 
   filterData(rawData) {
-    let { interval, oneDayPortfolioData, fiveYearPortfolioData } = this.props;
+    const { interval } = this.props;
 
     // returns relevant section of data given amount of data points
     const range = INTERVAL_TO_AMOUNT_DATAPOINTS[interval];
 
     // handle dataSet differently for intraday data
     if (interval === '1D') {
-      oneDayPortfolioData = this.structureData(oneDayPortfolioData, interval);
+      const oneDayPortfolioData = this.structureData(rawData, interval);
       // Handle intraday data in 5 minute increments
-      return oneDayPortfolioData.filter((stock, i) => {
-        if (i % 5 === 0 && stock.close) return true;
-      });
+      return oneDayPortfolioData
+        .filter((stock, i) => {
+          if ((i + 1) % 5 === 0 && stock.close) return true;
+        })
+        .reverse();
     }
     const data = this.structureData(rawData, interval);
     const end = this.calcEndIndex(data, range);
@@ -152,20 +147,23 @@ class PortfolioChart extends React.Component {
   }
 
   buildPortfolioData() {
-    const { stocks, portfolioShares } = this.props;
+    const { stocks, portfolioShares, interval } = this.props;
     const counterHash = {};
 
-    this.portfolioSymbols.forEach((symbol) => {
-      const stockHistory = stocks[symbol].stockData.history;
+    this.portfolioSymbols.forEach(symbol => {
       const sharesOwned = portfolioShares[symbol];
-      Object.keys(stockHistory).forEach((date) => {
-        if (date in counterHash) {
-          counterHash[date] += parseFloat(stockHistory[date].close) * sharesOwned;
-        } else {
-          counterHash[date] = parseFloat(stockHistory[date].close) * sharesOwned;
-        }
+      let stockData;
+      if (interval === '1D') {
+        stockData = stocks[symbol].stockIntradayData.intraday;
+      } else {
+        stockData = stocks[symbol].stockData.history;
+      }
+      Object.keys(stockData).forEach(date => {
+        const value = parseFloat(stockData[date].close) * sharesOwned;
+        date in counterHash ? (counterHash[date] += value) : (counterHash[date] = value);
       });
     });
+    debugger;
     return counterHash;
   }
 

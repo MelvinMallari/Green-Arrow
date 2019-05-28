@@ -59,8 +59,13 @@ class ToolTip extends React.Component {
     const { payload } = this.props.payload[0];
 
     this.updateDisplay(payload);
-    const time = this.convertTime(payload.date);
-
+    let time;
+    if (interval === '1D') {
+      const militaryTime = payload.label;
+      time = this.convertTime(militaryTime.split(' ')[1]);
+    } else {
+      time = this.convertTime(payload.date);
+    }
     return (
       <div>
         <span className="tooltip">{interval === '1D' ? `${time} ET` : this.formatDate(payload.date)} </span>
