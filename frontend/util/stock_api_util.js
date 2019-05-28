@@ -29,15 +29,14 @@ export const fetchStockData = symbol =>
   $.ajax({
     method: 'GET',
     url: `https://www.worldtradingdata.com/api/v1/history?symbol=${symbol}&date_from=${fiveYearsAgo}&date_to=${today}&sort=newest&api_token=3byQgXtIwUX4TsXM5ph7P2owTntgiAlEpNexNgDaeNVISVmxyIGJbPKXA7UA`,
-    url: `https://api.iextrading.com/1.0/stock/${symbol}/chart/5Y/?filter=close,date,volume`,
-
+    // url: `https://api.iextrading.com/1.0/stock/${symbol}/chart/5Y/?filter=close,date,volume`,
   });
 
 export const fetchStockIntradayData = symbol =>
   $.ajax({
     method: 'GET',
     url: `https://intraday.worldtradingdata.com/api/v1/intraday?symbol=${symbol}&range=1&interval=5&api_token=3byQgXtIwUX4TsXM5ph7P2owTntgiAlEpNexNgDaeNVISVmxyIGJbPKXA7UA`,
-    url: `https://api.iextrading.com/1.0/stock/${symbol}/chart/1D?filter=close,label`,
+    // url: `https://api.iextrading.com/1.0/stock/${symbol}/chart/1D?filter=close,label`,
   });
 
 export const fetchStockInfo = symbol =>
