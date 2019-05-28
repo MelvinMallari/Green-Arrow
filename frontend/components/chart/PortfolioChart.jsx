@@ -150,7 +150,7 @@ class PortfolioChart extends React.Component {
     const { stocks, portfolioShares, interval } = this.props;
     const counterHash = {};
 
-    this.portfolioSymbols.forEach(symbol => {
+    this.portfolioSymbols.forEach((symbol) => {
       const sharesOwned = portfolioShares[symbol];
       let stockData;
       if (interval === '1D') {
@@ -158,23 +158,20 @@ class PortfolioChart extends React.Component {
       } else {
         stockData = stocks[symbol].stockData.history;
       }
-      Object.keys(stockData).forEach(date => {
+      Object.keys(stockData).forEach((date) => {
         const value = parseFloat(stockData[date].close) * sharesOwned;
         date in counterHash ? (counterHash[date] += value) : (counterHash[date] = value);
       });
     });
-    debugger;
     return counterHash;
   }
 
   render() {
     if (!this.renderCheck()) {
       return (
-        <li className="splash-index-item-wrapper">
-          <div className="splash-index-loader-container">
-            <ReactLoading type="bubbles" color="#21ce99" height={125} width={125} />
-          </div>
-        </li>
+        <div className="splash-portfolio-loader-container">
+          <ReactLoading type="bubbles" color="#21ce99" height={125} width={125} />
+        </div>
       );
     }
 

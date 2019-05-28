@@ -66,7 +66,7 @@ class SplashLoggedIn extends React.Component {
     const { splashNews, currentUser, stocks, fetchStockData } = this.props;
     const { articles } = splashNews;
 
-    if (!currentUser.oneDayPortfolio || !articles || !currentUser.portfolioShares || !Object.keys(stocks).length) {
+    if (!articles || !currentUser.portfolioShares || !Object.keys(stocks).length) {
       return (
         <div className="loader-container">
           <div className="loader">
@@ -86,8 +86,6 @@ class SplashLoggedIn extends React.Component {
                 stocks={stocks}
                 fetchStockData={fetchStockData}
                 portfolioShares={currentUser.portfolioShares}
-                oneDayPortfolioData={currentUser.oneDayPortfolio}
-                fiveYearPortfolioData={currentUser.fiveYearPortfolio}
                 interval={interval}
               />
               <nav className="interval-nav">

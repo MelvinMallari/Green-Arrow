@@ -74,39 +74,6 @@ class User < ApplicationRecord
     self.watches.map { |watch| watch['ticker_symbol'] }
   end
 
-  def one_day_portfolio  
-    url = 'https://api.iextrading.com/1.0/stock/market/batch?types=chart&range=1d&symbols='
-    shares = portfolio_shares
-    shares.each { |symbol, _| url += "#{symbol}," }
-    response = JSON.parse(Net::HTTP.get(URI(url)))
-
-    res_data = Hash.new(0)
-    shares.each do |symbol, share_amount|
-      chart_data = response[symbol]['chart']
-      chart_data.each do |data_point| 
-        res_data[data_point['label']] += data_point['close'] * share_amount if data_point['close']
-      end
-    end
-
-    res_data
-  end
-
-  def five_year_portfolio
-    url = 'https://api.iextrading.com/1.0/stock/market/batch?types=chart&range=5y&symbols='
-    shares = portfolio_shares
-    shares.each { |symbol, _| url += "#{symbol}," }
-    response = JSON.parse(Net::HTTP.get(URI(url)))
-
-    res_data = Hash.new(0)
-    shares.each do |symbol, share_amount|
-      chart_data = response[symbol]['chart']
-      chart_data.each do |data_point| 
-        res_data[data_point['date']] += data_point['close'] * share_amount if data_point['close']
-      end
-    end
-
-    res_data
-  end
 
   private
   def default_values
