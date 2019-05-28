@@ -17,10 +17,6 @@ const INTERVAL_TO_AMOUNT_DATAPOINTS = {
 class PortfolioChart extends React.Component {
   componentDidMount() {
     const { portfolioShares, fetchStockData } = this.props;
-    const promises = [];
-    const ctx = this;
-    this.temp = [];
-    this.fiveYearPortfolioData = [];
     this.portfolioSymbols = Object.keys(portfolioShares).filter(share => portfolioShares[share] > 0);
     this.portfolioSymbols.forEach(share => fetchStockData(share));
   }
@@ -92,52 +88,13 @@ class PortfolioChart extends React.Component {
     // returns relevant section of data given amount of data points
     const range = INTERVAL_TO_AMOUNT_DATAPOINTS[interval];
 
-    // handle dataSet differently for intraday data
     if (interval === '1D') {
       const oneDayPortfolioData = this.structureData(rawData, interval);
-      // Handle intraday data in 5 minute increments
-      return oneDayPortfolioData
-        .filter((stock, i) => {
-          if ((i + 1) % 5 === 0 && stock.close) return true;
-        })
-        .reverse();
+      return oneDayPortfolioData.reverse();
     }
     const data = this.structureData(rawData, interval);
     const end = this.calcEndIndex(data, range);
     return data.slice(0, end).reverse();
-  }
-
-  // filterData() {
-  //   let { interval, oneDayPortfolioData, fiveYearPortfolioData } = this.props;
-
-  //   // returns relevant section of data given amount of data points
-  //   const range = INTERVAL_TO_AMOUNT_DATAPOINTS[interval];
-
-  //   // handle dataSet differently for intraday data
-  //   if (interval === '1D') {
-  //     oneDayPortfolioData = this.structureData(oneDayPortfolioData, interval);
-  //     // Handle intraday data in 5 minute increments
-  //     return oneDayPortfolioData.filter((stock, i) => {
-  //       if (i % 5 === 0 && stock.close) return true;
-  //     });
-  //   }
-  //   fiveYearPortfolioData = this.structureData(fiveYearPortfolioData, interval);
-  //   const data = fiveYearPortfolioData.slice(0);
-  //   const end = this.calcEndIndex(data, range);
-  //   return data
-  //     .reverse()
-  //     .slice(0, end)
-  //     .reverse();
-  // }
-
-  renderCheck() {
-    const { stocks } = this.props;
-    if (!this.portfolioSymbols || !this.portfolioSymbols.length) return false;
-    for (let i = 0; i < this.portfolioSymbols.length; i++) {
-      const symbol = this.portfolioSymbols[i];
-      if (!stocks[symbol].stockData) return false;
-    }
-    return true;
   }
 
   renderThemeChanges(initPctDiff) {
@@ -162,8 +119,19 @@ class PortfolioChart extends React.Component {
         const value = parseFloat(stockData[date].close) * sharesOwned;
         date in counterHash ? (counterHash[date] += value) : (counterHash[date] = value);
       });
+      debugger;
     });
     return counterHash;
+  }
+
+  renderCheck() {
+    const { stocks } = this.props;
+    if (!this.portfolioSymbols || !this.portfolioSymbols.length) return false;
+    for (let i = 0; i < this.portfolioSymbols.length; i++) {
+      const symbol = this.portfolioSymbols[i];
+      if (!stocks[symbol].stockData) return false;
+    }
+    return true;
   }
 
   render() {

@@ -1,3 +1,18 @@
+const moment = require('moment');
+
+let today = moment().format('L');
+let fiveYearsAgo = moment()
+  .subtract(5, 'years')
+  .calendar();
+
+const reformatMomentDate = (date) => {
+  const [month, day, year] = date.split('/');
+  return `${year}-${month}-${day}`;
+};
+
+today = reformatMomentDate(today);
+fiveYearsAgo = reformatMomentDate(fiveYearsAgo);
+
 export const fetchStock = symbol =>
   $.ajax({
     method: 'GET',
@@ -13,14 +28,13 @@ export const fetchStocks = () =>
 export const fetchStockData = symbol =>
   $.ajax({
     method: 'GET',
-    url: `https://www.worldtradingdata.com/api/v1/history?symbol=${symbol}&sort=newest&api_token=3byQgXtIwUX4TsXM5ph7P2owTntgiAlEpNexNgDaeNVISVmxyIGJbPKXA7UA`,
+    url: `https://www.worldtradingdata.com/api/v1/history?symbol=${symbol}&date_from=${fiveYearsAgo}&date_to=${today}&sort=newest&api_token=3byQgXtIwUX4TsXM5ph7P2owTntgiAlEpNexNgDaeNVISVmxyIGJbPKXA7UA`,
   });
 
 export const fetchStockIntradayData = symbol =>
   $.ajax({
     method: 'GET',
-    // url: `https://api.iextrading.com/1.0/stock/${symbol}/chart/1D?filter=close,label`,
-    url: `https://intraday.worldtradingdata.com/api/v1/intraday?symbol=${symbol}&range=1&interval=1&api_token=3byQgXtIwUX4TsXM5ph7P2owTntgiAlEpNexNgDaeNVISVmxyIGJbPKXA7UA`,
+    url: `https://intraday.worldtradingdata.com/api/v1/intraday?symbol=${symbol}&range=1&interval=5&api_token=3byQgXtIwUX4TsXM5ph7P2owTntgiAlEpNexNgDaeNVISVmxyIGJbPKXA7UA`,
   });
 
 export const fetchStockInfo = symbol =>
