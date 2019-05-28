@@ -32,9 +32,26 @@ class ToolTip extends React.Component {
     const priceDiff = parseFloat(price - diffReference);
     const pctDiff = ((priceDiff / diffReference) * 100).toFixed(2);
 
+    const priceDiffSign = priceDiff == '0' ? '' : priceDiff < 0 ? '' : '+';
+    const pctDiffSign = pctDiff == '0' ? '' : pctDiff < 0 ? '' : '+';
+
     priceElement.innerHTML = `${formatMoney(price)}`;
-    priceDiffElement.innerHTML = `${formatMoney(priceDiff)}`;
-    pctDiffElement.innerHTML = `(${pctDiff}%)`;
+    priceDiffElement.innerHTML = `${priceDiffSign}${formatMoney(priceDiff)}`;
+    pctDiffElement.innerHTML = `(${pctDiffSign}${pctDiff}%)`;
+  }
+
+  convertTime(time) {
+    // Credits: https://stackoverflow.com/questions/13898423/javascript-convert-24-hour-time-of-day-string-to-12-hour-time-with-am-pm-and-no
+    // Check correct time format and split into components
+    time = time.toString().match(/^([01]\d|2[0-3])(:)([0-5]\d)(:[0-5]\d)?$/) || [time];
+
+    if (time.length > 1) {
+      // If time format correct
+      time = time.slice(1); // Remove full string match value
+      time[5] = +time[0] < 12 ? 'AM' : 'PM'; // Set AM/PM
+      time[0] = +time[0] % 12 || 12; // Adjust hours
+    }
+    return time.join(''); // return adjusted time or original string
   }
 
   render() {
@@ -45,10 +62,10 @@ class ToolTip extends React.Component {
     const { payload } = this.props.payload[0];
 
     this.updateDisplay(payload);
-
+    const time = this.convertTime(payload.date);
     return (
       <div>
-        <span className="tooltip">{interval === '1D' ? `${payload.label} ET` : this.formatDate(payload.date)} </span>
+        <span className="tooltip">{interval === '1D' ? `${time} ET` : this.formatDate(payload.date)} </span>
       </div>
     );
   }

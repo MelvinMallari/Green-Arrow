@@ -61,7 +61,7 @@ body.red-theme {
 }
 
 .r-button:hover {
-  box-shadow: 0px 4px 8px rgba(0,0,0,0.16)
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.16);
 }
 
 span.black-button {
@@ -133,7 +133,8 @@ div.splash-image {
 }
 
 @keyframes splash {
-  0%, 20% {
+  0%,
+  20% {
     filter: blur(40px);
     opacity: 0;
     transform: translate(0px, 60px);
@@ -180,7 +181,7 @@ div.splash-image {
 }
 
 .splash-index-item-wrapper {
-  transition: 0.20s;
+  transition: 0.2s;
 }
 
 .splash-index-item-wrapper:hover {
@@ -193,11 +194,20 @@ div.splash-image {
 }
 
 .splash-sidebar-wrapper {
-  box-shadow: 0 0 4px 1px rgba(225, 225, 225, 0.01), 0 3px 24px rgba(225, 225, 225, 0.6);
+  box-shadow: 0 0 4px 1px rgba(225, 225, 225, 0.01),
+    0 3px 24px rgba(225, 225, 225, 0.6);
   border-radius: 4px;
   margin-top: 72px;
   position: fixed;
   width: 276px;
+}
+
+.splash-portfolio-loader-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 676px;
+  height: 324px;
 }
 
 .num-shares {
@@ -272,7 +282,6 @@ div.splash-image {
   left: 60px;
 }
 
-
 .search-wrapper {
   margin-left: 100px;
   background: #white;
@@ -285,15 +294,17 @@ div.splash-image {
   border-radius: 4px;
   position: relative;
 
-  &:hover, &:focus {
+  &:hover,
+  &:focus {
     border-color: white;
-    box-shadow: 0 0 4px 1px rgba(0, 0, 0, 0.01), 0 3px 24px rgba(48,51,51,.09);
+    box-shadow: 0 0 4px 1px rgba(0, 0, 0, 0.01),
+      0 3px 24px rgba(48, 51, 51, 0.09);
 
-  .fa-search {
-    color: #333;
-    padding-left: 24px;
-    padding-right: 16px;
-  }
+    .fa-search {
+      color: #333;
+      padding-left: 24px;
+      padding-right: 16px;
+    }
   }
 }
 
@@ -302,20 +313,19 @@ div.splash-image {
   position: absolute;
 }
 
-
 .search-wrapper:focus-within {
   .search-result {
     visibility: visible;
-    background: #fff; 
+    background: #fff;
     margin-top: -8px;
     margin-left: -61px;
     width: 477px;
     // box-shadow: 0 0 4px 1px rgba(0, 0, 0, 0.01), 0 3px 24px rgba(48,51,51,.09);
-    box-shadow: 3px 2px 2px #fafafa, -3px 2px 2px #fafafa, 0px 3px 2px #fafafa, 0px 0px 2px #fafafa;
+    box-shadow: 3px 2px 2px #fafafa, -3px 2px 2px #fafafa, 0px 3px 2px #fafafa,
+      0px 0px 2px #fafafa;
     border-radius: 4px;
   }
 }
-
 
 .fa-search {
   color: #f1f1f1;
@@ -362,5 +372,5 @@ div.splash-image {
 }
 
 .attention-msg a {
-  color: #3366BB 
+  color: #3366bb;
 }

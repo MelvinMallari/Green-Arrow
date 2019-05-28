@@ -31,21 +31,19 @@ class StockChart extends React.Component {
   }
 
   calcInitPrice(stock) {
-    const { stockIntradayData } = stock;
-    let currentPrice;
+    const stockIntradayData = stock.stockIntradayData.intraday;
+    const stockIntradayDataKeys = Object.keys(stock.stockIntradayData.intraday);
 
-    if (!stockIntradayData.length) {
-      // Edge case for when API's down and no data pulled
-      currentPrice = 0;
-    } else {
-      let i = stockIntradayData.length - 1;
-      while (!stockIntradayData[i].close) {
-        i--;
+    // API down edge case
+    if (!stockIntradayDataKeys.length) return 0;
+
+    for (let i = stockIntradayDataKeys.length - 1; i > 0; i--) {
+      const date = stockIntradayDataKeys[i];
+      if (stockIntradayData[date].close) {
+        const initPrice = stockIntradayData[date].close;
+        return parseFloat(initPrice);
       }
-      currentPrice = stockIntradayData[i].close.toFixed(2);
-    }
-    const initPrice = parseFloat(currentPrice);
-    return initPrice;
+    return 0;
   }
 
   initialStockData(stock, reference) {
@@ -58,24 +56,31 @@ class StockChart extends React.Component {
 
   filterData() {
     const { interval, stock } = this.props;
-
+    if (interval === '1D') {
+      return this.parseData(stock.stockIntradayData.intraday).reverse();
+    }
     // returns relevant section of data given interval
     const range = INTERVAL_TO_AMOUNT_DATAPOINTS[interval];
-
-    let data;
-    if (interval === '1D') {
-      data = stock.stockIntradayData;
-      // Handle intraday data in 5 minute increments
-      return data.filter((stock, i) => {
-        if (i % 5 === 0 && stock.close) return true;
-      });
-    }
-    data = stock.stockData.slice(0);
+    const data = this.parseData(stock.stockData.history);
     const end = this.calcEndIndex(data, range);
-    return data
-      .reverse()
-      .slice(0, end)
-      .reverse();
+    return data.slice(0, end).reverse();
+  }
+
+  parseData(dataJSON) {
+    const data = [];
+    const dataKeys = Object.keys(dataJSON);
+    for (let i = 0; i < dataKeys.length; i++) {
+      let key = dataKeys[i];
+      const tempObj = dataJSON[key];
+
+      // Handle intraday case
+      const parsedKey = key.split(' ');
+      key = parsedKey.length > 1 ? parsedKey[1] : parsedKey[0];
+
+      tempObj.date = key;
+      data.push(tempObj);
+    }
+    return data;
   }
 
   renderThemeChanges(initPctDiff) {
@@ -89,9 +94,10 @@ class StockChart extends React.Component {
   render() {
     const data = this.filterData();
     const diffReference = this.findReference(data);
-    const { stock } = this.props;
+    const { stock, interval } = this.props;
     const [companyName, initPrice, initPriceDiff, initPctDiff] = this.initialStockData(stock, diffReference);
 
+    debugger;
     const theme = initPctDiff < 0 ? '#f45531' : '#21ce99';
 
     this.renderThemeChanges(initPctDiff);
@@ -117,7 +123,7 @@ class StockChart extends React.Component {
           <XAxis dataKey="date" hide />
           <YAxis hide dataKey="close" domain={this.calcDomain(data)} />
           <Tooltip
-            content={<ToolTip interval={this.props.interval} diffReference={diffReference} />}
+            content={<ToolTip interval={interval} diffReference={diffReference} />}
             isAnimationActive={false}
             offset={-37}
             position={{ y: -20 }}
