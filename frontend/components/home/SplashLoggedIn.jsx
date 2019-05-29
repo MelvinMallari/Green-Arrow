@@ -27,7 +27,7 @@ class SplashLoggedIn extends React.Component {
   }
 
   fetchRelevantStocks() {
-    const { currentUser, fetchStockIntradayData } = this.props;
+    const { currentUser, fetchStockIntradayData, fetchStocks } = this.props;
     const shares = currentUser.portfolioShares;
     let portfolioSymbols = Object.keys(shares);
 
@@ -39,9 +39,11 @@ class SplashLoggedIn extends React.Component {
     const relevantStocks = portfolioSymbols.concat(watchedSymbols.filter(stock => portfolioSymbols.indexOf(stock) < 0));
 
     // Only fetch portfolio symbols that that are owned.
-    for (let i = 0; i < relevantStocks.length; i++) {
-      fetchStockIntradayData(relevantStocks[i]);
-    }
+    fetchStocks().then(() => {
+      for (let i = 0; i < relevantStocks.length; i++) {
+        fetchStockIntradayData(relevantStocks[i]);
+      }
+    });
   }
 
   renderIntervalButtons() {
