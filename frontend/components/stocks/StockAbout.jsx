@@ -61,7 +61,7 @@ class StockAbout extends React.Component {
           </div>
           <div>
             <div className="about-info-label">Dividend Yield</div>
-            <div>{stock.dividendYield === undefined ? '-' : stock.dividendYield.toFixed(2)}</div>
+            <div>{stock.dividendYield === null ? '-' : stock.dividendYield.toFixed(2)}</div>
           </div>
           <div>
             <div className="about-info-label">Short Ratio</div>
