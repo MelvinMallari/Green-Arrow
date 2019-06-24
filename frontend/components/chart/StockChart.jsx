@@ -1,5 +1,7 @@
 import React from 'react';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip } from 'recharts';
+import {
+  LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip,
+} from 'recharts';
 import { formatMoney } from '../../util/util.js';
 import ToolTip from './ToolTip';
 
@@ -98,7 +100,6 @@ class StockChart extends React.Component {
     const { stock, interval } = this.props;
     const [companyName, initPrice, initPriceDiff, initPctDiff] = this.initialStockData(stock, diffReference);
 
-    debugger;
     const theme = initPctDiff < 0 ? '#f45531' : '#21ce99';
 
     this.renderThemeChanges(initPctDiff);
@@ -115,11 +116,20 @@ class StockChart extends React.Component {
               {initPriceDiff}
             </span>
             <span id="pct-diff" className="diff pct-diff">
-              ({initPctDiff})%
-            </span>
+              (
+              {initPctDiff}
+)%
+                        </span>
           </div>
         </header>
-        <LineChart width={676} height={196} data={data} margin={{ top: 0, right: 0, left: 0, bottom: 0 }}>
+        <LineChart
+width={676}
+height={196}
+data={data}
+margin={{
+ top: 0, right: 0, left: 0, bottom: 0 
+}}
+        >
           <CartesianGrid strokeDasharray="3 3" horizontal={false} vertical={false} />
           <XAxis dataKey="date" hide />
           <YAxis hide dataKey="close" domain={this.calcDomain(data)} />

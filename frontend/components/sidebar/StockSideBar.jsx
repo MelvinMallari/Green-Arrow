@@ -37,7 +37,9 @@ class StockSideBar extends React.Component {
 
   handleWatchlistSubmit(e) {
     e.preventDefault();
-    const { addWatch, removeWatch, currentUser, stock, watched } = this.props;
+    const {
+      addWatch, removeWatch, currentUser, stock, watched,
+    } = this.props;
     const watch = { user_id: currentUser.id, ticker_symbol: stock.tickerSymbol };
     watched ? removeWatch(watch) : addWatch(watch);
   }
@@ -90,7 +92,9 @@ class StockSideBar extends React.Component {
     if (this.calcSharesOwned() > 0) {
       return (
         <button type="button" onClick={e => this.handleTab(e, 'sell')} className={this.setClassName('sell')}>
-          Sell {this.props.stock.tickerSymbol}
+          Sell
+          {' '}
+          {this.props.stock.tickerSymbol}
         </button>
       );
     }
@@ -103,7 +107,9 @@ class StockSideBar extends React.Component {
         <ul>
           {errors.map((error, i) => (
             <li key={`${i}`} className="tx-error-list-item">
-              <i className="fas fa-exclamation-circle" /> {error}
+              <i className="fas fa-exclamation-circle" />
+              {' '}
+              {error}
             </li>
           ))}
         </ul>
@@ -141,7 +147,9 @@ class StockSideBar extends React.Component {
         <div className="stock-sidebar">
           <header>
             <button onClick={e => this.handleTab(e, 'buy')} className={this.setClassName('buy')}>
-              Buy {stock.tickerSymbol}
+              Buy
+              {' '}
+              {stock.tickerSymbol}
             </button>
             {this.renderSellButton()}
           </header>
@@ -175,7 +183,11 @@ class StockSideBar extends React.Component {
               />
             </div>
             <div className="buying-power-container">
-              <span> {this.renderAssets()} </span>
+              <span>
+                {' '}
+                {this.renderAssets()}
+                {' '}
+              </span>
             </div>
           </form>
         </div>
