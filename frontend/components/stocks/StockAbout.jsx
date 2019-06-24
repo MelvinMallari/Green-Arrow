@@ -12,6 +12,7 @@ class StockAbout extends React.Component {
 
   render() {
     const { stock } = this.props;
+    debugger;
     return (
       <section className="stock-about-container">
         <header>
@@ -60,11 +61,11 @@ class StockAbout extends React.Component {
           </div>
           <div>
             <div className="about-info-label">Dividend Yield</div>
-            <div>{stock.dividendYield.toFixed(2)}</div>
+            <div>{stock.dividendYield === undefined ? '-' : stock.dividendYield.toFixed(2)}</div>
           </div>
           <div>
             <div className="about-info-label">Short Ratio</div>
-            <div>{stock.shortRatio === null ? `-` : stock.shortRatio}</div>
+            <div>{stock.shortRatio === null ? '-' : stock.shortRatio}</div>
           </div>
         </div>
       </section>
