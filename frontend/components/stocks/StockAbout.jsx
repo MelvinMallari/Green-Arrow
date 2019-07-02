@@ -12,7 +12,6 @@ class StockAbout extends React.Component {
 
   render() {
     const { stock } = this.props;
-    debugger;
     return (
       <section className="stock-about-container">
         <header>

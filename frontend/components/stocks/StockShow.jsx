@@ -14,7 +14,9 @@ class StockShow extends React.Component {
   }
 
   componentDidMount() {
-    const { symbol, fetchStock, fetchUserData, currentUser } = this.props;
+    const {
+      symbol, fetchStock, fetchUserData, currentUser,
+    } = this.props;
     if (!currentUser.watchedStocks) fetchUserData(currentUser.id);
     fetchStock(symbol);
   }
@@ -25,23 +27,22 @@ class StockShow extends React.Component {
     }
   }
 
-  renderIntervalButtons() {
-    return ['1D', '1W', '1M', '3M', '1Y', '5Y'].map(interval => (
-      <button onClick={() => this.setInterval(interval)} className={this.setClassName(interval)}>
-        {interval}
-      </button>
-    ));
+  setClassName(current) {
+    const { interval } = this.state;
+    const res = `interval-btn ${interval === current ? 'active-button' : ''}`;
+    return res;
   }
 
   setInterval(range) {
     this.setState({ interval: range });
   }
 
-  setClassName(current) {
-    const { interval } = this.state;
-    const res = `interval-btn ${interval === current ? 'active-button' : ''}`;
-    return res;
-  }
+  renderIntervalButtons() {
+    return ['1D', '1W', '1M', '3M', '1Y', '5Y'].map(interval => (
+      <button onClick={() => this.setInterval(interval)} className={this.setClassName(interval)}>
+        {interval}
+      </button>
+    ));
 
   render() {
     const { symbol, stocks, currentUser } = this.props;
@@ -73,11 +74,13 @@ class StockShow extends React.Component {
             </section>
             <section>
               {' '}
-              <StockAbout stock={stock} />{' '}
+              <StockAbout stock={stock} />
+              {' '}
             </section>
             <section>
               {' '}
-              <NewsIndex articles={articles} />{' '}
+              <NewsIndex articles={articles} />
+              {' '}
             </section>
           </div>
           <StockSideBarContainer stock={stock} currentUser={currentUser} />

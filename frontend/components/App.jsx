@@ -7,7 +7,6 @@ import DemoLoginContainer from './session_form/DemoLoginContainer';
 import { AuthRoute, ProtectedRoute } from '../actions/route_util';
 import { SplashAuthRoute } from './home/SplashAuthRoute';
 
-
 const App = () => (
   <div className="app">
     <Switch>
